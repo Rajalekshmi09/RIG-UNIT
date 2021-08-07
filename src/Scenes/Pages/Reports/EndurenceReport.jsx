@@ -275,10 +275,10 @@ class EndurenceReport extends Component {
                     >
                       testno ?
                       {testno.map((it) => (
-                      <Option key={it.testno} value={it.testno}>
-                        {it.testno}
-                      </Option>
-                    ))}{" "}
+                        <Option key={it.testno} value={it.testno}>
+                          {it.testno}
+                        </Option>
+                      ))}{" "}
                       : []
                     </Select>
                   </Input.Group>
@@ -366,7 +366,7 @@ class EndurenceReport extends Component {
                           colSpan="6"
                         >
                           ENDURANCE TEST
-                      </th>
+                        </th>
                       </tr>
                       <tr>
                         <th
@@ -386,7 +386,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           Speed
-                      </th>
+                        </th>
                         <th
                           style={{
                             verticalAlign: "middle",
@@ -395,7 +395,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           Duration
-                      </th>
+                        </th>
                         <th
                           style={{
                             verticalAlign: "middle",
@@ -405,7 +405,7 @@ class EndurenceReport extends Component {
                           colSpan="2"
                         >
                           Oil
-                      </th>
+                        </th>
 
                         <th
                           style={{
@@ -415,7 +415,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           Turbo <br /> Inlet Temp
-                      </th>
+                        </th>
                       </tr>
                       <tr>
                         <th
@@ -426,7 +426,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           RPM
-                      </th>
+                        </th>
                         <th
                           style={{
                             verticalAlign: "middle",
@@ -435,7 +435,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           minutes
-                      </th>
+                        </th>
                         <th
                           style={{
                             verticalAlign: "middle",
@@ -444,7 +444,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           Pressure <br /> (kg/cm^2)
-                      </th>
+                        </th>
                         <th
                           style={{
                             verticalAlign: "middle",
@@ -453,9 +453,9 @@ class EndurenceReport extends Component {
                           }}
                         >
                           Temperature
-                        <br />
-                        (deg.C)
-                      </th>
+                          <br />
+                          (deg.C)
+                        </th>
                         <th
                           style={{
                             verticalAlign: "middle",
@@ -464,7 +464,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           deg.C
-                      </th>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -477,7 +477,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           Required
-                      </td>
+                        </td>
                         <td
                           style={{
                             verticalAlign: "middle",
@@ -528,7 +528,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           Actual(Avg)
-                      </td>
+                        </td>
                         <td
                           style={{
                             border: "1px solid #6a6a6b",

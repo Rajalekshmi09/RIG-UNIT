@@ -64,10 +64,9 @@ class LeftbarComponent extends Component {
           <SubMenu key="sub3" icon={<FolderOutlined />} title="Report" style={{ fontSize: '15px' }}  >
             <Menu.Item key="runningReport" icon={<FiActivity style={{ color: '#42dbdc' }} />}>Running Report </Menu.Item>
             <Menu.Item key="exportData" icon={<AiFillDatabase style={{ color: '#42dbdc' }} />}>Export Data </Menu.Item>
-
-            {/* <Menu.Item key="performanceReport" icon={<AiFillSignal style={{ color: '#42dbdc' }} />}>Performance Report</Menu.Item>
+            <Menu.Item key="performanceReport" icon={<AiFillSignal style={{ color: '#42dbdc' }} />}>Performance Report</Menu.Item>
             <Menu.Item key="endurenceReport" icon={<BiTrendingUp style={{ color: '#42dbdc' }} />}>Endurence Report</Menu.Item>
-            <Menu.Item key="performanceafterEndurence" icon={<CgPerformance style={{ color: '#42dbdc' }} />}>Performance After Endurence</Menu.Item> */}
+            <Menu.Item key="performanceafterEndurence" icon={<CgPerformance style={{ color: '#42dbdc' }} />}>Performance After Endurence</Menu.Item>
 
           </SubMenu>
         </Menu>

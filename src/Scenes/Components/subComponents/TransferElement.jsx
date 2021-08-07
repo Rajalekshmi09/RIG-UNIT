@@ -113,12 +113,12 @@ class TransferElement extends React.Component {
           <Col span={12}>
             <h2 style={{ color: "rgb(151, 150, 151)", fontSize: "25px" }}>
               Dashboard Configuration
-              </h2>
+            </h2>
           </Col>
           <Col span={12}>
             <h2 style={{ color: "rgb(151, 150, 151)", fontSize: "25px" }}>
               Selected Param
-              </h2>
+            </h2>
           </Col>
         </Row>
         <Form>

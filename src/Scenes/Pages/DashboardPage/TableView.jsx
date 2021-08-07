@@ -4,7 +4,7 @@ import { Table, Row, Col } from 'antd';
 import { updateTitleElements, updateTableViewData } from '../../../Redux/action'
 import { connect } from 'react-redux';
 import { getTableView } from '../../../Services/requests';
-
+import ComparisonTable from '../../Components/subComponents/ComparisonTable';
 
 const columns = [
   {
@@ -125,6 +125,7 @@ class TableView extends Component {
     return (
       <div>
         <StatusBlock />
+        <ComparisonTable />
         <div>
           <Row>
             <Col >

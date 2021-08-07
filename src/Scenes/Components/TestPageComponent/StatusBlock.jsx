@@ -77,7 +77,7 @@ class StatusBlock extends Component {
     const db_date = new Date(receivedDate);
     let isActive = false;
 
-    if (this.props.app.communication === true) {
+    if (this.props.app.showTarget === true) {
       isActive = true
     }
     return (

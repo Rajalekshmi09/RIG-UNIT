@@ -276,10 +276,10 @@ class RunningReport extends Component {
                     >
                       testno ?
                       {testno.map((it) => (
-                      <Option key={it.testno} value={it.testno}>
-                        {it.testno}
-                      </Option>
-                    ))}{" "}
+                        <Option key={it.testno} value={it.testno}>
+                          {it.testno}
+                        </Option>
+                      ))}{" "}
                       : []
                     </Select>
                   </Input.Group>
@@ -367,7 +367,7 @@ class RunningReport extends Component {
                         colSpan="10"
                       >
                         RUNNING IN TEST
-                    </th>
+                      </th>
                     </tr>
                     <tr>
                       <th
@@ -378,7 +378,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Speed
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -387,7 +387,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Duration
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -396,7 +396,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Compressor <br />Inlet Temp
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -405,7 +405,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Compressor<br />Outlet Temp
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -414,7 +414,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Compressor<br />Outlet Pr
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -423,7 +423,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Turbine <br />Inlet Temp
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -432,7 +432,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Turbine<br /> Outlet Temp
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -441,7 +441,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Kerosine<br />Flow Rate
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -450,7 +450,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Compressor <br /> Pr Ratio
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -459,7 +459,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Mass <br /> Flow Rate
-                    </th>
+                      </th>
                     </tr>
                     <tr>
                       <th
@@ -470,7 +470,7 @@ class RunningReport extends Component {
                         }}
                       >
                         RPM
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -479,7 +479,7 @@ class RunningReport extends Component {
                         }}
                       >
                         minutes
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -488,7 +488,7 @@ class RunningReport extends Component {
                         }}
                       >
                         Pressure<br />(kg/cm^2)
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -497,9 +497,9 @@ class RunningReport extends Component {
                         }}
                       >
                         Tempr.
-                      <br />
-                      (deg.C)
-                    </th>
+                        <br />
+                        (deg.C)
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -508,7 +508,7 @@ class RunningReport extends Component {
                         }}
                       >
                         kg/cm^2
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -517,7 +517,7 @@ class RunningReport extends Component {
                         }}
                       >
                         deg.C
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -526,7 +526,7 @@ class RunningReport extends Component {
                         }}
                       >
                         deg.C
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -535,7 +535,7 @@ class RunningReport extends Component {
                         }}
                       >
                         kg/cm^2
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -544,7 +544,7 @@ class RunningReport extends Component {
                         }}
                       >
                         %
-                    </th>
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -553,7 +553,7 @@ class RunningReport extends Component {
                         }}
                       >
                         %
-                    </th>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
