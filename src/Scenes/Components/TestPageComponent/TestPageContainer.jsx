@@ -43,8 +43,8 @@ const { SubMenu } = Menu;
 let count = 1
 const { duplicate_msg, warning_Id, warning_mode, warning_name, alert_targetval } = testParamHash;
 const { installed_turbine } = turboConfigValue;
-const { value, PilotFlameAir, FuelInjectorAir, PilotFlameGas, FCVAir, FCVKeroseneFuel, ByPassValueI, ByPassValueII,
-  IgnitorSwitch, KerosenePump, LubeOilPump } = helpPopup;
+const { value, Flame, CompressorAirControlValve, AirServoCntrlValve1, ByPassSolenoidValve1, KerosenePump, LubeOilPump, ByPassValueII,
+  CoolingPump, KeroseneFuelFlowValve, AirInjectorSolenoidValve, PilotFlameAirSolenoidValve, Acetelenegas } = helpPopup;
 class TestPageContainer extends Component {
   constructor(props) {
     super(props)
@@ -66,16 +66,18 @@ class TestPageContainer extends Component {
       visible: false,
       valvestatustime: '',
       valvestatus: '',
-      PilotFlameAir: 'OFF',
-      FuelInjectorAir: 'OFF',
-      PilotFlameGas: 'OFF',
-      FCVAir: 'OFF',
-      FCVKeroseneFuel: 'OFF',
-      ByPassValueI: 'OFF',
-      ByPassValueII: 'OFF',
-      IgnitorSwitch: 'OFF',
+      Flame: 'OFF',
+      CompressorAirControlValve: 'OFF',
+      AirServoCntrlValve1: 'OFF',
+      ByPassSolenoidValve1: 'OFF',
       KerosenePump: 'OFF',
       LubeOilPump: 'OFF',
+      ByPassValueII: 'OFF',
+      CoolingPump: 'OFF',
+      KeroseneFuelFlowValve: 'OFF',
+      AirInjectorSolenoidValve: 'OFF',
+      PilotFlameAirSolenoidValve: 'OFF',
+      Acetelenegas: 'OFF',
       currentDateTime: '',
       turbostartname: [],
       overalldata: [],
@@ -257,10 +259,12 @@ class TestPageContainer extends Component {
     axios.get('http://192.168.0.167:5000/initialize.php')
       .then(res => {
         let CommunicationData = res.data;
+        console.log(res.data)
         if (CommunicationData.status === "1") {
           this.props.initiateCommunication();
         }
         if (CommunicationData.status === "") {
+          console.log(CommunicationData.status)
           this.props.initiateCommunicationFailed();
         }
         this.initializeTestClick()
@@ -345,32 +349,32 @@ class TestPageContainer extends Component {
         })
         if (valveData[0] === '1') {
           self.setState({
-            PilotFlameAir: "ON"
+            Flame: "ON"
           })
         }
         if (valveData[1] === '1') {
           self.setState({
-            FuelInjectorAir: "ON"
+            CompressorAirControlValve: "ON"
           })
         }
         if (valveData[2] === '1') {
           self.setState({
-            PilotFlameGas: "ON"
+            AirServoCntrlValve1: "ON"
           })
         }
         if (valveData[3] === '1') {
           self.setState({
-            FCVAir: "ON"
+            ByPassSolenoidValve1: "ON"
           })
         }
         if (valveData[4] === '1') {
           self.setState({
-            FCVKeroseneFuel: "ON"
+            KerosenePump: "ON"
           })
         }
         if (valveData[5] === '1') {
           self.setState({
-            ByPassValueI: "ON"
+            LubeOilPump: "ON"
           })
         }
         if (valveData[6] === '1') {
@@ -385,12 +389,22 @@ class TestPageContainer extends Component {
         }
         if (valveData[8] === '1') {
           self.setState({
-            KerosenePump: "ON"
+            KeroseneFuelFlowValve: "ON"
           })
         }
         if (valveData[9] === '1') {
           self.setState({
-            LubeOilPump: "ON"
+            AirInjectorSolenoidValve: "ON"
+          })
+        }
+        if (valveData[9] === '1') {
+          self.setState({
+            PilotFlameAirSolenoidValve: "ON"
+          })
+        }
+        if (valveData[9] === '1') {
+          self.setState({
+            Acetelenegas: "ON"
           })
         }
       })
@@ -539,7 +553,6 @@ class TestPageContainer extends Component {
     const ShutdowndataArray = turboStart.filter(it => Shutdowndata.find(val => val === it.name))
     const ResetdataArray = turboStart.filter(it => Resetdata.find(val => val === it.name))
     console.log(this.props.app)
-    console.log(this.state.truboIDnum)
 
     var testIdValue = null;
     if (this.props.app.statusData !== "no_data" && this.props.app.statusData.length !== 0) {
@@ -999,16 +1012,18 @@ class TestPageContainer extends Component {
                 title={<div><p style={{ fontWeight: 'bold' }}>{value} {this.state.valvestatustime}</p></div>}
                 content={
                   <div>
-                    <p>{PilotFlameAir} {this.state.PilotFlameAir} </p>
-                    <p>{FuelInjectorAir} {this.state.FuelInjectorAir}</p>
-                    <p>{PilotFlameGas} {this.state.PilotFlameGas}</p>
-                    <p>{FCVAir} {this.state.FCVAir}</p>
-                    <p>{FCVKeroseneFuel} {this.state.FCVKeroseneFuel}</p>
-                    <p>{ByPassValueI} {this.state.ByPassValueI}</p>
-                    <p>{ByPassValueII} {this.state.ByPassValueII}</p>
-                    <p>{IgnitorSwitch} {this.state.IgnitorSwitch}</p>
+                    <p>{Flame} {this.state.Flame} </p>
+                    <p>{CompressorAirControlValve} {this.state.CompressorAirControlValve}</p>
+                    <p>{AirServoCntrlValve1} {this.state.AirServoCntrlValve1}</p>
+                    <p>{ByPassSolenoidValve1} {this.state.ByPassSolenoidValve1}</p>
                     <p>{KerosenePump} {this.state.KerosenePump}</p>
                     <p>{LubeOilPump} {this.state.LubeOilPump}</p>
+                    <p>{ByPassValueII} {this.state.ByPassValueII}</p>
+                    <p>{CoolingPump} {this.state.CoolingPump}</p>
+                    <p>{KeroseneFuelFlowValve} {this.state.KeroseneFuelFlowValve}</p>
+                    <p>{AirInjectorSolenoidValve} {this.state.AirInjectorSolenoidValve}</p>
+                    <p>{PilotFlameAirSolenoidValve} {this.state.PilotFlameAirSolenoidValve}</p>
+                    <p>{Acetelenegas} {this.state.Acetelenegas}</p>
                   </div>
                 }
                 trigger="click"

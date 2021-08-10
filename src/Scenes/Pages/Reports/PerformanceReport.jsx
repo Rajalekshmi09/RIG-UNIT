@@ -3,12 +3,12 @@ import { Col, Row, Layout, Input, Button, Select, Form, message, Spin } from "an
 import axios from "axios";
 import { updateTitleElements } from "../../../Redux/action";
 import { connect } from "react-redux";
-import { performance, reportAlert } from "../../../Services/constants";
+import { performance, CompanyDetails, reportAlert } from "../../../Services/constants";
 import Doc from "./DocService";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import logoRig from "../../../Images/logoRig.png";
 import logo from "../../../Images/logo.png";
-import logo2 from "../../../Images/logo2.png";
 
 const {
   RPM1,
@@ -23,6 +23,7 @@ const {
 
 const { turboID_alert, testNo_alert, testno_check } = reportAlert
 const { Option } = Select;
+
 class PerformanceReport extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +52,7 @@ class PerformanceReport extends Component {
     doc.text(75, 10, "PERFORMENCE TEST REPORT");
     var image = new Image();
     image.src = "../../../Images/up-arrow-1.gif";
-    doc.addImage(logo2, "PNG", 10, 25, 75, 20);
+    doc.addImage(logoRig, "PNG", 10, 25, 75, 20);
     doc.autoTable({
       html: "#report-constants",
       startX: 50,
@@ -79,7 +80,7 @@ class PerformanceReport extends Component {
     });
     doc.autoTable({
       html: "#example1",
-      startY: 70,
+      startY: 93,
       didParseCell: function (cell, data) {
         if (
           cell.row.section === "body" &&
@@ -378,16 +379,32 @@ class PerformanceReport extends Component {
               </div>
 
               <div className="table-responsive">
-                <img alt="logo" src={logo} />
+                <img alt="logo" style={{ width: '25%' }} src={logo} />
                 <table id="report-constants" style={{ marginTop: "10px" }}>
+                  <tr>
+                    <th >ATR REF. NO </th>
+                    <th>TC/0/01</th>
+                  </tr>
+                  <tr>
+                    <td>ATP REF. NO </td>
+                    <td>2002 TRS/86</td>
+                  </tr>
+                  <tr>
+                    <td>PART NUMBER</td>
+                    <td>sb3336-00-011/sb337-100SB</td>
+                  </tr>
+                  <tr>
+                    <td>PART NAME</td>
+                    <td>Turbocharger</td>
+                  </tr>
                   <tr>
                     <td>SERIAL NUMBER</td>
                     <td>{this.state.turboIdVal}</td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td>TEST ID</td>
                     <td>{this.state.testno1}</td>
-                  </tr>
+                  </tr> */}
                 </table>
 
                 <table

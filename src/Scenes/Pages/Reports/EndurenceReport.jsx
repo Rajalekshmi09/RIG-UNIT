@@ -3,15 +3,16 @@ import { Col, Row, Layout, Input, Button, Select, Form, message, Spin } from "an
 import axios from "axios";
 import { updateTitleElements } from "../../../Redux/action";
 import { connect } from "react-redux";
-import { endurence, CompanyDetails, reportAlert } from "../../../Services/constants";
+import { endurence, reportAlert } from "../../../Services/constants";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import logo2 from "../../../Images/logo2.png";
-
+import logo from "../../../Images/logo.png";
+import logoRig from "../../../Images/logoRig.png";
 const { Option } = Select;
 const { RPM, Minutes, trubineInletTemp } = endurence;
 const { turboID_alert, testNo_alert, testno_check } = reportAlert
-const { drdo_logo } = CompanyDetails
+
+
 class EndurenceReport extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +41,7 @@ class EndurenceReport extends Component {
     doc.text(75, 10, "ENDURENCE TEST REPORT");
     var image = new Image();
     image.src = "../../../Images/up-arrow-1.gif";
-    doc.addImage(logo2, "PNG", 10, 25, 75, 20);
+    doc.addImage(logoRig, "PNG", 10, 25, 75, 20);
     doc.autoTable({
       html: "#report-constants",
       startX: 50,
@@ -68,7 +69,7 @@ class EndurenceReport extends Component {
     });
     doc.autoTable({
       html: "#example1",
-      startY: 70,
+      startY: 93,
       didParseCell: function (cell, data) {
         if (
           cell.row.section === "body" &&
@@ -79,7 +80,7 @@ class EndurenceReport extends Component {
         }
       },
       margins: {
-        top: 40,
+        top: 70,
         bottom: 60,
         left: 5,
         right: 5,
@@ -339,15 +340,27 @@ class EndurenceReport extends Component {
                 </div>
 
                 <div className="table-responsive">
-                  <img alt="logo" src={drdo_logo} />
+                  <img alt="logo" style={{ width: '25%' }} src={logo} />
                   <table id="report-constants" style={{ marginTop: "10px" }}>
+                    <tr>
+                      <th >ATR REF. NO </th>
+                      <th>TC/0/01</th>
+                    </tr>
+                    <tr>
+                      <td>ATP REF. NO </td>
+                      <td>2002 TRS/86</td>
+                    </tr>
+                    <tr>
+                      <td>PART NUMBER</td>
+                      <td>sb3336-00-011/sb337-100SB</td>
+                    </tr>
+                    <tr>
+                      <td>PART NAME</td>
+                      <td>Turbocharger</td>
+                    </tr>
                     <tr>
                       <td>SERIAL NUMBER</td>
                       <td>{this.state.turboIdVal}</td>
-                    </tr>
-                    <tr>
-                      <td>TEST ID</td>
-                      <td>{this.state.testno1}</td>
                     </tr>
                   </table>
 

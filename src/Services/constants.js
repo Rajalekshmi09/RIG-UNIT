@@ -15,6 +15,7 @@ const url = {
   TURBOID_VALUE: 'turboIdValue.php',
   TABLE_STATUSDATA: 'statusValue.php',
   GRAPH_DATA: 'graph.php',
+  COMPARISONTABLE_DATA: 'comparison.php',
 }
 
 const FormDetails = {
@@ -37,44 +38,49 @@ const CompanyDetails = {
   company_name: 'EnerTek Combuster',
   company_data: 'A product powerd by Vaigunth EnerTek (Pvt.) Ltd.',
   company_link: 'http://www.v-enertek.com/',
-  drdo_logo: 'https://www.drdo.gov.in/sites/default/files/drdo_logo_0.png',
 }
 
+const targetKeysVal = ["3", "5", "7", "10", "13", "14"]
 const dashboardDataVal = [
-  { "key": "0", "Name": "Combustor Outlet Temperature", "chosen": false },
-  { "key": "1", "Name": " Turbine Inlet Temperature", "chosen": true },
-  { "key": "2", "Name": "Turbine Outlet Temperature", "chosen": true },
-  { "key": "3", "Name": "Compressor Inlet Temperature", "chosen": false },
-  { "key": "4", "Name": "Compressor Outlet Temperature", "chosen": true },
-  { "key": "5", "Name": "Ambient Temperature", "chosen": false },
-  { "key": "6", "Name": "Combustor Inlet Pressure", "chosen": false },
-  { "key": "7", "Name": "Fuel Line Pressure", "chosen": false },
-  { "key": "8", "Name": "Turbine Inlet Pressure", "chosen": true },
-  { "key": "9", "Name": "Ambient Pressure", "chosen": false },
-  { "key": "10", "Name": " Compressor Inlet Pressure", "chosen": false },
-  { "key": "11", "Name": "Compressor Outlet Pressure", "chosen": false },
-  { "key": "12", "Name": "Ventury meter differential pressure", "chosen": false },
-  { "key": "13", "Name": "Fuel Flow Rate", "chosen": true },
-  { "key": "14", "Name": "Rpm sensor", "chosen": true },
+  { "key": "0", "Name": "Ambient Pressure", "chosen": false },
+  { "key": "1", "Name": "Ambient Temperature", "chosen": false },
+  { "key": "2", "Name": "Compressor Inlet Pressure", "chosen": false },
+  { "key": "3", "Name": "Compressor Outlet Pressure", "chosen": true },
+  { "key": "4", "Name": "Compressor Different Ventury Pressure", "chosen": false },
+  { "key": "5", "Name": "RPM", "chosen": true },
+  { "key": "6", "Name": "Compressor Inlet Temperature", "chosen": false },
+  { "key": "7", "Name": "Compressor Outlet Temperature", "chosen": true },
+  { "key": "8", "Name": "Combustor Outlet Temperature", "chosen": false },
+  { "key": "9", "Name": "Combustor Pressure", "chosen": false },
+  { "key": "10", "Name": "Turbine Inlet Temperature", "chosen": true },
+  { "key": "11", "Name": "Turbine Outlet Temperature", "chosen": false },
+  { "key": "12", "Name": "Turbine Vibration", "chosen": false },
+  { "key": "13", "Name": "Fuel Flow", "chosen": true },
+  { "key": "14", "Name": "Fuel Pressure", "chosen": false },
+  { "key": "15", "Name": "Oil Pressure", "chosen": false },
+  { "key": "16", "Name": "Oil Flow Rate", "chosen": false },
+  { "key": "17", "Name": "Oil Brg Inlet Temperature", "chosen": true },
+  { "key": "18", "Name": "Oil Tank Temperature", "chosen": false },
 ]
+
 const dashboardSensor = {
   sensorLabel: [
-    "Combustor Outlet Temperature", "Turbine Inlet Temperature",
-    "Turbine Outlet Temperature", "Compressor Inlet Temperature",
-    "Compressor Outlet Temperature", "Ambient Temperature",
-    "Combustor Inlet Pressure", "Fuel Line Pressure",
-    "Turbine Inlet Pressure", "Ambient Pressure ",
-    "Compressor Inlet Pressure", "Compressor Outlet Pressure",
-    "Ventury meter differential pressure",
-    "Fuel Flow Rate", "Rpm sensor",],
+    "Ambient Pressure", "Ambient Temperature", "Compressor Inlet Pressure",
+    "Compressor Outlet Pressure", "Compressor Different Ventury Pressure",
+    "RPM", "Compressor Inlet Temperature", "Compressor Outlet Temperature",
+    "Combustor Outlet Temperature", "Combustor Pressure",
+    "Turbine Inlet Temperature", "Turbine Outlet Temperature", "Turbine Vibration",
+    "Fuel Flow", "Fuel Pressure", "Oil Pressure", "Oil Flow Rate",
+    "Oil Brg Inlet Temperature", "Oil Tank Temperature"
+  ],
+
   dummyData: 0,
   chartMax: 5,
   n_shutdown: 'N-Shutdown',
   live: 'LIVE',
   offline: 'OFFLINE'
-
 }
-const targetKeysVal = ["1", "2", "4", "8", "13", "14"]
+
 
 const titleElements = [
   {
@@ -98,27 +104,29 @@ const testParamHash = {
 }
 const helpPopup = {
   value: 'VALVE STATUS AT :',
-  PilotFlameAir: 'PilotFlameAir :',
-  FuelInjectorAir: 'FuelInjectorAir :',
-  PilotFlameGas: 'PilotFlameGas : ',
-  FCVAir: 'FCVAir : ',
-  FCVKeroseneFuel: 'FCVKeroseneFuel : ',
-  ByPassValueI: 'ByPassValueI : ',
-  ByPassValueII: 'ByPassValueII : ',
-  IgnitorSwitch: 'IgnitorSwitch : ',
-  KerosenePump: 'KerosenePump : ',
-  LubeOilPump: 'LubeOilPump : ',
+  Flame: 'Flame :',
+  CompressorAirControlValve: 'Compressor AirControl Valve  :',
+  AirServoCntrlValve1: 'Air Servo Control Valve 1  : ',
+  AirServoControlValve2: ' Air Servo Control Valve 2  : ',
+  ByPassSolenoidValve1: 'By Pass Solenoid Valve 1 : ',
+  KerosenePump: 'Kerosene Pump : ',
+  LubeOilPump: 'Lube Oil Pump  : ',
+  CoolingPump: ' Cooling Pump : ',
+  KeroseneFuelFlowValve: ' Kerosene Fuel Flow Valve : ',
+  AirInjectorSolenoidValve: 'Air Injector Solenoid Valve : ',
+  PilotFlameAirSolenoidValve: ' Pilot Flame Air  Solenoid Valve   : ',
+  Acetelenegas: 'Acetelene gas : ',
 }
 
 const turboConfigValue = {
   installed_turbine: 1,
-  nozzleArea_min: 0.0002,
-  nozzleArea_max: 0.0005,
-  nozzleArea_step: 0.0001,
-  nozzleArea_defalutValue: 0.00023,
+  nozzleArea_min: 0.002,
+  nozzleArea_max: 0.005,
+  nozzleArea_step: 0.001,
+  nozzleArea_defalutValue: 0.004259,
   blade_defalutValue: 6,
   blade_min: 1,
-  blade_max: 10,
+  blade_max: 20,
   error_turbo_msg: 'Turbo ID alreadt exists',
   error_blade_msg: 'Please enter number of blades',
   added_turbo_msg: 'TurboID added successfully',

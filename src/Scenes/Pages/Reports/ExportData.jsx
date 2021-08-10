@@ -268,10 +268,10 @@ class ExportData extends Component {
                   >
                     testno ?
                     {testno.map((it) => (
-                    <Option key={it.testno} value={it.testno}>
-                      {it.testno}
-                    </Option>
-                  ))}{" "}
+                      <Option key={it.testno} value={it.testno}>
+                        {it.testno}
+                      </Option>
+                    ))}{" "}
                     : []
                   </Select>
                 </Input.Group>

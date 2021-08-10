@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
-
+import { getComparisonData } from '../../../Services/requests';
 import { ComparisonTableDetails, Details } from '../../../Services/constants';
+import axios from 'axios';
 const {
   FixedSpeed, FixedOilPr, FixedOilTemp, FixedTurbineInletGasTemp, FixedComprInletPr,
   FixedComprOutletPr, FixedPrRatio, FixedComperMassFlowRate, FixedTotalMassFlowOfAir
@@ -61,49 +62,13 @@ const columns = [
 ];
 
 
-// const data = [
-//   {
-//     key: '1',
-//     Speed: '5000',
-//     OilPr: '0-5000',
-//     OilTemp: '0-1000',
-//     TurbineInletGasTemp: '0-1000',
-//     ComprInletPr: '0-1000',
-//     ComprOutletPr: '0-1000',
-//     PrRatio: '0-1000',
-//     ComperMassFlowRate: '0-1000',
-//     TotalMassFlowOfAir: '0-1000',
-
-//   },
-//   {
-//     key: '2',
-//     Speed: '1000',
-//     OilPr: '5007',
-//     OilTemp: '8000',
-//     TurbineInletGasTemp: '1897',
-//     ComprInletPr: '1000',
-//     ComprOutletPr: '5453',
-//     PrRatio: '7676',
-//     ComperMassFlowRate: '1000',
-//     TotalMassFlowOfAir: '1000',
-//   },
-// ];
-
 class ComparisonTable extends Component {
+  componentDidMount() {
+    getComparisonData((data) => {
+      console.log(data)
+    })
+  }
   render() {
-    // const firstRow = data[0];
-    // const secondRow = data[1];
-
-    // console.log(firstRow)
-    // console.log(secondRow)
-    // if (firstRow.Speed >= secondRow.Speed) {
-    //   return
-    //   console.log(secondRow.Speed)
-
-    // }
-    // else {
-    //   console.log(firstRow.Speed)
-    // }
     return (
       <div style={{ paddingTop: '25px' }}  >
         {/* <Table
