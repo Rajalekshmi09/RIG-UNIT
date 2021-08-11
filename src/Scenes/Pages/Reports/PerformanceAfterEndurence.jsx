@@ -23,6 +23,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import logoRig from "../../../Images/logoRig.png";
 import logo from "../../../Images/logo.png";
+
 const {
   RPM1,
   RPM2,
@@ -50,6 +51,7 @@ class PerformanceAfterEndurence extends Component {
       loading: false,
     };
   }
+
   componentDidMount() {
     this.props.updateTitleElements({
       title: "Performance After Endurence Report",
@@ -138,6 +140,7 @@ class PerformanceAfterEndurence extends Component {
     ) {
       rWitnessName = localStorage.getItem("rWitnessName");
     }
+
     doc.setFontSize(8);
     //doc.setTextColor(255, 0, 0);
     doc.text(15, finalY + 10, "Tested By: ");

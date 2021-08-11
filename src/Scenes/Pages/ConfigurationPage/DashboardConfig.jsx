@@ -12,6 +12,7 @@ export class DashboardConfig extends Component {
       type: "Config",
     });
   }
+
   render() {
     return (
       <div>
