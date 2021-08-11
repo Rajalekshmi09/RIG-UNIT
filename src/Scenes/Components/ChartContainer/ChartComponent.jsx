@@ -65,7 +65,8 @@ class ChartComponent extends Component {
               display: true,
               text: title,
               fontColor: titleColor,
-              fontSize: '13'
+              fontSize: '16',
+              fontWeight: 'bold'
             },
 
             legend: {
@@ -90,7 +91,7 @@ class ChartComponent extends Component {
                   max: max,
                   min: min,
                   stepSize: max / 10,
-                  fontColor: 'rgba(255, 255, 255, 0.5)',
+                  fontColor: "white",
                 }
               }]
             }
