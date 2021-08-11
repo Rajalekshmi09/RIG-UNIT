@@ -30,7 +30,7 @@ const InitialState = {
   // -- test page -- //
   statusData: '',
   reset: false,
-  chartData: [],
+  chartData: [0, 0, 0, 0, 0, 0, 0, 0, 0],
   shutdownInitiated: false,
   communicationFailed: false,
   communication: false,
@@ -53,7 +53,8 @@ const InitialState = {
 
   //grapgView
   comparisonFixedData: '',
-  comparedSpeedData: '',
-  comparisonLiveData: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  comparisonFilteredData: '',
+  comparisonLiveData: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  delayValue: ''
 }
 export default InitialState

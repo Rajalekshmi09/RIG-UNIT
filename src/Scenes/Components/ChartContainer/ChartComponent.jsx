@@ -24,7 +24,7 @@ class ChartComponent extends Component {
     let min = parseInt(lowerLimit, 10);
     let titleColor;
 
-    data.map(It => {                                                    //To display the color variation
+    data.map(It => {                                                    //To display the color variation intable view
       if (It > max) {
         titleColor = 'red'
       }

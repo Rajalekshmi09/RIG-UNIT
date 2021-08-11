@@ -14,12 +14,17 @@ class HeaderComponent extends Component {
       showCompanyName: true,
     }
   }
+
+  //function for collapse 
   collapse = () => {
     this.props.toggleLeftBar()
   }
+
+  //function for logout
   backToLoginEvent = () => {
     window.location.reload(false);
   }
+
   render() {
     const appData = this.props.app;
     const collapsed = appData.leftBarView;
@@ -48,6 +53,7 @@ class HeaderComponent extends Component {
     )
   }
 }
+
 const LogoValue = () => (
   <div className="testlogo" >
     <Space style={{ color: '#42dad6', fontSize: "20px" }}>ENERTEK</Space>

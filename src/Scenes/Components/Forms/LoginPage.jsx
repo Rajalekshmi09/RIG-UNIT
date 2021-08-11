@@ -112,8 +112,8 @@ class LoginPage extends Component {
                         </Button>
                       </Form.Item>
 
-                      <div onClick={this.forgotPasswordEvent}>
-                        <a className="forgot-pass">Forgot Password?</a><br></br>
+                      <div >
+                        <a onClick={this.forgotPasswordEvent} className="forgot-pass">Forgot Password?</a><br></br>
                       </div>
                       <div className="signup">
                         <p style={{ color: 'rgb(151, 150, 151)' }}>

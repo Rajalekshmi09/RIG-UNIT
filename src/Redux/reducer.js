@@ -198,14 +198,17 @@ const appReducer = (state = InitialState, action) => {
       return newState
 
     case 'COMPARED_SPEED_DATA':
-      newState.comparedSpeedData = action.payload
+      newState.comparisonFilteredData = action.payload
       return newState
 
     //comparisonLiveData    
     case 'COMPARISON_LIVE_DATA':
       newState.comparisonLiveData = action.payload
       return newState
-
+    //delayValue
+    case 'FETCHING_DELAY_VALUE':
+      newState.delayValue = action.payload
+      return newState
     default:
       return newState
   }

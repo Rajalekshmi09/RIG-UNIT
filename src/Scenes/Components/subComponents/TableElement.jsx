@@ -39,31 +39,37 @@ class TableComponent extends Component {
     this.updateInputValue = this.updateInputValue.bind(this);
   }
 
-  handleEditButtonClick = (index) => {                                  //Onclick for edit button
+  //Onclick for edit button
+  handleEditButtonClick = (index) => {
     this.setState({
       editMode: true,
       editRowIndex: index
     })
   }
-  startEdit = () => {                                                   //Onclick for startedit button
+
+  //Onclick for startedit button
+  startEdit = () => {
     this.setState({
       editSession: true
     })
   }
 
-  updateInputValue = (event, colName) => {                              //Onchange for table input
+  //Onchange for table input
+  updateInputValue = (event, colName) => {
     const { editData: newEditData } = this.state
     newEditData[colName] = event.target.value
     this.setState({ editData: newEditData })
   }
 
-  updateSelectValue = (event, colName) => {                            //Onchange for table select input
+  //Onchange for table select input
+  updateSelectValue = (event, colName) => {
     const { editData: newEditData } = this.state
     newEditData[colName] = event
     this.setState({ editData: newEditData })
   }
 
-  cancelEditMode = () => {                                             //Onclick for edit cancel
+  //Onclick for edit cancel
+  cancelEditMode = () => {
     let key = this.props.childrenColumnName;
     this.setState({
       editMode: false,
@@ -71,18 +77,25 @@ class TableComponent extends Component {
       editData: [],
       editCancel: false
     })
+
+    //geting data from request page & updating to the turboconfig store
     getTurboConfigData((data) => {
       this.props.updateTurboConfig(data)
     })
+
+    //geting data from request page & updating to the testconfig store
     getTestConfigData((data) => {
       this.props.updateTestConfigPage(data)
     })
+
+    //geting data from request page & updating to the paramconfig store
     getParamConfigData((data) => {
       this.props.updateParamConfig(data)
     })
   }
 
-  updateData = (value) => {                                                  //Onclick for save data
+  //Onclick for save data
+  updateData = (value) => {
     const configDataValue = {
       page: this.props.childrenColumnName,
       editData: Object.assign({}, this.state.editData),
@@ -92,7 +105,8 @@ class TableComponent extends Component {
       testIdVal: value.testparamconfig_id
     }
 
-    updateConfigData(configDataValue, (data) => {                             //updating edit table data to store
+    //updating edit table data to store
+    updateConfigData(configDataValue, (data) => {
       if (data) {
         let key = this.props.childrenColumnName;
         this.setState({
@@ -101,16 +115,18 @@ class TableComponent extends Component {
           editData: [],
           editCancel: false
         })
+
         if (key === "testparamconfig") {
           this.props.updateTestConfigPage(data)
         }
         else if (key === 'turboconfig') {
           this.props.updateTurboConfig(data)
         }
-
       } else {
         console.log(`500: error data response`)
       }
+
+      //getting data from request page
       requestStatusData((data) => {
         this.props.updateTableStatusData(data)
         if (typeof data !== 'string' && data.length > installed_turbine) {

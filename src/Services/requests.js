@@ -19,7 +19,8 @@ const turboIdValueUrl = `${BASE_URL}${URL.TURBOID_VALUE}`
 const tableStatusDataUrl = `${BASE_URL}${URL.TABLE_STATUSDATA}`
 const graphDataUrl = `${BASE_URL}${URL.GRAPH_DATA}`
 const comparisonTableDataUrl = `${BASE_URL}${URL.COMPARISONTABLE_FIXED_DATA}`
-const comparisonLiveDataUrl = `${BASE_URL}${URL.COMPARISONTABLE_LIVE_DATA}`
+const delayDataUrl = `${BASE_URL}${URL.DELAY_DATA}`
+
 
 // Form requests
 const loginValidation = (values, callBack) => {
@@ -178,8 +179,9 @@ const getcomparisonFixedData = (callBack) => {
       console.log(err.res)
     })
 };
-const getComparisonLiveData = (callBack) => {
-  axios.post(comparisonLiveDataUrl)
+
+const gettingDelayValue = (callBack) => {
+  axios.post(delayDataUrl)
     .then(res => {
       callBack(res.data)
     })
@@ -187,7 +189,6 @@ const getComparisonLiveData = (callBack) => {
       console.log(err.res)
     })
 };
-
 export {
   getTurboConfigData, turbineConfigSubmit,
   getTestConfigData, getParamConfigData,
@@ -197,5 +198,5 @@ export {
   getTableView, getSensorData,
   getHandleChangetestID, requestStatusData,
   gettingChartData, getcomparisonFixedData,
-  getComparisonLiveData
+  gettingDelayValue
 }

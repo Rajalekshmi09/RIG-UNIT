@@ -25,13 +25,13 @@ import {
   updateChartData, navigateMainPage,
   updateTestIdValue,
   updateTestIdCount, updateTurboMode,
-  updateDropDown, updatecomparisonLiveData
+  updateDropDown,
 } from '../../../Redux/action';
 import ListItems from '../subComponents/ListItems';
 import {
   shutdownClickEvent, getSensorData,
   getHandleChangetestID, requestStatusData,
-  gettingChartData, getComparisonLiveData
+  gettingChartData
 } from '../../../Services/requests';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -42,7 +42,7 @@ const { Text } = Typography;
 const { SubMenu } = Menu;
 let count = 1
 
-const { duplicate_msg, warning_Id, warning_mode, warning_name, alert_targetval, delaySensorData } = testParamHash;
+const { duplicate_msg, warning_Id, warning_mode, warning_name, alert_targetval } = testParamHash;
 const { installed_turbine } = turboConfigValue;
 const { value, Flame, CompressorAirControlValve, AirServoCntrlValve1, ByPassSolenoidValve1, KerosenePump, LubeOilPump, ByPassValueII,
   CoolingPump, KeroseneFuelFlowValve, AirInjectorSolenoidValve, PilotFlameAirSolenoidValve, Acetelenegas } = helpPopup;
@@ -241,19 +241,15 @@ class TestPageContainer extends Component {
 
   //graph data
   requestChartData() {
-    gettingChartData((data) => {                            //this function from request page
+    gettingChartData((data) => {                     //this function from request page
       let chartData = data;
       //updating to the store called chartdata
       this.props.updateChartData(chartData);
     })
-    getComparisonLiveData((data) => {
-      let compareData = data;
-      this.props.updatecomparisonLiveData(compareData);
-    })
   }
 
   sensorData() {
-    getSensorData((data) => {                               //function from request page
+    getSensorData((data) => {                         //function from request page
       if (this.props.app.startDbInserting === false) {
         this.props.initiateTurboStart(data);
       }
@@ -320,7 +316,7 @@ class TestPageContainer extends Component {
           this.communicationstatus()
           let interval = setInterval(() => {
             this.sensorData();
-          }, 1000);                     //delay for getData command status
+          }, this.props.app.delayValue);                     //delay for getData command status
         })
         .catch((err) => {
           console.log(err);
@@ -476,7 +472,7 @@ class TestPageContainer extends Component {
         })
         setInterval(() => {
           this.requestChartData();
-        }, delaySensorData);                             //delay for graph
+        }, this.props.app.delayValue);                             //delay for graph
         axios.post('http://192.168.0.167:5000/start.php', { targetRPM: this.props.app.targetRPM, targetTemp: this.props.app.targetTemp },)
           .then(res => {
             let startData = res.data;
@@ -1081,7 +1077,7 @@ const mapDispatchToProps = {
   stopDbInsert, startDbInsert,
   updateTestIdValue, updateTestIdCount,
   updateTurboMode, updateDropDown,
-  updateNotifyAction, updatecomparisonLiveData
+  updateNotifyAction
 }
 
 const TestContainer = connect(

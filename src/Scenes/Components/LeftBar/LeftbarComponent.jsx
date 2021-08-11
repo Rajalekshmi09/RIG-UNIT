@@ -16,6 +16,7 @@ import { CgPerformance } from "react-icons/cg";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
+
 class LeftbarComponent extends Component {
   constructor(props) {
     super(props);
@@ -27,12 +28,14 @@ class LeftbarComponent extends Component {
     this.siderHandleClick = this.siderHandleClick.bind(this)
   }
 
+  //onclick function for toggle collapse
   siderHandleClick = (e, data) => {
     this.props.navigateMainPage(e.key)
     requestStatusData((data) => {
       this.props.updateTableStatusData(data)
     })
   }
+
   render() {
     const communication = this.props.app.communication
     return (

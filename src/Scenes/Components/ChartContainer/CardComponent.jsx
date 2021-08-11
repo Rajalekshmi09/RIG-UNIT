@@ -3,10 +3,10 @@ import { Card, Col, Row } from "antd";
 import GraphComponent from "./ChartComponent";
 import { connect } from "react-redux";
 import { updateTableViewData } from "../../../Redux/action";
-import { dashboardSensor, testParamHash } from "../../../Services/constants";
+import { dashboardSensor } from "../../../Services/constants";
 import { getTableView } from "../../../Services/requests";
+
 const { sensorLabel, dummyData, chartMax } = dashboardSensor;
-const { comparedData_Delay } = testParamHash;
 
 class CardComponent extends Component {
   constructor(props) {
@@ -127,6 +127,8 @@ class CardComponent extends Component {
       ],
     };
   }
+
+  //Rendering the 6 graph component
   componentDidMount() {
     getTableView((data) => {
       //getting this function(data) from request page
@@ -139,13 +141,14 @@ class CardComponent extends Component {
     });
   }
 
+  //Initially to render graph with 0 value
   interval = setInterval(() => {
     {
       this.props.app.chartData.length !== 0
         ? this.prepareChartParams(this.props.app.chartData)
         : this.prepareChartParams(this.state.dummygraphData);
     }
-  }, comparedData_Delay);
+  });
 
   prepareChartParams = (chartdata) => {
     let p1 = [];

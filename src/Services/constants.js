@@ -16,7 +16,7 @@ const url = {
   TABLE_STATUSDATA: 'statusValue.php',
   GRAPH_DATA: 'graph.php',
   COMPARISONTABLE_FIXED_DATA: 'comparison.php',
-  COMPARISONTABLE_LIVE_DATA: 'comparison_table_data.php'
+  DELAY_DATA: 'delay.php'
 }
 
 const FormDetails = {
@@ -92,8 +92,7 @@ const titleElements = [
 ]
 
 const testParamHash = {
-  delaySensorData: 1000,
-  comparedData_Delay: 10000,
+  comparedData_Delay: 1000,
   Initializedata: ['Communication', 'Initialize Started', 'Initialize Completed'],
   Startdata: ['Start Completed', 'Ignite', 'Gas Opened', 'Stage1', 'Ruel Opened', 'Stage2', 'Fuel Opened', 'Stage2', 'Gas Closed', 'Stage3'],
   Shutdowndata: ['Shutdown Initiated', 'N.Shutdown Completed'],
