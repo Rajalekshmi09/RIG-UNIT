@@ -316,7 +316,7 @@ class TestPageContainer extends Component {
           this.communicationstatus()
           let interval = setInterval(() => {
             this.sensorData();
-          }, this.props.app.delayValue);                     //delay for getData command status
+          }, 500);                     //delay for getData command status
         })
         .catch((err) => {
           console.log(err);
@@ -556,7 +556,11 @@ class TestPageContainer extends Component {
     const StartdataArray = turboStart.filter(it => Startdata.find(val => val === it.name))
     const ShutdowndataArray = turboStart.filter(it => Shutdowndata.find(val => val === it.name))
     const ResetdataArray = turboStart.filter(it => Resetdata.find(val => val === it.name))
+
+    const InitializedCompletedStatus = InitializedataArray.filter(word => word.name === "Initialize Completed")
+
     console.log(this.props.app)
+    console.log(InitializedCompletedStatus)
 
     var testIdValue = null;
     if (this.props.app.statusData !== "no_data" && this.props.app.statusData.length !== 0) {
@@ -806,22 +810,22 @@ class TestPageContainer extends Component {
             </Col>
 
             <Col span={3}>
-              <Card style={communication && showTarget !== true ?
+              <Card style={InitializedCompletedStatus.length == 1 && communication ?
                 { width: 185, cursor: 'pointer', borderColor: 'green' } :
                 { width: 185, borderColor: 'gray' }}>
                 {
-                  communication && showTarget !== true ?
+                  InitializedCompletedStatus.length == 1 && communication ?
                     <PlaySquareOutlined className="icon-button1" onClick={() => this.startClick()} /> :
                     <PlaySquareOutlined className="iconbutton1-basic" />
                 }
-                {communication && showTarget !== true ?
+                {InitializedCompletedStatus.length == 1 && communication ?
                   <p style={{ color: '#42dad6', fontSize: "20px", paddingLeft: '35px' }}> Start</p> :
                   <p style={{ color: 'gray', fontSize: "20px", paddingLeft: '35px' }}> Start</p>
                 }
 
                 {
-                  communication ?
-                    <p>
+                  InitializedCompletedStatus.length == 1 && communication ?
+                    < p >
                       <Row>
                         <Col>
                           <p>Target Temp,</p>

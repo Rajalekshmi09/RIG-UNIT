@@ -121,8 +121,8 @@ class TableView extends Component {
     })
   }
 
-  //delay for rendering table in tableView  
-  // interval = setInterval(() => { this.testClick() }, this.props.app.delayValue)
+  // delay for rendering table in tableView  
+  interval = setInterval(() => { this.testClick() }, this.props.app.delayValue)
 
   render() {
     return (

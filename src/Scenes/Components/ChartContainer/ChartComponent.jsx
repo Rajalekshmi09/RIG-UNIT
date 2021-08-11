@@ -67,9 +67,14 @@ class ChartComponent extends Component {
               fontColor: titleColor,
               fontSize: '13'
             },
+
             legend: {
               position: "top",
-              align: "middle"
+              align: "middle",
+              labels: {
+                fontColor: "white",
+                fontSize: 15,
+              },
             },
             scales: {
               xAxes: [{
