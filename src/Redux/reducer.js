@@ -187,8 +187,23 @@ const appReducer = (state = InitialState, action) => {
       newState.shutdownInitiated = false
       return newState
 
+    //startDbInserting
     case 'START_DB_INSERT':
-      newState.startDbInserting = false                                   //  startDbInserting
+      newState.startDbInserting = false
+      return newState
+
+    //comparisonFixedData    
+    case 'COMPARISON_FIXED_DATA':
+      newState.comparisonFixedData = action.payload
+      return newState
+
+    case 'COMPARED_SPEED_DATA':
+      newState.comparedSpeedData = action.payload
+      return newState
+
+    //comparisonLiveData    
+    case 'COMPARISON_LIVE_DATA':
+      newState.comparisonLiveData = action.payload
       return newState
 
     default:

@@ -21,13 +21,13 @@ import {
   updateTurboConfig, updateTestConfigPage,
   updateParamConfig, updateUserParameter,
   updateTableStatusData, updateTestIdCount,
-  updateTableViewData
+  updateTableViewData, updatecomparisonFixedData
 } from '../../Redux/action';
 import {
   getTurboConfigData, getTestConfigData,
   getParamConfigData, turbineConfigSubmit,
   requestStatusData, getHandleChangetestID,
-  getTableView
+  getTableView, getcomparisonFixedData
 } from '../../Services/requests';
 
 const { Content, Header, Footer } = Layout;
@@ -62,6 +62,10 @@ export class MainComponent extends Component {
     // fetch tableData on application load
     getTableView((data) => {
       this.props.updateTableViewData(data)
+    })
+    // fetch ComparisontableData on application load
+    getcomparisonFixedData((data) => {
+      this.props.updatecomparisonFixedData(data);
     })
   }
 
@@ -103,7 +107,7 @@ const mapDispatchToProps = {
   updateTurboConfig, updateTestConfigPage,
   updateTableStatusData, updateParamConfig,
   updateUserParameter, updateTestIdCount,
-  updateTableViewData
+  updateTableViewData, updatecomparisonFixedData
 }
 
 const MainContainer = connect(

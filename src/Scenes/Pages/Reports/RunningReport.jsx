@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import { Col, Row, Layout, Input, Button, Select, Form, Spin, message } from "antd";
+import {
+  Col,
+  Row,
+  Layout,
+  Input,
+  Button,
+  Select,
+  Form,
+  Spin,
+  message,
+} from "antd";
 import axios from "axios";
 import { updateTitleElements } from "../../../Redux/action";
 import { connect } from "react-redux";
@@ -9,7 +19,7 @@ import { reportAlert } from "../../../Services/constants";
 import "jspdf-autotable";
 import logoRig from "../../../Images/logoRig.png";
 import logo from "../../../Images/logo.png";
-const { turboID_alert, testNo_alert, testno_check } = reportAlert
+const { turboID_alert, testNo_alert, testno_check } = reportAlert;
 const { Option } = Select;
 
 class RunningReport extends Component {
@@ -23,7 +33,7 @@ class RunningReport extends Component {
       tester: "",
       witness: "",
       loading: false,
-      defaultTestno: "Select Turbo ID"
+      defaultTestno: "Select Turbo ID",
     };
   }
   componentDidMount() {
@@ -145,26 +155,29 @@ class RunningReport extends Component {
 
   //view the report in table
   getReport = () => {
-    if (this.state.turboIdVal === '' || this.state.turboIdVal.length === 0) {
+    if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning(turboID_alert);
-    }
-    else if (this.state.testno1 === '' || this.state.testno1.length === 0) {
+    } else if (this.state.testno1 === "" || this.state.testno1.length === 0) {
       message.warning(testNo_alert);
     }
-    if (this.state.turboIdVal !== '' && this.state.testno1 !== '' && this.state.turboIdVal.length !== 0 && this.state.testno1.length !== 0) {
+    if (
+      this.state.turboIdVal !== "" &&
+      this.state.testno1 !== "" &&
+      this.state.turboIdVal.length !== 0 &&
+      this.state.testno1.length !== 0
+    ) {
       axios
         .post("http://192.168.0.167:5000/runningReport.php", {
           turboIdVal: this.state.turboIdVal,
           testno: this.state.testno1,
         })
         .then((res) => {
-          console.log(typeof res.data)
-          if (res.data.length > 5 && typeof (res.data) !== "string") {
+          console.log(typeof res.data);
+          if (res.data.length > 5 && typeof res.data !== "string") {
             this.setState({
               reportOut1: res.data,
             });
-          }
-          else {
+          } else {
             message.warning(testno_check);
           }
         })
@@ -181,7 +194,7 @@ class RunningReport extends Component {
           this.setState({
             tester: res.data[0].tester,
             witness: res.data[0].witness,
-            loading: false
+            loading: false,
           });
         })
         .catch((err) => {
@@ -296,13 +309,12 @@ class RunningReport extends Component {
             >
               <Col xs={4}>
                 <Form.Item>
-                  <Button onClick={this.getReport} > View</Button>
+                  <Button onClick={this.getReport}> View</Button>
                 </Form.Item>
               </Col>
             </Row>
           </Form>
         </Layout>
-
         <Button
           onClick={this.getReportPDF}
           style={{
@@ -314,7 +326,6 @@ class RunningReport extends Component {
         >
           Export Report
         </Button>
-
         <Spin tip="Loading..." size="large" spinning={this.state.loading}>
           <Layout
             className="bottom-container"
@@ -327,9 +338,12 @@ class RunningReport extends Component {
             <div id="allreport">
               <div
                 className="mx-auto"
-                style={{ marginBottom: "1%", marginTop: "2%" }}
+                style={{ marginTop: "2%" }}
               >
-                <div className="sparkline12-hd" style={{ paddingBottom: "5px" }}>
+                <div
+                  className="sparkline12-hd"
+                  style={{ paddingBottom: "5px" }}
+                >
                   <div
                     className="main-sparkline12-hd"
                     style={{ textAlign: "center" }}
@@ -340,10 +354,10 @@ class RunningReport extends Component {
               </div>
 
               <div className="table-responsive">
-                <img alt="logo" style={{ width: '25%' }} src={logo} />
+                <img alt="logo" style={{ width: "25%" }} src={logo} />
                 <table id="report-constants" style={{ marginTop: "10px" }}>
                   <tr>
-                    <th >ATR REF. NO </th>
+                    <th>ATR REF. NO </th>
                     <th>TC/0/01</th>
                   </tr>
                   <tr>
@@ -411,7 +425,8 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Compressor <br />Inlet Temp
+                        Compressor <br />
+                        Inlet Temp
                       </th>
                       <th
                         style={{
@@ -420,7 +435,9 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Compressor<br />Outlet Temp
+                        Compressor
+                        <br />
+                        Outlet Temp
                       </th>
                       <th
                         style={{
@@ -429,7 +446,9 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Compressor<br />Outlet Pr
+                        Compressor
+                        <br />
+                        Outlet Pr
                       </th>
                       <th
                         style={{
@@ -438,7 +457,8 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Turbine <br />Inlet Temp
+                        Turbine <br />
+                        Inlet Temp
                       </th>
                       <th
                         style={{
@@ -447,7 +467,8 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Turbine<br /> Outlet Temp
+                        Turbine
+                        <br /> Outlet Temp
                       </th>
                       <th
                         style={{
@@ -456,7 +477,9 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Kerosine<br />Flow Rate
+                        Kerosine
+                        <br />
+                        Flow Rate
                       </th>
                       <th
                         style={{
@@ -503,7 +526,9 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Pressure<br />(kg/cm^2)
+                        Pressure
+                        <br />
+                        (kg/cm^2)
                       </th>
                       <th
                         style={{
@@ -596,7 +621,9 @@ class RunningReport extends Component {
                         <td style={{ border: "1px solid #6a6a6b" }}>
                           {it.Turbine_OutletTemp}
                         </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}></td>
+                        <td style={{ border: "1px solid #6a6a6b" }}>
+                          {it.flowrate}
+                        </td>
                         <td style={{ border: "1px solid #6a6a6b" }}>
                           {it.Turbine_Outlet}
                         </td>
@@ -642,7 +669,8 @@ class RunningReport extends Component {
               </div>
             </div>
           </Layout>
-        </Spin>,
+        </Spin>
+        ,
       </div>
     );
   }

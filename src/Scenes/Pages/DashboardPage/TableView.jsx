@@ -4,8 +4,10 @@ import { Table, Row, Col } from 'antd';
 import { updateTitleElements, updateTableViewData } from '../../../Redux/action'
 import { connect } from 'react-redux';
 import { getTableView } from '../../../Services/requests';
+import { testParamHash } from '../../../Services/constants';
 import ComparisonTable from '../../Components/subComponents/ComparisonTable';
 
+const { delaySensorData } = testParamHash;
 const columns = [
   {
     title: 'Param',
@@ -89,6 +91,7 @@ class TableView extends Component {
       title: 'Table View',
       type: 'Dashboard',
     })
+
   }
 
   testClick = () => {
@@ -119,7 +122,7 @@ class TableView extends Component {
   }
 
 
-  interval = setInterval(() => { this.testClick() }, 1000)
+  interval = setInterval(() => { this.testClick() }, delaySensorData)
   render() {
 
     return (

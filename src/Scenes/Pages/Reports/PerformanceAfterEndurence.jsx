@@ -1,9 +1,23 @@
 import React, { Component } from "react";
-import { Col, Row, Layout, Input, Button, Select, Form, message, Spin } from "antd";
+import {
+  Col,
+  Row,
+  Layout,
+  Input,
+  Button,
+  Select,
+  Form,
+  message,
+  Spin,
+} from "antd";
 import axios from "axios";
 import { updateTitleElements } from "../../../Redux/action";
 import { connect } from "react-redux";
-import { performance, reportAlert, CompanyDetails } from "../../../Services/constants";
+import {
+  performance,
+  reportAlert,
+  CompanyDetails,
+} from "../../../Services/constants";
 import Doc from "./DocService";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -20,7 +34,7 @@ const {
   AirMassFlow,
 } = performance;
 const { Option } = Select;
-const { turboID_alert, testNo_alert, testno_check } = reportAlert
+const { turboID_alert, testNo_alert, testno_check } = reportAlert;
 
 class PerformanceAfterEndurence extends Component {
   constructor(props) {
@@ -157,26 +171,29 @@ class PerformanceAfterEndurence extends Component {
 
   //viewing  report in the table
   getReport = () => {
-    if (this.state.turboIdVal === '' || this.state.turboIdVal.length === 0) {
+    if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning(turboID_alert);
-    }
-    else if (this.state.testno1 === '' || this.state.testno1.length === 0) {
+    } else if (this.state.testno1 === "" || this.state.testno1.length === 0) {
       message.warning(testNo_alert);
     }
-    if (this.state.turboIdVal !== '' && this.state.testno1 !== '' && this.state.turboIdVal.length !== 0 && this.state.testno1.length !== 0) {
+    if (
+      this.state.turboIdVal !== "" &&
+      this.state.testno1 !== "" &&
+      this.state.turboIdVal.length !== 0 &&
+      this.state.testno1.length !== 0
+    ) {
       axios
         .post("http://192.168.0.167:5000/Performance.php", {
           turboIdVal: this.state.turboIdVal,
           testno: this.state.testno1,
         })
         .then((res) => {
-          if (typeof (res.data) !== "string") {
+          if (typeof res.data !== "string") {
             this.setState({
               reportOut1: res.data[0],
               reportOut2: res.data[1],
             });
-          }
-          else {
+          } else {
             message.warning(testno_check);
           }
         })
@@ -193,7 +210,7 @@ class PerformanceAfterEndurence extends Component {
           this.setState({
             tester: res.data[0].tester,
             witness: res.data[0].witness,
-            loading: false
+            loading: false,
           });
         })
         .catch((err) => {
@@ -238,8 +255,8 @@ class PerformanceAfterEndurence extends Component {
     this.setState({
       testno: null,
       turboIdVal: null,
-    })
-  }
+    });
+  };
   render() {
     var rpm1 = Math.round(this.state.reportOut1.speed_time * 100) / 100;
     var rpm2 = Math.round(this.state.reportOut2.speed_time * 100) / 100;
@@ -251,6 +268,10 @@ class PerformanceAfterEndurence extends Component {
       Math.round(this.state.reportOut1.Compr_Inlet_pr * 100) / 100;
     var Compr_Inlet_pr2 =
       Math.round(this.state.reportOut2.Compr_Inlet_pr * 100) / 100;
+    var Oil_pr1 = Math.round(this.state.reportOut1.Oil_pr * 100) / 100;
+    var Oil_pr2 = Math.round(this.state.reportOut2.Oil_pr * 100) / 100;
+    var Oil_temp1 = Math.round(this.state.reportOut1.Oil_temp * 100) / 100;
+    var Oil_temp2 = Math.round(this.state.reportOut2.Oil_temp * 100) / 100;
     var Compr_Outlet_pr1 =
       Math.round(this.state.reportOut1.Compr_Outlet_pr * 100) / 100;
     var Compr_Outlet_pr2 =
@@ -360,17 +381,20 @@ class PerformanceAfterEndurence extends Component {
           <Layout
             className="bottom-container"
             style={{
-              paddingTop: "0px",
-              paddingBottom: "10px",
+              paddingTop: "10px",
+              paddingBottom: "30px",
               border: "solid white",
             }}
           >
             <div id="allreport">
               <div
                 className="mx-auto"
-                style={{ marginBottom: "1%", marginTop: "2%" }}
+                style={{ marginTop: "2%" }}
               >
-                <div className="sparkline12-hd" style={{ paddingBottom: "15px" }}>
+                <div
+                  className="sparkline12-hd"
+                  style={{ paddingBottom: "5px" }}
+                >
                   <div
                     className="main-sparkline12-hd"
                     style={{ textAlign: "center" }}
@@ -381,10 +405,10 @@ class PerformanceAfterEndurence extends Component {
               </div>
 
               <div className="table-responsive">
-                <img alt="logo" style={{ width: '25%' }} src={logo} />
-                <table id="report-constants" style={{ marginTop: "5px" }}>
+                <img alt="logo" style={{ width: "25%" }} src={logo} />
+                <table id="report-constants" style={{ marginTop: "10px" }}>
                   <tr>
-                    <th >ATR REF. NO </th>
+                    <th>ATR REF. NO </th>
                     <th>TC/0/01</th>
                   </tr>
                   <tr>
@@ -403,7 +427,6 @@ class PerformanceAfterEndurence extends Component {
                     <td>SERIAL NUMBER</td>
                     <td>{this.state.turboIdVal}</td>
                   </tr>
-
                 </table>
 
                 <table
@@ -477,7 +500,9 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Compressor<br />Intlet Pr
+                        Compressor
+                        <br />
+                        Intlet Pr
                       </th>
                       <th
                         style={{
@@ -486,7 +511,8 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Compressor<br /> Outlet Pr
+                        Compressor
+                        <br /> Outlet Pr
                       </th>
                       <th
                         style={{
@@ -551,7 +577,8 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Pressure<br /> (kg/cm^2)
+                        Pressure
+                        <br /> (kg/cm^2)
                       </th>
                       <th
                         style={{
@@ -765,14 +792,20 @@ class PerformanceAfterEndurence extends Component {
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      ></td>
+                      >
+                        {" "}
+                        {Oil_pr1}
+                      </td>
                       <td
                         style={{
                           verticalAlign: "middle",
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      ></td>
+                      >
+                        {" "}
+                        {Oil_temp1}
+                      </td>
                       <td
                         style={{
                           verticalAlign: "middle",
@@ -972,14 +1005,20 @@ class PerformanceAfterEndurence extends Component {
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      ></td>
+                      >
+                        {" "}
+                        {Oil_pr2}
+                      </td>
                       <td
                         style={{
                           verticalAlign: "middle",
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      ></td>
+                      >
+                        {" "}
+                        {Oil_temp1}
+                      </td>
                       <td
                         style={{
                           verticalAlign: "middle",

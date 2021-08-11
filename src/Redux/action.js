@@ -221,3 +221,18 @@ export const startDbInsert = bool => ({
   type: 'START_DB_INSERT',
   payload: bool
 })
+
+//comparisonFixedData
+export const updatecomparisonFixedData = data => ({
+  type: 'COMPARISON_FIXED_DATA',
+  payload: data
+})
+export const updatecomparedSpeedData = data => ({
+  type: 'COMPARED_SPEED_DATA',
+  payload: data
+})
+//comparisonLiveData
+export const updatecomparisonLiveData = data => ({
+  type: 'COMPARISON_LIVE_DATA',
+  payload: data
+})

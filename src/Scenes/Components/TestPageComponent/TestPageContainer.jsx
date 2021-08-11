@@ -25,13 +25,13 @@ import {
   updateChartData, navigateMainPage,
   updateTestIdValue,
   updateTestIdCount, updateTurboMode,
-  updateDropDown
+  updateDropDown, updatecomparisonLiveData
 } from '../../../Redux/action';
 import ListItems from '../subComponents/ListItems';
 import {
   shutdownClickEvent, getSensorData,
   getHandleChangetestID, requestStatusData,
-  gettingChartData
+  gettingChartData, getComparisonLiveData
 } from '../../../Services/requests';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -41,7 +41,8 @@ var { Option } = Select;
 const { Text } = Typography;
 const { SubMenu } = Menu;
 let count = 1
-const { duplicate_msg, warning_Id, warning_mode, warning_name, alert_targetval } = testParamHash;
+
+const { duplicate_msg, warning_Id, warning_mode, warning_name, alert_targetval, delaySensorData } = testParamHash;
 const { installed_turbine } = turboConfigValue;
 const { value, Flame, CompressorAirControlValve, AirServoCntrlValve1, ByPassSolenoidValve1, KerosenePump, LubeOilPump, ByPassValueII,
   CoolingPump, KeroseneFuelFlowValve, AirInjectorSolenoidValve, PilotFlameAirSolenoidValve, Acetelenegas } = helpPopup;
@@ -224,6 +225,9 @@ class TestPageContainer extends Component {
 
   //onclick for shutdown
   shutdownClick = () => {
+
+    clearInterval(this.startClick);
+
     this.setState({
       shutdownInitiated: true,
       shutdownEnable: false
@@ -232,6 +236,7 @@ class TestPageContainer extends Component {
       //updating to the store called shutdownInitiated
       this.props.initiateShutdown(data)
     })
+
   }
 
   //graph data
@@ -240,6 +245,10 @@ class TestPageContainer extends Component {
       let chartData = data;
       //updating to the store called chartdata
       this.props.updateChartData(chartData);
+    })
+    getComparisonLiveData((data) => {
+      let compareData = data;
+      this.props.updatecomparisonLiveData(compareData);
     })
   }
 
@@ -264,7 +273,6 @@ class TestPageContainer extends Component {
           this.props.initiateCommunication();
         }
         if (CommunicationData.status === "") {
-          console.log(CommunicationData.status)
           this.props.initiateCommunicationFailed();
         }
         this.initializeTestClick()
@@ -312,7 +320,7 @@ class TestPageContainer extends Component {
           this.communicationstatus()
           let interval = setInterval(() => {
             this.sensorData();
-          }, 1000);
+          }, 1000);                     //delay for getData command status
         })
         .catch((err) => {
           console.log(err);
@@ -468,7 +476,7 @@ class TestPageContainer extends Component {
         })
         setInterval(() => {
           this.requestChartData();
-        }, 1000);
+        }, delaySensorData);                             //delay for graph
         axios.post('http://192.168.0.167:5000/start.php', { targetRPM: this.props.app.targetRPM, targetTemp: this.props.app.targetTemp },)
           .then(res => {
             let startData = res.data;
@@ -1072,7 +1080,8 @@ const mapDispatchToProps = {
   getResetRPM, updateChartData,
   stopDbInsert, startDbInsert,
   updateTestIdValue, updateTestIdCount,
-  updateTurboMode, updateDropDown, updateNotifyAction
+  updateTurboMode, updateDropDown,
+  updateNotifyAction, updatecomparisonLiveData
 }
 
 const TestContainer = connect(

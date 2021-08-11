@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import { Col, Row, Layout, Input, Button, Select, Form, message, Spin } from "antd";
+import {
+  Col,
+  Row,
+  Layout,
+  Input,
+  Button,
+  Select,
+  Form,
+  message,
+  Spin,
+} from "antd";
 import axios from "axios";
 import { updateTitleElements } from "../../../Redux/action";
 import { connect } from "react-redux";
@@ -10,8 +20,7 @@ import logo from "../../../Images/logo.png";
 import logoRig from "../../../Images/logoRig.png";
 const { Option } = Select;
 const { RPM, Minutes, trubineInletTemp } = endurence;
-const { turboID_alert, testNo_alert, testno_check } = reportAlert
-
+const { turboID_alert, testNo_alert, testno_check } = reportAlert;
 
 class EndurenceReport extends Component {
   constructor(props) {
@@ -146,25 +155,28 @@ class EndurenceReport extends Component {
   };
 
   getReportTable = () => {
-    if (this.state.turboIdVal === '' || this.state.turboIdVal.length === 0) {
+    if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning(turboID_alert);
-    }
-    else if (this.state.testno1 === '' || this.state.testno1.length === 0) {
+    } else if (this.state.testno1 === "" || this.state.testno1.length === 0) {
       message.warning(testNo_alert);
     }
-    if (this.state.turboIdVal !== '' && this.state.testno1 !== '' && this.state.turboIdVal.length !== 0 && this.state.testno1.length !== 0) {
+    if (
+      this.state.turboIdVal !== "" &&
+      this.state.testno1 !== "" &&
+      this.state.turboIdVal.length !== 0 &&
+      this.state.testno1.length !== 0
+    ) {
       axios
         .post("http://192.168.0.167:5000/Endurence.php", {
           turboIdVal: this.state.turboIdVal,
           testno: this.state.testno1,
         })
         .then((res) => {
-          if (typeof (res.data) !== "string") {
+          if (typeof res.data !== "string") {
             this.setState({
               reportOut: res.data[0],
             });
-          }
-          else {
+          } else {
             message.warning(testno_check);
           }
         })
@@ -181,7 +193,7 @@ class EndurenceReport extends Component {
           this.setState({
             tester: res.data[0].tester,
             witness: res.data[0].witness,
-            loading: false
+            loading: false,
           });
         })
         .catch((err) => {
@@ -190,7 +202,8 @@ class EndurenceReport extends Component {
     }
   };
 
-  handleChangeTestID = (value) => {                                     //select the TestID
+  handleChangeTestID = (value) => {
+    //select the TestID
     axios
       .post("http://192.168.0.167:5000/exportData.php", { turboIdVal: value })
       .then((res) => {
@@ -213,7 +226,8 @@ class EndurenceReport extends Component {
       });
   };
 
-  handleChangeTestNO = (value) => {                                   //select the Test Number
+  handleChangeTestNO = (value) => {
+    //select the Test Number
     this.setState({
       testno1: value,
     });
@@ -225,6 +239,8 @@ class EndurenceReport extends Component {
       Math.round(this.state.reportOut.Turbine_Inlet * 100) / 100;
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
+    var Oil_pr = Math.round(this.state.reportOut.Oil_pr * 100) / 100;
+    var Oil_temp = Math.round(this.state.reportOut.Oil_temp * 100) / 100;
 
     return (
       <div>
@@ -327,9 +343,12 @@ class EndurenceReport extends Component {
               <div id="allreport">
                 <div
                   className="mx-auto"
-                  style={{ marginBottom: "1%", marginTop: "2%" }}
+                  style={{ marginTop: "2%" }}
                 >
-                  <div className="sparkline12-hd" style={{ paddingBottom: "5px" }}>
+                  <div
+                    className="sparkline12-hd"
+                    style={{ paddingBottom: "5px" }}
+                  >
                     <div
                       className="main-sparkline12-hd"
                       style={{ textAlign: "center" }}
@@ -340,10 +359,10 @@ class EndurenceReport extends Component {
                 </div>
 
                 <div className="table-responsive">
-                  <img alt="logo" style={{ width: '25%' }} src={logo} />
+                  <img alt="logo" style={{ width: "25%" }} src={logo} />
                   <table id="report-constants" style={{ marginTop: "10px" }}>
                     <tr>
-                      <th >ATR REF. NO </th>
+                      <th>ATR REF. NO </th>
                       <th>TC/0/01</th>
                     </tr>
                     <tr>
@@ -563,13 +582,18 @@ class EndurenceReport extends Component {
                             border: "1px solid #6a6a6b",
                             textAlign: "center",
                           }}
-                        ></td>
+                        >
+                          {" "}
+                          {Oil_pr}
+                        </td>
                         <td
                           style={{
                             border: "1px solid #6a6a6b",
                             textAlign: "center",
                           }}
-                        ></td>
+                        >
+                          {Oil_temp}
+                        </td>
                         <td
                           style={{
                             border: "1px solid #6a6a6b",

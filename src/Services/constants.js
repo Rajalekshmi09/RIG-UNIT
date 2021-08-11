@@ -15,7 +15,8 @@ const url = {
   TURBOID_VALUE: 'turboIdValue.php',
   TABLE_STATUSDATA: 'statusValue.php',
   GRAPH_DATA: 'graph.php',
-  COMPARISONTABLE_DATA: 'comparison.php',
+  COMPARISONTABLE_FIXED_DATA: 'comparison.php',
+  COMPARISONTABLE_LIVE_DATA: 'comparison_table_data.php'
 }
 
 const FormDetails = {
@@ -40,7 +41,8 @@ const CompanyDetails = {
   company_link: 'http://www.v-enertek.com/',
 }
 
-const targetKeysVal = ["3", "5", "7", "10", "13", "14"]
+const targetKeysVal = ["3", "5", "7", "10", "13", "17"]
+
 const dashboardDataVal = [
   { "key": "0", "Name": "Ambient Pressure", "chosen": false },
   { "key": "1", "Name": "Ambient Temperature", "chosen": false },
@@ -90,6 +92,8 @@ const titleElements = [
 ]
 
 const testParamHash = {
+  delaySensorData: 1000,
+  comparedData_Delay: 10000,
   Initializedata: ['Communication', 'Initialize Started', 'Initialize Completed'],
   Startdata: ['Start Completed', 'Ignite', 'Gas Opened', 'Stage1', 'Ruel Opened', 'Stage2', 'Fuel Opened', 'Stage2', 'Gas Closed', 'Stage3'],
   Shutdowndata: ['Shutdown Initiated', 'N.Shutdown Completed'],
@@ -114,7 +118,7 @@ const helpPopup = {
   CoolingPump: ' Cooling Pump : ',
   KeroseneFuelFlowValve: ' Kerosene Fuel Flow Valve : ',
   AirInjectorSolenoidValve: 'Air Injector Solenoid Valve : ',
-  PilotFlameAirSolenoidValve: ' Pilot Flame Air  Solenoid Valve   : ',
+  PilotFlameAirSolenoidValve: ' Pilot Flame Air Solenoid Valve   : ',
   Acetelenegas: 'Acetelene gas : ',
 }
 
@@ -134,6 +138,7 @@ const turboConfigValue = {
   description_data:
     "The system is installed with more than 1 turbines. Make sure there is only 1 turbine is installed. ",
 }
+
 const dashboardDataMessage = {
   transfer_warning: 'Select transfer data',
   transfer_success: 'Submitted successfully',
@@ -141,11 +146,13 @@ const dashboardDataMessage = {
   description_data: " Must select 6 sensors.",
   msg_warning: "Select only 6 data",
 }
+
 const endurence = {
   RPM: "53900+/-1%",
   Minutes: "10+/-1",
   trubineInletTemp: "700/-50"
 }
+
 const performance = {
   RPM1: "41500+/-1%",
   RPM2: "49000+/-1%",
@@ -156,6 +163,7 @@ const performance = {
   PrRatio: '2.4+/-0.1',
   AirMassFlow: '0.97'
 }
+
 const ComparisonTableDetails = {
   FixedSpeed: '5000',
   FixedOilPr: '5.00 - 6.00',
@@ -167,6 +175,7 @@ const ComparisonTableDetails = {
   FixedComperMassFlowRate: '50',
   FixedTotalMassFlowOfAir: '10',
 }
+
 const Details = {
   Speed: '3000',
   OilPr: '5.55',
@@ -178,6 +187,7 @@ const Details = {
   ComperMassFlowRate: '55000',
   TotalMassFlowOfAir: '9000',
 }
+
 const reportAlert = {
   turboID_alert: "Select the turbo ID",
   testNo_alert: "Select the test No",

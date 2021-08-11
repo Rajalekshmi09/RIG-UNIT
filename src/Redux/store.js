@@ -50,5 +50,10 @@ const InitialState = {
   resetTemp: '',
   resetRPM: '',
   startDbInserting: false,
+
+  //grapgView
+  comparisonFixedData: '',
+  comparedSpeedData: '',
+  comparisonLiveData: [0, 0, 0, 0, 0, 0, 0, 0, 0]
 }
 export default InitialState

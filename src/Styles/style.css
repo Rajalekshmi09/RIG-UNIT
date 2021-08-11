@@ -830,12 +830,12 @@ max-width: 300%;
 .content-table {
   border-collapse: collapse;
   margin: 25px 0;
-  font-size: 17px;
+  font-size: 16px;
   width: 100%;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  color:rgb(192, 196, 201);;
+  color:rgb(192, 196, 201);
   background-color: #131633;
 }
 
