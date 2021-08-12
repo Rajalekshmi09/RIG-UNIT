@@ -17,7 +17,6 @@ class CardComponent extends Component {
       cardList: [],
       dummygraphData: [
         {
-          FFR: dummyData, //dummyData = 0 in constant page
           P1: dummyData,
           P2: dummyData,
           P3: dummyData,
@@ -25,17 +24,21 @@ class CardComponent extends Component {
           P5: dummyData,
           P6: dummyData,
           P7: dummyData,
-          T1: dummyData,
-          T2: dummyData,
-          T3: dummyData,
-          T4: dummyData,
-          T5: dummyData,
-          T11: dummyData,
-          rpm: dummyData,
+          P10: dummyData,
+          P13: dummyData,
+          P14: dummyData,
+          P16: dummyData,
+          P17: dummyData,
+          P20: dummyData,
+          P21: dummyData,
+          P22: dummyData,
+          P23: dummyData,
+          P24: dummyData,
+          P25: dummyData,
+          P27: dummyData,
           testdatadate: dummyData,
         },
         {
-          FFR: dummyData,
           P1: dummyData,
           P2: dummyData,
           P3: dummyData,
@@ -43,17 +46,21 @@ class CardComponent extends Component {
           P5: dummyData,
           P6: dummyData,
           P7: dummyData,
-          T1: dummyData,
-          T2: dummyData,
-          T3: dummyData,
-          T4: dummyData,
-          T5: dummyData,
-          T11: dummyData,
-          rpm: dummyData,
+          P10: dummyData,
+          P13: dummyData,
+          P14: dummyData,
+          P16: dummyData,
+          P17: dummyData,
+          P20: dummyData,
+          P21: dummyData,
+          P22: dummyData,
+          P23: dummyData,
+          P24: dummyData,
+          P25: dummyData,
+          P27: dummyData,
           testdatadate: dummyData,
         },
         {
-          FFR: dummyData,
           P1: dummyData,
           P2: dummyData,
           P3: dummyData,
@@ -61,17 +68,21 @@ class CardComponent extends Component {
           P5: dummyData,
           P6: dummyData,
           P7: dummyData,
-          T1: dummyData,
-          T2: dummyData,
-          T3: dummyData,
-          T4: dummyData,
-          T5: dummyData,
-          T11: dummyData,
-          rpm: dummyData,
+          P10: dummyData,
+          P13: dummyData,
+          P14: dummyData,
+          P16: dummyData,
+          P17: dummyData,
+          P20: dummyData,
+          P21: dummyData,
+          P22: dummyData,
+          P23: dummyData,
+          P24: dummyData,
+          P25: dummyData,
+          P27: dummyData,
           testdatadate: dummyData,
         },
         {
-          FFR: dummyData,
           P1: dummyData,
           P2: dummyData,
           P3: dummyData,
@@ -79,17 +90,21 @@ class CardComponent extends Component {
           P5: dummyData,
           P6: dummyData,
           P7: dummyData,
-          T1: dummyData,
-          T2: dummyData,
-          T3: dummyData,
-          T4: dummyData,
-          T5: dummyData,
-          T11: dummyData,
-          rpm: dummyData,
+          P10: dummyData,
+          P13: dummyData,
+          P14: dummyData,
+          P16: dummyData,
+          P17: dummyData,
+          P20: dummyData,
+          P21: dummyData,
+          P22: dummyData,
+          P23: dummyData,
+          P24: dummyData,
+          P25: dummyData,
+          P27: dummyData,
           testdatadate: dummyData,
         },
         {
-          FFR: dummyData,
           P1: dummyData,
           P2: dummyData,
           P3: dummyData,
@@ -97,17 +112,21 @@ class CardComponent extends Component {
           P5: dummyData,
           P6: dummyData,
           P7: dummyData,
-          T1: dummyData,
-          T2: dummyData,
-          T3: dummyData,
-          T4: dummyData,
-          T5: dummyData,
-          T11: dummyData,
-          rpm: dummyData,
+          P10: dummyData,
+          P13: dummyData,
+          P14: dummyData,
+          P16: dummyData,
+          P17: dummyData,
+          P20: dummyData,
+          P21: dummyData,
+          P22: dummyData,
+          P23: dummyData,
+          P24: dummyData,
+          P25: dummyData,
+          P27: dummyData,
           testdatadate: dummyData,
         },
         {
-          FFR: dummyData,
           P1: dummyData,
           P2: dummyData,
           P3: dummyData,
@@ -115,13 +134,18 @@ class CardComponent extends Component {
           P5: dummyData,
           P6: dummyData,
           P7: dummyData,
-          T1: dummyData,
-          T2: dummyData,
-          T3: dummyData,
-          T4: dummyData,
-          T5: dummyData,
-          T11: dummyData,
-          rpm: dummyData,
+          P10: dummyData,
+          P13: dummyData,
+          P14: dummyData,
+          P16: dummyData,
+          P17: dummyData,
+          P20: dummyData,
+          P21: dummyData,
+          P22: dummyData,
+          P23: dummyData,
+          P24: dummyData,
+          P25: dummyData,
+          P27: dummyData,
           testdatadate: dummyData,
         },
       ],
@@ -129,17 +153,18 @@ class CardComponent extends Component {
   }
 
   //Rendering the 6 graph component
-  componentDidMount() {
-    getTableView((data) => {
-      //getting this function(data) from request page
-      const arrStr = this.props.app.targetKeys; //covertion string to number
-      const dashboardDataNumArr = arrStr.map((i) => Number(i));
-      let filteredTableData = data.filter((_, index) =>
-        dashboardDataNumArr.includes(index)
-      );
-      this.props.updateTableViewData(filteredTableData);
-    });
-  }
+  // componentDidMount() {
+  //   getTableView((data) => {
+  //     //getting this function(data) from request page
+  //     const arrStr = this.props.app.targetKeys; //covertion string to number
+  //     const dashboardDataNumArr = arrStr.map((i) => Number(i));
+  //     let filteredTableData = data.filter((_, index) =>
+  //       dashboardDataNumArr.includes(index)
+  //     );
+  //     this.props.updateTableViewData(filteredTableData);
+  //     console.log(this.props.app.tableViewData);
+  //   });
+  // }
 
   //Initially to render graph with 0 value
   interval = setInterval(() => {
@@ -234,44 +259,47 @@ class CardComponent extends Component {
     {
       this.props.app.chartData[0]
         ? (filteredDataText = Object.values(this.props.app.chartData[0]).filter(
-          (_, index) => dashboardDataNumArr.includes(index)
-        ))
+            (_, index) => dashboardDataNumArr.includes(index)
+          ))
         : (filteredDataText = []);
     }
 
     let textColor;
     const chartValue = [];
     for (let i = 0; i < filteredData.length; i++) {
-      let chart = {
-        size: 8,
-        labels: date_Time,
-        dataSet: {
-          title: filteredDataText,
-          chartData: filteredData[i],
-          filteredDataLabel: filteredDataLabel[i],
-          chartBackgroundColor: ["rgba(24,144,255,0.2)"],
-          chartBorderColor: [
-            "rgba(24, 144, 255, 0.5)",
-            "rgba(24, 144, 255, 0.5)",
-            "rgba(24, 144, 255, 0.5)",
-            "rgba(24, 144, 255, 0.5)",
-            "rgba(24, 144, 255, 0.5)",
-            "rgba(24, 144, 255, 0.5)",
-          ],
-          chartTextColor: textColor,
-          upperLimitVal: this.props.app.tableViewData[i].upperlimit,
-          normalLimitVal: this.props.app.tableViewData[i].normallimit,
-          lowerLimitVal: this.props.app.tableViewData[i].lowerlimit,
-        },
-      };
-      chartValue.push(chart);
-      this.setState({
-        cardList: chartValue,
-      });
+      if (this.props.app.tableViewData) {
+        let chart = {
+          size: 8,
+          labels: date_Time,
+          dataSet: {
+            title: filteredDataText,
+            chartData: filteredData[i],
+            filteredDataLabel: filteredDataLabel[i],
+            chartBackgroundColor: ["rgba(24,144,255,0.2)"],
+            chartBorderColor: [
+              "rgba(24, 144, 255, 0.5)",
+              "rgba(24, 144, 255, 0.5)",
+              "rgba(24, 144, 255, 0.5)",
+              "rgba(24, 144, 255, 0.5)",
+              "rgba(24, 144, 255, 0.5)",
+              "rgba(24, 144, 255, 0.5)",
+            ],
+            chartTextColor: textColor,
+            upperLimitVal: this.props.app.tableViewData[i].upperlimit,
+            normalLimitVal: this.props.app.tableViewData[i].normallimit,
+            lowerLimitVal: this.props.app.tableViewData[i].lowerlimit,
+          },
+        };
+        chartValue.push(chart);
+        this.setState({
+          cardList: chartValue,
+        });
+      }
     }
   };
 
   render() {
+    console.log(this.props.app.tableViewData);
     if (
       this.state.cardList !== undefined &&
       this.state.cardList.length >= chartMax
@@ -281,73 +309,73 @@ class CardComponent extends Component {
           <Row gutter={16}>
             {this.state.cardList
               ? this.state.cardList.map((it, y) => {
-                return (
-                  <Col span={8}>
-                    <Row style={{ paddingTop: "30px" }}>
-                      <Card
-                        style={{
-                          backgroundColor: "#131633",
-                          height: "250px",
-                          border: "none",
-                          borderRadius: "0px",
-                        }}
-                      >
-                        {it.title}
-                        <GraphComponent
-                          data={
-                            it.dataSet.chartData ? it.dataSet.chartData : []
-                          }
-                          labels={
-                            it.dataSet.filteredDataLabel
-                              ? it.dataSet.filteredDataLabel
-                              : []
-                          }
-                          label={
-                            it.dataSet.filteredDataLabel
-                              ? it.dataSet.filteredDataLabel
-                              : "No Label"
-                          }
-                          title={
-                            it.dataSet.title[y]
-                              ? it.dataSet.title[y]
-                              : "No Data"
-                          }
-                          backgroundColor={
-                            it.dataSet.chartBackgroundColor
-                              ? it.dataSet.chartBackgroundColor
-                              : []
-                          }
-                          borderColor={
-                            it.dataSet.chartBorderColor
-                              ? it.dataSet.chartBorderColor
-                              : []
-                          }
-                          textColor={
-                            it.dataSet.chartTextColor
-                              ? it.dataSet.chartTextColor
-                              : []
-                          }
-                          upperLimit={
-                            it.dataSet.upperLimitVal
-                              ? it.dataSet.upperLimitVal
-                              : []
-                          }
-                          normalLimit={
-                            it.dataSet.normalLimitVal
-                              ? it.dataSet.normalLimitVal
-                              : []
-                          }
-                          lowerLimit={
-                            it.dataSet.lowerLimitVal
-                              ? it.dataSet.lowerLimitVal
-                              : []
-                          }
-                        />
-                      </Card>
-                    </Row>
-                  </Col>
-                );
-              })
+                  return (
+                    <Col span={8}>
+                      <Row style={{ paddingTop: "30px" }}>
+                        <Card
+                          style={{
+                            backgroundColor: "#131633",
+                            height: "250px",
+                            border: "none",
+                            borderRadius: "0px",
+                          }}
+                        >
+                          {it.title}
+                          <GraphComponent
+                            data={
+                              it.dataSet.chartData ? it.dataSet.chartData : []
+                            }
+                            labels={
+                              it.dataSet.filteredDataLabel
+                                ? it.dataSet.filteredDataLabel
+                                : []
+                            }
+                            label={
+                              it.dataSet.filteredDataLabel
+                                ? it.dataSet.filteredDataLabel
+                                : "No Label"
+                            }
+                            title={
+                              it.dataSet.title[y]
+                                ? it.dataSet.title[y]
+                                : "No Data"
+                            }
+                            backgroundColor={
+                              it.dataSet.chartBackgroundColor
+                                ? it.dataSet.chartBackgroundColor
+                                : []
+                            }
+                            borderColor={
+                              it.dataSet.chartBorderColor
+                                ? it.dataSet.chartBorderColor
+                                : []
+                            }
+                            textColor={
+                              it.dataSet.chartTextColor
+                                ? it.dataSet.chartTextColor
+                                : []
+                            }
+                            upperLimit={
+                              it.dataSet.upperLimitVal
+                                ? it.dataSet.upperLimitVal
+                                : []
+                            }
+                            normalLimit={
+                              it.dataSet.normalLimitVal
+                                ? it.dataSet.normalLimitVal
+                                : []
+                            }
+                            lowerLimit={
+                              it.dataSet.lowerLimitVal
+                                ? it.dataSet.lowerLimitVal
+                                : []
+                            }
+                          />
+                        </Card>
+                      </Row>
+                    </Col>
+                  );
+                })
               : []}
           </Row>
         </div>
