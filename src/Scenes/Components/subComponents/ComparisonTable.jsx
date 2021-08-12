@@ -8,13 +8,23 @@ const { comparedData_Delay } = testParamHash;
 class ComparisonTable extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      compareValue: [],
+    };
   }
 
   //Rendering the comparison table
   componentDidMount() {
     getcomparisonFixedData((data) => {
+      this.setState({
+        compareValue: data,
+      });
       //getting fixed data from request
-      data.map((It) => {
+    });
+  }
+  interval = setInterval(() => {
+    {
+      this.state.compareValue.map((It) => {
         if (
           It.rpm1 <= this.props.app.chartData[0].P6 &&
           It.rpm2 >= this.props.app.chartData[0].P6
@@ -22,13 +32,11 @@ class ComparisonTable extends Component {
           this.props.updateFilteredComparisonData(It);
         }
       });
-    }, comparedData_Delay);
-  }
-
+    }
+  }, comparedData_Delay);
   render() {
     const compareLiveVal = this.props.app.chartData[0];
     const comparedVal = this.props.app.comparisonFilteredData;
-
     const liveRPM = compareLiveVal.P6;
     const liveCompressorInletPressure = compareLiveVal.P3;
     const liveOilPr = compareLiveVal.P23;
