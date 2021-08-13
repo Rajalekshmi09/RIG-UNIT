@@ -1,11 +1,22 @@
-import React, { Component } from 'react'
-import { Col, Row, Input, Button, Form, Alert } from 'antd';
-import { UserOutlined, LockOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { connect } from 'react-redux';
-import { updateAppState, updateForgotEvent } from '../../../Redux/action';
-import { forgotValidation } from '../../../Services/requests';
-import { CompanyDetails, FormDetails } from '../../../Services/constants';
-const { enter_email, enter_password, confirm_password, password_notmatch, alert_email } = FormDetails;
+import React, { Component } from "react";
+import { Col, Row, Input, Button, Form, Alert } from "antd";
+import {
+  UserOutlined,
+  LockOutlined,
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+} from "@ant-design/icons";
+import { connect } from "react-redux";
+import { updateAppState, updateForgotEvent } from "../../../Redux/action";
+import { forgotValidation } from "../../../Services/requests";
+import { CompanyDetails, FormDetails } from "../../../Services/constants";
+const {
+  enter_email,
+  enter_password,
+  confirm_password,
+  password_notmatch,
+  alert_email,
+} = FormDetails;
 const { company_name, company_data } = CompanyDetails;
 
 class ForgotPassword extends Component {
@@ -13,32 +24,31 @@ class ForgotPassword extends Component {
     super(props);
     this.state = {
       redirect: false,
-      IsUserName: false
-    }
+      IsUserName: false,
+    };
   }
 
   alertOnClose = () => {
     this.setState({
-      IsUserName: '',
-    })
+      IsUserName: "",
+    });
   };
 
   submitOnFinish = (values) => {
     forgotValidation(values, (data) => {
       let inputData = data.toString();
       if (inputData == "success") {
-        this.props.updateAppState('login');
-      }
-      else {
+        this.props.updateAppState("login");
+      } else {
         this.state.IsUserName = true;
         this.setState({ redirect: false });
       }
-    })
-  }
+    });
+  };
 
   backToLoginEvent = () => {
-    this.props.updateAppState('login');
-  }
+    this.props.updateAppState("login");
+  };
 
   render() {
     const IsUserName = this.state.IsUserName;
@@ -46,27 +56,32 @@ class ForgotPassword extends Component {
       <div className="background">
         <div className="wrapper">
           <div className="form-holder">
-            <Row >
+            <Row>
               {/* <!-- Logo & Information Panel--> */}
-              <Col span={12}  >
+              <Col span={12}>
                 <div className="info" style={{ paddingTop: "10rem" }}>
-                  <h1 style={{ color: 'white' }}>{company_name}</h1>
+                  <h1 style={{ color: "white" }}>{company_name}</h1>
                   <p>{company_data}</p>
                 </div>
               </Col>
               {/* <!-- Form Panel    --> */}
-              <Col span={12} >
+              <Col span={12}>
                 <div className="form d-flex align-items-center">
                   <div className="content" style={{ paddingTop: "5rem" }}>
-                    <Form initialValues={{ remember: true }} onFinish={this.submitOnFinish} >
+                    <Form
+                      initialValues={{ remember: true }}
+                      onFinish={this.submitOnFinish}
+                    >
                       <Form.Item
                         name="user_name"
                         rules={[{ required: true, message: enter_email }]}
                       >
                         <Input
                           className="form-input"
-                          style={{ backgroundColor: '#131633' }}
-                          prefix={<UserOutlined className="site-form-item-icon" />}
+                          style={{ backgroundColor: "#131633" }}
+                          prefix={
+                            <UserOutlined className="site-form-item-icon" />
+                          }
                           placeholder="Email_ID"
                         />
                       </Form.Item>
@@ -77,25 +92,32 @@ class ForgotPassword extends Component {
                         hasFeedback
                       >
                         <Input.Password
-                          style={{ backgroundColor: '#131633' }}
-                          prefix={<LockOutlined className="site-form-item-icon" />}
+                          style={{ backgroundColor: "#131633" }}
+                          prefix={
+                            <LockOutlined className="site-form-item-icon" />
+                          }
                           placeholder="Password"
-                          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                          iconRender={(visible) =>
+                            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                          }
                         />
                       </Form.Item>
 
                       <Form.Item
                         name="Confirm"
-                        dependencies={['password']}
+                        dependencies={["password"]}
                         hasFeedback
                         rules={[
                           {
                             required: true,
-                            message: confirm_password
+                            message: confirm_password,
                           },
                           ({ getFieldValue }) => ({
                             validator(_, value) {
-                              if (!value || getFieldValue('password') === value) {
+                              if (
+                                !value ||
+                                getFieldValue("password") === value
+                              ) {
                                 return Promise.resolve();
                               }
                               return Promise.reject(password_notmatch);
@@ -104,42 +126,60 @@ class ForgotPassword extends Component {
                         ]}
                       >
                         <Input.Password
-                          style={{ backgroundColor: '#131633' }}
-                          prefix={<LockOutlined className="site-form-item-icon" />}
+                          style={{ backgroundColor: "#131633" }}
+                          prefix={
+                            <LockOutlined className="site-form-item-icon" />
+                          }
                           placeholder="Confirm Password"
-                          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                          iconRender={(visible) =>
+                            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                          }
                         />
                       </Form.Item>
 
-                      {IsUserName ?
+                      {IsUserName ? (
                         <Alert
                           className="alert_error"
                           message={alert_email}
                           closable
                           onClose={this.alertOnClose}
-                          type="error" />
-                        : ''}
+                          type="error"
+                        />
+                      ) : (
+                        ""
+                      )}
                       <Form.Item
-                        style=
-                        {{
-                          paddingTop: '35px',
-                          paddingBottom: '30px',
-                          paddingLeft: '40%'
+                        style={{
+                          paddingTop: "35px",
+                          paddingBottom: "30px",
+                          paddingLeft: "40%",
                         }}
                       >
                         <Button
                           type="primary"
                           htmlType="submit"
                           className="login-form-button"
-                          style={{ width: '84px' }}
+                          style={{ width: "84px" }}
                         >
                           Submit
-                              </Button>
+                        </Button>
                       </Form.Item>
 
-                      <div >
-                        <p style={{ color: 'rgb(151, 150, 151)', fontSize: '18px' }}>Back to Login page?
-                            <a onClick={this.backToLoginEvent} className="forgot-pass" >Login</a></p>
+                      <div>
+                        <p
+                          style={{
+                            color: "rgb(151, 150, 151)",
+                            fontSize: "18px",
+                          }}
+                        >
+                          Back to Login page?
+                          <a
+                            onClick={this.backToLoginEvent}
+                            className="forgot-pass"
+                          >
+                            Login
+                          </a>
+                        </p>
                       </div>
                     </Form>
                   </div>
@@ -149,21 +189,21 @@ class ForgotPassword extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
-const mapStateToProps = state => ({
-  app: state.app
-})
+const mapStateToProps = (state) => ({
+  app: state.app,
+});
 
 const mapDispatchToProps = {
   updateAppState,
-  updateForgotEvent
-}
+  updateForgotEvent,
+};
 
 const forgotPasswordPage = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ForgotPassword)
+)(ForgotPassword);
 
 export default forgotPasswordPage;

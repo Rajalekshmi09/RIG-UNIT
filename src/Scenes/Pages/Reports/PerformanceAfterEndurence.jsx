@@ -390,10 +390,7 @@ class PerformanceAfterEndurence extends Component {
             }}
           >
             <div id="allreport">
-              <div
-                className="mx-auto"
-                style={{ marginTop: "2%" }}
-              >
+              <div className="mx-auto" style={{ marginTop: "2%" }}>
                 <div
                   className="sparkline12-hd"
                   style={{ paddingBottom: "5px" }}

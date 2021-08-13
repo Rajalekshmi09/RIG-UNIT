@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { toggleLeftBar, updateAppState } from '../../../Redux/action'
-import {
-  MenuUnfoldOutlined, MenuFoldOutlined,
-} from '@ant-design/icons';
-import { Space } from 'antd';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { toggleLeftBar, updateAppState } from "../../../Redux/action";
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import { Space } from "antd";
 
 class HeaderComponent extends Component {
   constructor(props) {
@@ -12,37 +10,38 @@ class HeaderComponent extends Component {
     this.state = {
       collapsed: false,
       showCompanyName: true,
-    }
+    };
   }
 
-  //function for collapse 
+  //function for collapse
   collapse = () => {
-    this.props.toggleLeftBar()
-  }
+    this.props.toggleLeftBar();
+  };
 
   //function for logout
   backToLoginEvent = () => {
     window.location.reload(false);
-  }
+  };
 
   render() {
     const appData = this.props.app;
     const collapsed = appData.leftBarView;
     return (
       <div className="site-layout-background">
-        <div className="logo" >
+        <div className="logo">
           {this.state.showCompanyName ? <LogoValue /> : null}
         </div>
-        {
-          React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: 'trigger',
-              onClick: this.collapse,
-            })}
+        {React.createElement(
+          collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+          {
+            className: "trigger",
+            onClick: this.collapse,
+          }
+        )}
 
         <div className="logout-element">
           <div className="logout-content" onClick={this.backToLoginEvent}>
-            <a className="logout-btn"> Logout</a >
+            <a className="logout-btn"> Logout</a>
           </div>
 
           <div className="welcome-message">
@@ -50,31 +49,31 @@ class HeaderComponent extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 const LogoValue = () => (
-  <div className="testlogo" >
-    <Space style={{ color: '#42dad6', fontSize: "20px" }}>ENERTEK</Space>
-    <Space style={{ color: '#8a8d93', fontSize: "20px" }}>COMBUSTER</Space>
+  <div className="testlogo">
+    <Space style={{ color: "#42dad6", fontSize: "20px" }}>ENERTEK</Space>
+    <Space style={{ color: "#8a8d93", fontSize: "20px" }}>COMBUSTER</Space>
   </div>
-)
+);
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   collapsed: state.app.collapsed,
   user: state.app.userParams,
-  app: state.app
-})
+  app: state.app,
+});
 
 const mapDispatchToProps = {
   toggleLeftBar,
-  updateAppState
-}
+  updateAppState,
+};
 
 const HeaderContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(HeaderComponent)
+)(HeaderComponent);
 
 export default HeaderContainer;

@@ -1,10 +1,12 @@
 import React from "react";
-import { Col, Row, Button, Form, Transfer, message, notification, } from "antd";
+import { Col, Row, Button, Form, Transfer, message, notification } from "antd";
 import { connect } from "react-redux";
+import { updateDashboardData, updateTargetKeys } from "../../../Redux/action";
 import {
-  updateDashboardData, updateTargetKeys
-} from "../../../Redux/action";
-import { dashboardDataMessage, dashboardDataVal, targetKeysVal } from "../../../Services/constants";
+  dashboardDataMessage,
+  dashboardDataVal,
+  targetKeysVal,
+} from "../../../Services/constants";
 const { message_title, description_data, msg_warning } = dashboardDataMessage;
 
 const key = "updatable";
@@ -15,14 +17,14 @@ class TransferElement extends React.Component {
       mockData: [],
       targetKeys: [],
       dashboardData: dashboardDataVal,
-    }
-  };
+    };
+  }
 
   componentDidMount() {
     this.getMock();
     this.setState({
       targetKeys: this.props.app.targetKeys,
-    })
+    });
   }
 
   getMock = () => {
@@ -40,7 +42,6 @@ class TransferElement extends React.Component {
       mockData.push(data);
     }
     this.setState({ mockData, targetKeys });
-
   };
 
   //Notification for more than 1 turbine
@@ -55,22 +56,21 @@ class TransferElement extends React.Component {
     }, 1000);
   };
 
-  //Transfering data 
+  //Transfering data
   handleChange = (targetKeys, direction, moveKeys) => {
     if (targetKeys.length < 6) {
       this.openNotification("bottomRight");
     }
     if (targetKeys.length > 6) {
       message.warning(msg_warning);
-    }
-    else {
+    } else {
       this.setState({
         targetKeys,
       });
       if (targetKeys.length < 6) {
         this.openNotification("bottomRight");
       } else {
-        this.props.updateTargetKeys(targetKeys)
+        this.props.updateTargetKeys(targetKeys);
       }
     }
   };
@@ -90,19 +90,15 @@ class TransferElement extends React.Component {
       mockData.push(data);
     }
     this.setState({ mockData, targetKeys });
-    this.props.updateTargetKeys(targetKeysVal)
+    this.props.updateTargetKeys(targetKeysVal);
   };
 
   renderItem = (item) => {
-    const customLabel = (
-      <span className="custom-item">
-        {item.title}
-      </span>
-    );
+    const customLabel = <span className="custom-item">{item.title}</span>;
 
     return {
-      label: customLabel,                                                      // for displayed item
-      value: item.title,                                                      // for title and filter matching
+      label: customLabel, // for displayed item
+      value: item.title, // for title and filter matching
     };
   };
 
@@ -140,7 +136,7 @@ class TransferElement extends React.Component {
             }}
           >
             <Col xs={3}>
-              <Form.Item style={{ paddingLeft: '70%' }}>
+              <Form.Item style={{ paddingLeft: "70%" }}>
                 <Button onClick={() => this.clearChosen()}> Reset</Button>
               </Form.Item>
             </Col>
@@ -155,7 +151,8 @@ const mapStateToProps = (state) => ({
   app: state.app,
 });
 const mapDispatchToProps = {
-  updateDashboardData, updateTargetKeys
+  updateDashboardData,
+  updateTargetKeys,
 };
 
 const transferPage = connect(

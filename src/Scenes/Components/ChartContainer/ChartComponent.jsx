@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Line } from 'react-chartjs-2';
+import React, { Component } from "react";
+import { Line } from "react-chartjs-2";
 
 class ChartComponent extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       data: this.props.data,
       label: this.props.label,
@@ -11,33 +11,39 @@ class ChartComponent extends Component {
       title: this.props.title,
       backgroundColor: this.props.backgroundColor,
       borderColor: this.props.borderColor,
-      textColor: 'blue',
+      textColor: "blue",
       upperLimit: this.props.upperLimit,
       normalLimit: this.props.lowerLimit,
-      lowerLimit: this.props.lowerLimit
-    }
+      lowerLimit: this.props.lowerLimit,
+    };
   }
 
   render() {
-    const { data, label, backgroundColor, borderColor, title, upperLimit, lowerLimit } = this.state
+    const {
+      data,
+      label,
+      backgroundColor,
+      borderColor,
+      title,
+      upperLimit,
+      lowerLimit,
+    } = this.state;
     let max = parseInt(upperLimit, 10);
     let min = parseInt(lowerLimit, 10);
     let titleColor;
 
-    data.map(It => {                                                    //To display the color variation intable view
+    data.map((It) => {
+      //To display the color variation in table view
       if (It > max) {
-        titleColor = 'red'
+        titleColor = "red";
+      } else if (It < max && It > min) {
+        titleColor = "green";
+      } else if (It < min && It !== 0) {
+        titleColor = "yellow";
+      } else if (It === 0) {
+        titleColor = "skyblue";
       }
-      else if (It < max && It > min) {
-        titleColor = 'green'
-      }
-      else if (It < min && It !== 0) {
-        titleColor = 'yellow'
-      }
-      else if (It === 0) {
-        titleColor = 'skyblue'
-      }
-    })
+    });
 
     return (
       <div>
@@ -45,28 +51,30 @@ class ChartComponent extends Component {
           height={240}
           data={{
             labels: ["", "", "", "", "", ""],
-            datasets: [{
-              label: label,
-              data: data,
-              backgroundColor: backgroundColor,
-              borderColor: borderColor,
-              borderWidth: 1,
-              title: title,
-              upperLimit: upperLimit,
-              lowerLimit: lowerLimit
-            }]
+            datasets: [
+              {
+                label: label,
+                data: data,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+                borderWidth: 1,
+                title: title,
+                upperLimit: upperLimit,
+                lowerLimit: lowerLimit,
+              },
+            ],
           }}
           options={{
             maintainAspectRatio: false,
             animation: {
-              duration: 0
+              duration: 0,
             },
             title: {
               display: true,
               text: title,
               fontColor: titleColor,
-              fontSize: '16',
-              fontWeight: 'bold'
+              fontSize: "16",
+              fontWeight: "bold",
             },
 
             legend: {
@@ -78,23 +86,27 @@ class ChartComponent extends Component {
               },
             },
             scales: {
-              xAxes: [{
-                gridLines: {
-                  color: 'rgba(255, 255, 255, 0.1)',
+              xAxes: [
+                {
+                  gridLines: {
+                    color: "rgba(255, 255, 255, 0.1)",
+                  },
                 },
-              }],
-              yAxes: [{
-                gridLines: {
-                  color: 'rgba(255, 255, 255, 0.1)',
+              ],
+              yAxes: [
+                {
+                  gridLines: {
+                    color: "rgba(255, 255, 255, 0.1)",
+                  },
+                  ticks: {
+                    max: max,
+                    min: min,
+                    stepSize: max / 10,
+                    fontColor: "white",
+                  },
                 },
-                ticks: {
-                  max: max,
-                  min: min,
-                  stepSize: max / 10,
-                  fontColor: "white",
-                }
-              }]
-            }
+              ],
+            },
           }}
         />
       </div>

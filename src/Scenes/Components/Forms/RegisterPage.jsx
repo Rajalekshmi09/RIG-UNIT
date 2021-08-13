@@ -1,13 +1,28 @@
-import React, { Component } from 'react'
-import { Col, Row, Input, Button, Form, Alert } from 'antd';
-import { UserOutlined, LockOutlined, MailOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { connect } from 'react-redux';
-import { updateAppState } from '../../../Redux/action';
-import { registerPageValidation } from '../../../Services/requests';
-import { CompanyDetails, FormDetails } from '../../../Services/constants';
-const { confirm_password, enter_email, enter_username, enter_password,
-  password_notmatch, alert_registered_email, email_notvalid,
-  success_msg, alert_username_taken, alert_email_taken } = FormDetails;
+import React, { Component } from "react";
+import { Col, Row, Input, Button, Form, Alert } from "antd";
+import {
+  UserOutlined,
+  LockOutlined,
+  MailOutlined,
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+} from "@ant-design/icons";
+import { connect } from "react-redux";
+import { updateAppState } from "../../../Redux/action";
+import { registerPageValidation } from "../../../Services/requests";
+import { CompanyDetails, FormDetails } from "../../../Services/constants";
+const {
+  confirm_password,
+  enter_email,
+  enter_username,
+  enter_password,
+  password_notmatch,
+  alert_registered_email,
+  email_notvalid,
+  success_msg,
+  alert_username_taken,
+  alert_email_taken,
+} = FormDetails;
 const { company_name, company_data } = CompanyDetails;
 
 class RegisterPage extends Component {
@@ -15,15 +30,15 @@ class RegisterPage extends Component {
     super(props);
     this.state = {
       IsuserName_reg: false,
-      Isemail_reg: false
-    }
+      Isemail_reg: false,
+    };
   }
 
   alertOnClose = (e) => {
     this.setState({
-      IsuserName_reg: '',
-      Isemail_reg: ''
-    })
+      IsuserName_reg: "",
+      Isemail_reg: "",
+    });
   };
 
   submitRegister = (values) => {
@@ -31,23 +46,20 @@ class RegisterPage extends Component {
       let inputData = data.toString();
       if (inputData === success_msg) {
         this.setState({ redirect: true });
-        this.props.updateAppState('login');
-      }
-      else if (inputData === alert_username_taken) {
+        this.props.updateAppState("login");
+      } else if (inputData === alert_username_taken) {
         this.state.IsuserName_reg = true;
         this.setState({ redirect: false });
-      }
-      else if (inputData === alert_email_taken) {
+      } else if (inputData === alert_email_taken) {
         this.state.Isemail_reg = true;
         this.setState({ redirect: false });
       }
-
-    })
-  }
+    });
+  };
 
   backToLoginEvent = () => {
-    this.props.updateAppState('login');
-  }
+    this.props.updateAppState("login");
+  };
 
   render() {
     const IsuserName_reg = this.state.IsuserName_reg;
@@ -56,18 +68,18 @@ class RegisterPage extends Component {
       <div className="background">
         <div className="wrapper">
           <div className="form-holder ">
-            <Row style={{ width: '' }}>
+            <Row style={{ width: "" }}>
               {/* <!-- Logo & Information Panel--> */}
-              <Col span={12}  >
+              <Col span={12}>
                 <div className="info" style={{ paddingTop: "10rem" }}>
-                  <h1 style={{ color: 'white' }}>{company_name}</h1>
+                  <h1 style={{ color: "white" }}>{company_name}</h1>
                   <p>{company_data}</p>
                 </div>
               </Col>
               {/* <!-- Form Panel    --> */}
-              <Col span={12} >
+              <Col span={12}>
                 <div className="form d-flex align-items-center">
-                  <div className="content" style={{ paddingTop: "5rem" }} >
+                  <div className="content" style={{ paddingTop: "5rem" }}>
                     <Form
                       name="register"
                       initialValues={{ remember: true }}
@@ -78,8 +90,10 @@ class RegisterPage extends Component {
                         rules={[{ required: true, message: enter_username }]}
                       >
                         <Input
-                          style={{ backgroundColor: '#131633' }}
-                          prefix={<UserOutlined className="site-form-item-icon" />}
+                          style={{ backgroundColor: "#131633" }}
+                          prefix={
+                            <UserOutlined className="site-form-item-icon" />
+                          }
                           placeholder="Username"
                         />
                       </Form.Item>
@@ -88,7 +102,7 @@ class RegisterPage extends Component {
                         name="user_email"
                         rules={[
                           {
-                            type: 'email',
+                            type: "email",
                             message: email_notvalid,
                           },
                           {
@@ -98,8 +112,10 @@ class RegisterPage extends Component {
                         ]}
                       >
                         <Input
-                          style={{ backgroundColor: '#131633' }}
-                          prefix={<MailOutlined className="site-form-item-icon" />}
+                          style={{ backgroundColor: "#131633" }}
+                          prefix={
+                            <MailOutlined className="site-form-item-icon" />
+                          }
                           placeholder="E-Mail "
                         />
                       </Form.Item>
@@ -110,25 +126,32 @@ class RegisterPage extends Component {
                         hasFeedback
                       >
                         <Input.Password
-                          style={{ backgroundColor: '#131633' }}
-                          prefix={<LockOutlined className="site-form-item-icon" />}
+                          style={{ backgroundColor: "#131633" }}
+                          prefix={
+                            <LockOutlined className="site-form-item-icon" />
+                          }
                           placeholder="Password"
-                          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                          iconRender={(visible) =>
+                            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                          }
                         />
                       </Form.Item>
 
                       <Form.Item
                         name="Confirm"
-                        dependencies={['password']}
+                        dependencies={["password"]}
                         hasFeedback
                         rules={[
                           {
                             required: true,
-                            message: confirm_password
+                            message: confirm_password,
                           },
                           ({ getFieldValue }) => ({
                             validator(_, value) {
-                              if (!value || getFieldValue('password') === value) {
+                              if (
+                                !value ||
+                                getFieldValue("password") === value
+                              ) {
                                 return Promise.resolve();
                               }
                               return Promise.reject(password_notmatch);
@@ -137,36 +160,59 @@ class RegisterPage extends Component {
                         ]}
                       >
                         <Input.Password
-                          style={{ backgroundColor: '#131633' }}
-                          prefix={<LockOutlined className="site-form-item-icon" />}
+                          style={{ backgroundColor: "#131633" }}
+                          prefix={
+                            <LockOutlined className="site-form-item-icon" />
+                          }
                           placeholder="Confirm Password"
-                          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                          iconRender={(visible) =>
+                            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                          }
                         />
                       </Form.Item>
 
-                      {IsuserName_reg ?
+                      {IsuserName_reg ? (
                         <Alert
                           className="alert_error"
                           closable
                           onClose={this.alertOnClose}
                           message={alert_registered_email}
-                          type="error" /> : ''}
+                          type="error"
+                        />
+                      ) : (
+                        ""
+                      )}
                       <Form.Item
                         style={{
-                          paddingTop: '35px',
-                          paddingBottom: '30px',
-                          paddingLeft: '40%'
+                          paddingTop: "35px",
+                          paddingBottom: "30px",
+                          paddingLeft: "40%",
                         }}
-
                       >
-                        <Button type="primary" htmlType="submit" style={{ width: '82px' }}>
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          style={{ width: "82px" }}
+                        >
                           Signup
-                          </Button>
+                        </Button>
                       </Form.Item>
 
                       <div>
-                        <p style={{ color: 'rgb(151, 150, 151)', fontSize: '18px' }}>Already have an account?
-                            <a onClick={this.backToLoginEvent} className="forgot-pass">Login</a></p>
+                        <p
+                          style={{
+                            color: "rgb(151, 150, 151)",
+                            fontSize: "18px",
+                          }}
+                        >
+                          Already have an account?
+                          <a
+                            onClick={this.backToLoginEvent}
+                            className="forgot-pass"
+                          >
+                            Login
+                          </a>
+                        </p>
                       </div>
                     </Form>
                   </div>
@@ -176,19 +222,16 @@ class RegisterPage extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
-const mapStateToProps = state => ({
-  app: state.app
-})
+const mapStateToProps = (state) => ({
+  app: state.app,
+});
 
 const mapDispatchToProps = {
-  updateAppState
-}
+  updateAppState,
+};
 
-const registerPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RegisterPage)
+const registerPage = connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
 export default registerPage;

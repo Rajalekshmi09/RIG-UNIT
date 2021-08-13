@@ -7,10 +7,8 @@ import {
 } from "../../../Redux/action";
 import { connect } from "react-redux";
 import { getTableView } from "../../../Services/requests";
-import { testParamHash } from "../../../Services/constants";
 import ComparisonTable from "../../Components/subComponents/ComparisonTable";
 
-const { delaySensorData } = testParamHash;
 const columns = [
   {
     title: "Param",
@@ -99,7 +97,6 @@ class TableView extends Component {
     getTableView((data) => {
       const arrStr = this.props.app.targetKeys; //covertion string to number
       const dashboardDataNumArr = arrStr.map((i) => Number(i));
-
       this.setState({
         tabledata: data,
       });
@@ -112,7 +109,6 @@ class TableView extends Component {
         filteredTableData: filteredTableData,
       });
       // this.props.updateTableViewData(filteredTableData);
-      //console.log(this.props.app.tableViewData);
     });
   }
 

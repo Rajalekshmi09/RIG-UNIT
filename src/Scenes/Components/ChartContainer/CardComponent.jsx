@@ -17,7 +17,7 @@ class CardComponent extends Component {
       cardList: [],
       dummygraphData: [
         {
-          P1: dummyData,
+          P1: dummyData,      //dummyData = 0 in constant page 
           P2: dummyData,
           P3: dummyData,
           P4: dummyData,

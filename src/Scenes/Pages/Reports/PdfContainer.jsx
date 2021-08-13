@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default (props) => {
   const bodyRef = React.createRef();
@@ -12,5 +12,5 @@ export default (props) => {
         {props.children}
       </section>
     </section>
-  )
-}
+  );
+};

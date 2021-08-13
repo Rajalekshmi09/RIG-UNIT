@@ -1,5 +1,16 @@
 import React, { Component } from "react";
-import { Col, Row, Layout, Input, Button, Select, Table, Form, Spin, message } from "antd";
+import {
+  Col,
+  Row,
+  Layout,
+  Input,
+  Button,
+  Select,
+  Table,
+  Form,
+  Spin,
+  message,
+} from "antd";
 import { updateTitleElements } from "../../../Redux/action";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -14,7 +25,7 @@ const columns = [
     title: "RPM",
     dataIndex: "rpm",
     key: "rpm",
-    fixed: 'left',
+    fixed: "left",
   },
   {
     title: "Combuster outlet Temperature",
@@ -90,7 +101,7 @@ const columns = [
     title: "testdataDate",
     dataIndex: "testdataDate",
     key: "testdataDate",
-    fixed: 'right',
+    fixed: "right",
   },
 ];
 class ExportData extends Component {
@@ -112,28 +123,30 @@ class ExportData extends Component {
   }
 
   getReport = () => {
-    if (this.state.turboIdVal === '' || this.state.turboIdVal.length === 0) {
+    if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning("Select the turbo ID");
-    }
-    else if (this.state.testno1 === '' || this.state.testno1 === undefined) {
+    } else if (this.state.testno1 === "" || this.state.testno1 === undefined) {
       message.warning("Select the test No");
     }
-    if (this.state.turboIdVal !== '' && this.state.testno1 !== '' && this.state.testno1 !== undefined &&
-      this.state.turboIdVal.length !== 0) {
+    if (
+      this.state.turboIdVal !== "" &&
+      this.state.testno1 !== "" &&
+      this.state.testno1 !== undefined &&
+      this.state.turboIdVal.length !== 0
+    ) {
       axios
         .post("http://192.168.0.167:5000/getReport.php", {
           turboIdVal: this.state.turboIdVal,
           testno: this.state.testno1,
         })
         .then((res) => {
-          let data = res.data
-          console.log(typeof (data))
-          if (data.length > 5 && typeof (data) !== "string") {
+          let data = res.data;
+          console.log(typeof data);
+          if (data.length > 5 && typeof data !== "string") {
             this.setState({
               reportDetails: data,
             });
-          }
-          else {
+          } else {
             message.warning("Check the test No");
           }
         })
@@ -150,7 +163,7 @@ class ExportData extends Component {
           this.setState({
             tester: res.data[0].tester,
             witness: res.data[0].witness,
-            loading: false
+            loading: false,
           });
         })
         .catch((err) => {
@@ -221,7 +234,7 @@ class ExportData extends Component {
 
     return (
       <div style={{ paddingTop: "1px" }}>
-        <Layout className="layout-container" >
+        <Layout className="layout-container">
           <h2 className="h2"> Export Report</h2>
           <Row style={{ paddingTop: "10px" }}>
             <Col sm={2}>
@@ -312,13 +325,17 @@ class ExportData extends Component {
             style={{
               backgroundColor: "#131633",
               paddingLeft: "20px",
-              width: 'auto',
+              width: "auto",
               paddingTop: "10px",
-              border: "solid white"
-            }}>
+              border: "solid white",
+            }}
+          >
             <div id="allreport">
               <div className="mx-auto" style={{ marginTop: "2%" }}>
-                <div className="main-sparkline12-hd" style={{ textAlign: "center" }}>
+                <div
+                  className="main-sparkline12-hd"
+                  style={{ textAlign: "center" }}
+                >
                   <h1>Export Data</h1>
                 </div>
               </div>
@@ -329,7 +346,8 @@ class ExportData extends Component {
               columns={columns}
               pagination={false}
               dataSource={this.state.reportDetails}
-              scroll={{ x: 2000 }} />
+              scroll={{ x: 2000 }}
+            />
           </Layout>
         </Spin>
       </div>

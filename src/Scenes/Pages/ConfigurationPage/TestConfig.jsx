@@ -49,15 +49,13 @@ class TestConfig extends Component {
             ) : (
               []
             )}
-            <div>
-            </div>
+            <div></div>
           </Layout>
         </div>
       </div>
     );
   }
 }
-
 
 const mapStateToProps = (state) => ({
   app: state.app,

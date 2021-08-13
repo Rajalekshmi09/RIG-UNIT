@@ -1,6 +1,6 @@
-.site-layout-background{
+.site-layout-background {
   width: 100%;
-  margin-left: 200
+  margin-left: 200;
 }
 /*
 * ==========================================================
@@ -35,13 +35,13 @@ div#allreport h1 {
 /* ---header--- */
 .ant-layout-header {
   background-color: #131633;
-  height: 75px; 
+  height: 75px;
 }
 .testlogo {
   float: left;
 }
 
- /* ===================================
+/* ===================================
       --header/centerbody--
  ===================================*/
 
@@ -51,12 +51,12 @@ div#allreport h1 {
   flex: auto;
   background-color: #212840;
   min-height: 0;
-  padding: 25px;  
+  padding: 25px;
 }
 /*  Navbar  */
 .logout-content {
-  color: rgb(151, 150, 151);  
-  margin-top: -60px;  
+  color: rgb(151, 150, 151);
+  margin-top: -60px;
   float: right;
   margin-right: 40px;
   font-size: 20px;
@@ -66,14 +66,14 @@ div#allreport h1 {
   cursor: pointer;
 }
 .welcome-message {
-  color: rgb(151, 150, 151);  
-  margin-top: -60px;  
+  color: rgb(151, 150, 151);
+  margin-top: -60px;
   float: right;
   margin-right: 40px;
   font-size: 20px;
 }
- /* body */
- .site-layout {
+/* body */
+.site-layout {
   background: #212840;
   height: 80px;
 }
@@ -89,7 +89,7 @@ div#allreport h1 {
   background-color: #131633;
   padding-top: 20px;
   padding-left: 20px;
-  padding-right: 20px; 
+  padding-right: 20px;
 }
 
 /*=======================================
@@ -106,7 +106,7 @@ div#allreport h1 {
   width: 204px !important;
 }
 
-.ant-layout-sider-collapsed{
+.ant-layout-sider-collapsed {
   flex: 0 0 80px !important;
   max-width: 80px !important;
   min-width: 80px !important;
@@ -123,9 +123,9 @@ div#allreport h1 {
 }
 
 /* sidebar minimize */
-.ant-menu.ant-menu-dark, 
+.ant-menu.ant-menu-dark,
 .ant-menu-dark .ant-menu-sub,
- .ant-menu.ant-menu-dark .ant-menu-sub {
+.ant-menu.ant-menu-dark .ant-menu-sub {
   color: rgba(255, 255, 255, 0.65);
   background: #131633 !important;
 }
@@ -138,14 +138,14 @@ div#allreport h1 {
   background-color: #188fff67;
   height: 40px;
 }
- .ant-menu-item-selected {
+.ant-menu-item-selected {
   color: #fff !important;
   border-right: 0;
 }
-.ant-menu-dark .ant-menu-item:hover,  
+.ant-menu-dark .ant-menu-item:hover,
 .ant-menu-dark .ant-menu-submenu-title:hover {
   color: #42dbdc;
-  background-color: #19244a; 
+  background-color: #19244a;
   height: 40px;
 }
 
@@ -156,11 +156,11 @@ div#allreport h1 {
 .ant-menu-inline .ant-menu-submenu {
   padding-bottom: 7.02px;
 }
- 
+
 /* ===================================
             grid element
  =================================== */
- .ant-card-head {
+.ant-card-head {
   color: white;
 }
 .ant-card-head::after {
@@ -174,44 +174,44 @@ div#allreport h1 {
   background-color: #131633;
 }
 /* -----------dropdown----------- */
-.ant-menu-submenu-arrow{
-  color:#fff;
+.ant-menu-submenu-arrow {
+  color: #fff;
 }
-.test-dropdown{
+.test-dropdown {
   color: rgba(255, 255, 255, 0.65);
 }
 /* -----listitem,&delete btn ----- */
 
 /* list */
-.list{
-  color: #fff;  
-  background-color: #131633; 
+.list {
+  color: #fff;
+  background-color: #131633;
 }
-.list p{ 
+.list p {
   position: relative;
-  transition: ease-in-out;    
+  transition: ease-in-out;
   margin-bottom: 1px !important;
 }
-.list p input{
+.list p input {
   background-color: transparent;
   border: 0;
   color: #fff;
   font-size: 18px;
 }
-.list p input:focus{
+.list p input:focus {
   outline: none;
 }
-.list p span{
-  position: absolute; 
+.list p span {
+  position: absolute;
 }
 /* delete btn */
-.faicons{
+.faicons {
   margin: 0 5px;
   font-size: 15px;
   cursor: pointer;
   margin-top: 10px;
 }
-.faicons:hover{
+.faicons:hover {
   color: red;
   padding: 3px;
 }
@@ -237,20 +237,20 @@ div#allreport h1 {
 }
 .ant-input {
   width: 400px;
-  height: 40px; 
+  height: 40px;
   font-size: 15px;
   background-color: transparent !important;
   border: 1px solid gray;
   color: #fff;
 }
 .ant-input-affix-wrapper > input.ant-input {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 
- .ant-form-item-has-error .ant-input:hover {
+.ant-form-item-has-error .ant-input:hover {
   background-color: transparent !important;
- }
-.ant-select:focus, 
+}
+.ant-select:focus,
 .ant-select-focused {
   border-color: #42dbdc;
   border-right-width: 1px !important;
@@ -258,7 +258,7 @@ div#allreport h1 {
   -webkit-box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
   box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
 }
-.ant-table-cell > .ant-input{
+.ant-table-cell > .ant-input {
   border: 1px solid gray;
 }
 /* --input number-- */
@@ -280,8 +280,8 @@ div#allreport h1 {
 .ant-picker {
   width: 230px;
   color: #666873;
-  font-size: 20px; 
-   padding: 11px 11px 8px;
+  font-size: 20px;
+  padding: 11px 11px 8px;
   border: 1px solid gray;
   border-radius: 2px;
 }
@@ -290,15 +290,15 @@ div#allreport h1 {
   font-size: 18px;
 }
 .ant-picker-input > input {
-  color:rgb(151, 150, 151);
+  color: rgb(151, 150, 151);
   font-size: 18px;
 }
 /* ===================================
     Input dropown
 =================================== */
- .ant-input-group.ant-input-group-compact
-  > .ant-select:last-child 
-  > .ant-select-selector { 
+.ant-input-group.ant-input-group-compact
+  > .ant-select:last-child
+  > .ant-select-selector {
   background-color: transparent;
   color: #fff;
   /* width:450px; */
@@ -335,138 +335,142 @@ div#allreport h1 {
   font-weight: 400;
   font-size: 1rem;
   text-align: center;
-  line-height: 1.5;  
-  padding: -0.55rem 0.75rem; 
+  line-height: 1.5;
+  padding: -0.55rem 0.75rem;
   text-align: center;
   display: inline-block;
 }
-.ant-btn:hover, 
+.ant-btn:hover,
 .ant-btn:focus {
   color: black;
   background-color: #d13c4f;
   border-color: #cf3145;
   box-shadow: 0px 0px 0px 3px #d13c4f;
 }
-.btn-test{
+.btn-test {
   background-color: none !important;
 }
 
 /* ===================================
          testpage card + btn
 =================================== */
-.add-btn{
+.add-btn {
   width: 2em;
   height: 3em;
   background-color: #42dbdc;
   border: 2px solid #42dbdc;
   border-radius: 5px;
 }
-.add-btn:hover{
+.add-btn:hover {
   cursor: pointer;
   color: #255784;
   background: #42dbdc;
   border: 2px solid #42dbdc;
   border-radius: 5px;
-  box-shadow: 0 0 10px #42dbdc,0 0 10px #42dbdc, 0 0 0px #42dbdc;
+  box-shadow: 0 0 10px #42dbdc, 0 0 10px #42dbdc, 0 0 0px #42dbdc;
 }
 .add-btn[disabled] {
   cursor: not-allowed;
 }
 .site-button-ghost-wrapper {
   padding: 8px 8px 0 8px;
-  background-color: #42dbdc ;  
+  background-color: #42dbdc;
 }
 
 /* icon-btn */
-.icon-button1{
+.icon-button1 {
   margin-left: 40px;
   margin-top: 1px;
   color: green;
-  font-size: 30px; 
+  font-size: 30px;
   position: relative;
 }
-.icon-button1:hover{
+.icon-button1:hover {
   color: #255784;
   background: #42dbdc;
   border: 2px solid #42dbdc;
   border-radius: 5px;
-  box-shadow: 0 0 10px #42dbdc,0 0 10px #42dbdc, 0 0 0px #42dbdc;
+  box-shadow: 0 0 10px #42dbdc, 0 0 10px #42dbdc, 0 0 0px #42dbdc;
 }
-.iconbutton1-basic{
+.iconbutton1-basic {
   margin-left: 40px;
   margin-top: 1px;
   color: gray;
-  font-size: 30px; 
+  font-size: 30px;
   position: relative;
 }
-.icon-button2{
+.icon-button2 {
   margin-left: 3px;
   margin-top: 1px;
   color: green;
   font-size: 30px;
 }
-.icon-button2:hover{
+.icon-button2:hover {
   color: #255784;
   background: rgb(56, 189, 56);
   border: 2px solid rgb(56, 189, 56);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgb(56, 189, 56),0 0 10px rgb(56, 189, 56), 0 0 0px rgb(56, 189, 56);   
+  box-shadow: 0 0 10px rgb(56, 189, 56), 0 0 10px rgb(56, 189, 56),
+    0 0 0px rgb(56, 189, 56);
 }
-.iconbutton2-basic{
+.iconbutton2-basic {
   margin-left: 3px;
   margin-top: 1px;
   color: gray;
-  font-size: 30px ;
+  font-size: 30px;
 }
-.icon-button3{
+.icon-button3 {
   margin-left: 40px;
   margin-top: 1px;
   color: red;
-  font-size: 30px ;
+  font-size: 30px;
 }
-.icon-button3 :hover{
+.icon-button3 :hover {
   color: #255784;
   background: rgb(185, 51, 17);
   border: 2px solid rgb(185, 51, 17);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgb(185, 51, 17),0 0 10px rgb(185, 51, 17), 0 0 0px rgb(185, 51, 17);  
+  box-shadow: 0 0 10px rgb(185, 51, 17), 0 0 10px rgb(185, 51, 17),
+    0 0 0px rgb(185, 51, 17);
 }
-.iconbutton3-basic{
+.iconbutton3-basic {
   margin-left: 40px;
   margin-top: 1px;
   color: gray;
-  font-size: 30px ;
+  font-size: 30px;
 }
-.icon-button4{
+.icon-button4 {
   margin-left: 3px;
   margin-top: 1px;
   color: red;
-  font-size: 30px ;
+  font-size: 30px;
 }
-.icon-button4 :hover{
+.icon-button4 :hover {
   color: #255784;
   background: rgb(185, 51, 17);
   border: 2px solid rgb(185, 51, 17);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgb(185, 51, 17),0 0 10px rgb(185, 51, 17), 0 0 0px rgb(185, 51, 17);  
+  box-shadow: 0 0 10px rgb(185, 51, 17), 0 0 10px rgb(185, 51, 17),
+    0 0 0px rgb(185, 51, 17);
 }
-.iconbutton4-basic{
+.iconbutton4-basic {
   margin-left: 3px;
   margin-top: 1px;
   color: gray;
-  font-size: 30px ;
+  font-size: 30px;
 }
-.logout-btn{
+.logout-btn {
   text-transform: uppercase;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   color: gray;
 }
-.logout-btn:hover{
+.logout-btn:hover {
   color: black;
-  padding: 5%; 
-  border:1px;
+  padding: 5%;
+  border: 1px;
   border-radius: 5px;
-  box-shadow: 0 0 10px #42dbdc,0 0 10px #42dbdc, 0 0 0px #42dbdc;
+  box-shadow: 0 0 10px #42dbdc, 0 0 10px #42dbdc, 0 0 0px #42dbdc;
 }
 /* radio-btn */
 .ant-radio-disabled + span {
@@ -483,9 +487,9 @@ div#allreport h1 {
   text-transform: capitalize;
   font-weight: 400;
   font-weight: bold !important;
-  text-align: left; 
+  text-align: left;
   background: #131633;
-  border-bottom: 1px solid rgb(82, 79, 79); 
+  border-bottom: 1px solid rgb(82, 79, 79);
   -webkit-transition: background 0.3s ease;
   transition: background 0.3s ease;
 }
@@ -495,14 +499,14 @@ div#allreport h1 {
   color: #fff;
 }
 .ant-table-tbody > tr > td {
-  color: rgb(192, 196, 201);  
+  color: rgb(192, 196, 201);
   background: #131633;
   border-bottom: none;
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
 }
 .ant-table-tbody > tr:nth-child(2n + 1) > td {
-  background-color: #282b2f; 
+  background-color: #282b2f;
 }
 .ant-table-responsive {
   display: block;
@@ -513,9 +517,9 @@ div#allreport h1 {
 }
 .anticon-edit:hover {
   color: mediumaquamarine;
-  }
+}
 
- /* ===================================
+/* ===================================
       --pagination--
  ===================================*/
 .ant-pagination-item-active a {
@@ -534,12 +538,12 @@ div#allreport h1 {
 .ant-pagination-item-link {
   color: #fff !important;
   background-color: #131633 !important;
-  border-color: rgb(146, 143, 143); 
+  border-color: rgb(146, 143, 143);
 }
- /* ===================================
+/* ===================================
       --testpage Line--
 ===================================*/
- .hr {
+.hr {
   border-top: 1px solid #6a6c70;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -552,31 +556,32 @@ div#allreport h1 {
 .ant-row.test-mode {
   display: none;
 }
- /* ===================================
+/* ===================================
       --testpage ant-popover--
 ===================================*/
 .ant-popover-inner-content p {
   margin-bottom: 8px !important;
   color: white;
 }
-.ant-popover-title, .ant-popover-message-title {
+.ant-popover-title,
+.ant-popover-message-title {
   color: white;
 }
 
-.ant-popover-inner{
+.ant-popover-inner {
   border: 60px;
   background: #212840;
   color: white;
   border-color: white;
 }
 
- /* =================================== 
+/* =================================== 
       --dashboard transfer--
  ===================================*/
- .ant-transfer {
-   border: none;
-   padding-top: 20px;
- }
+.ant-transfer {
+  border: none;
+  padding-top: 20px;
+}
 .ant-transfer-list-header {
   height: 40px;
   padding: 8px 12px 9px;
@@ -621,9 +626,9 @@ div#allreport h1 {
   margin-bottom: 30px;
 }
 /* ---dashboard btn--- */
-.ant-btn-primary[disabled], 
-.ant-btn-primary[disabled]:hover, 
-.ant-btn-primary[disabled]:focus, 
+.ant-btn-primary[disabled],
+.ant-btn-primary[disabled]:hover,
+.ant-btn-primary[disabled]:focus,
 .ant-btn-primary[disabled]:active {
   background: #5898d4;
   border-color: #1275d1;
@@ -638,38 +643,37 @@ div#allreport h1 {
 *             Login & register pages
 * ==========================================================
 */
-*{
+* {
   box-sizing: border-box;
 }
 .background {
-  background: url(../Images/bg.jpeg); 
+  background: url(../Images/bg.jpeg);
   /* background-image: 1024 * 74; */
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
 }
-.container{
-  max-width: 1170px;  
-  margin-right: auto;  
+.container {
+  max-width: 1170px;
+  margin-right: auto;
 }
-.wrapper{
+.wrapper {
   position: absolute;
-  top:50%;
+  top: 50%;
   transform: translateY(-50%);
   width: 100%;
   padding: 0 20px;
 }
-.form-holder{
+.form-holder {
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px;
   border-radius: 5px;
 }
- .form-holder .info
-  {
+.form-holder .info {
   height: 100%;
   min-height: 70vh;
-  padding: 40px;  
+  padding: 40px;
   display: flex;
   flex-direction: column;
 }
@@ -682,34 +686,34 @@ div#allreport h1 {
   color: #fff;
 }
 @media screen and (min-width: 601px) {
- .form-holder .info h1 {
-  font-size: 3.5em;
-  font-weight: 500;
-}
+  .form-holder .info h1 {
+    font-size: 3.5em;
+    font-weight: 500;
+  }
 }
 @media screen and (min-width: 601px) {
- .form-holder .info p {
-  font-weight: 300;
-  font-size: 18px;
-}}
-.form-holder .content
-  {
+  .form-holder .info p {
+    font-weight: 300;
+    font-size: 18px;
+  }
+}
+.form-holder .content {
   height: 100%;
   min-height: 70vh;
   padding: 40px;
   display: flex;
   flex-direction: column;
 }
-.form-holder  .content {
+.form-holder .content {
   background: #131633;
 }
 .form-holder .form a.forgot-pass,
-.form-holder .form a.signup, 
- .form a.login {
+.form-holder .form a.signup,
+.form a.login {
   font-size: 0.9rem;
   color: #42dbdc;
 }
-.forgot-pass{
+.forgot-pass {
   color: #42dbdc;
 }
 
@@ -721,41 +725,41 @@ div#allreport h1 {
   left: 0;
   color: #fff;
 }
-.anticon-user, 
-.anticon-mail, 
-.anticon-lock, 
+.anticon-user,
+.anticon-mail,
+.anticon-lock,
 .anticon-eye-invisible {
   color: #fff;
-  }
+}
 .ant-input-password-icon:hover {
   color: rgb(185, 173, 173);
 }
 
 @media (max-width: 991px) {
- .form-holder .info,
+  .form-holder .info,
   .form-holder .form {
     min-height: auto;
     padding: 40px;
     height: 100%;
   }
 }
-.login-form-button{
-width: 32%;
-min-width: 50%; 
-max-width: 300%;
+.login-form-button {
+  width: 32%;
+  min-width: 50%;
+  max-width: 300%;
 }
- /* ===================================
+/* ===================================
            -- Footer--
  ===================================*/
- .ant-layout-footer {
+.ant-layout-footer {
   padding: 8px 50px;
   font-size: 18px;
   background-color: #131633;
   height: "30px";
-  width: "100%";  
-  font-family: "muli"; 
+  width: "100%";
+  font-family: "muli";
 }
- 
+
 /* --Statistic Block-- */
 .statistic-block {
   height: 125px;
@@ -768,7 +772,7 @@ max-width: 300%;
 }
 .statistic-block .title {
   text-align: center;
-  padding-top: 10px; 
+  padding-top: 10px;
 }
 .number {
   margin-right: 15%;
@@ -781,7 +785,7 @@ max-width: 300%;
   margin-bottom: -5px !important;
 }
 .statistic-block .number {
-  color: inherit;  
+  color: inherit;
 }
 .statistic-block strong,
 .statistic-block span {
@@ -808,23 +812,21 @@ max-width: 300%;
 }
 .site-card-wrapper {
   margin-top: 1.15%;
-  background-color: '#212840'
+  background-color: "#212840";
 }
 
 /* ----graph---- */
 .ant-card-body {
- 
   color: #fff;
   padding: 15px;
   width: 400px;
- }
-
- /* ---alert error--- */
-.ant-alert-error {
-    background-color: #fff2f0;
-    border: 1px solid #ffccc7;   
 }
 
+/* ---alert error--- */
+.ant-alert-error {
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+}
 
 /* graphpage comparison table */
 .content-table {
@@ -835,12 +837,12 @@ max-width: 300%;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  color:rgb(192, 196, 201);
+  color: rgb(192, 196, 201);
   background-color: #131633;
 }
 
 .content-table thead tr {
-  background-color: #131633; 
+  background-color: #131633;
   text-align: left;
   font-weight: bold;
   border-bottom: 1px solid rgb(82, 79, 79);
@@ -852,11 +854,11 @@ max-width: 300%;
 }
 
 .content-table tbody tr {
-  border-bottom: 1px 
+  border-bottom: 1px;
 }
 
 .content-table tbody tr:nth-of-type(odd) {
-  background-color: #39393a;  
+  background-color: #39393a;
 }
 
 .content-table tbody tr:last-of-type {

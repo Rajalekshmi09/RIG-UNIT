@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { Row, Layout } from 'antd';
-import { connect } from 'react-redux';
-import { updateTitleElements } from '../../../Redux/action';
+import React, { Component } from "react";
+import { Row, Layout } from "antd";
+import { connect } from "react-redux";
+import { updateTitleElements } from "../../../Redux/action";
 
 class TitleElement extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleValue: ''
-    }
+      titleValue: "",
+    };
   }
 
   render() {
@@ -17,25 +17,24 @@ class TitleElement extends Component {
       <div>
         <Layout style={{ backgroundColor: "#212840", paddingBottom: "20px" }}>
           <Row>
-            <p style={{ color: '#42dad6', fontSize: "25px" }}>EnerTek </p>
-            <p style={{ color: '#585a5f', fontSize: "25px" }}> / {titleValue.type} /  {titleValue.title}  </p>
+            <p style={{ color: "#42dad6", fontSize: "25px" }}>EnerTek </p>
+            <p style={{ color: "#585a5f", fontSize: "25px" }}>
+              {" "}
+              / {titleValue.type} / {titleValue.title}{" "}
+            </p>
           </Row>
         </Layout>
       </div>
-    )
+    );
   }
 }
-const mapStateToProps = state => ({
-  app: state.app
-})
+const mapStateToProps = (state) => ({
+  app: state.app,
+});
 
 const mapDispatchToProps = {
-  updateTitleElements
-}
+  updateTitleElements,
+};
 
-const Title = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TitleElement)
+const Title = connect(mapStateToProps, mapDispatchToProps)(TitleElement);
 export default Title;
-

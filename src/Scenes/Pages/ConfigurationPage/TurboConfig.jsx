@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  updateTurboConfig, updateTitleElements,
-  updateTableStatusData, updateNotifyAction
+  updateTurboConfig,
+  updateTitleElements,
+  updateTableStatusData,
+  updateNotifyAction,
 } from "../../../Redux/action";
 import {
   turbineConfigSubmit,
@@ -10,11 +12,17 @@ import {
 } from "../../../Services/requests";
 import { turboConfigValue } from "../../../Services/constants";
 import {
-  Col, Row,
-  Layout, Input,
-  Button, Tooltip,
-  InputNumber, DatePicker,
-  Form, message, notification,
+  Col,
+  Row,
+  Layout,
+  Input,
+  Button,
+  Tooltip,
+  InputNumber,
+  DatePicker,
+  Form,
+  message,
+  notification,
 } from "antd";
 import TableElement from "../../Components/subComponents/TableElement";
 import moment from "moment";
@@ -32,7 +40,7 @@ const {
   error_turbo_msg,
   added_turbo_msg,
   message_title,
-  description_data
+  description_data,
 } = turboConfigValue;
 const key = "updatable";
 
@@ -56,8 +64,7 @@ class TurboConfig extends Component {
       notification.open({
         key,
         message: message_title,
-        description:
-          description_data,
+        description: description_data,
         value,
         duration: 0,
       });
@@ -66,12 +73,11 @@ class TurboConfig extends Component {
 
   componentDidMount() {
     let data = this.props.appData.statusData;
-    if (typeof data !== 'string' && data.length > installed_turbine) {
-      this.props.updateNotifyAction('true');
+    if (typeof data !== "string" && data.length > installed_turbine) {
+      this.props.updateNotifyAction("true");
       this.openNotification();
-    }
-    else if (typeof data !== 'string' && data.length <= installed_turbine) {
-      this.props.updateNotifyAction('false');
+    } else if (typeof data !== "string" && data.length <= installed_turbine) {
+      this.props.updateNotifyAction("false");
     }
 
     this.props.updateTitleElements({
@@ -80,7 +86,7 @@ class TurboConfig extends Component {
     });
   }
 
-  //submit installed id in turboconfig 
+  //submit installed id in turboconfig
   onFinishSubmit = () => {
     const body = {
       turbo_id: this.state.turboID,
@@ -95,11 +101,10 @@ class TurboConfig extends Component {
     });
     requestStatusData((data) => {
       this.props.updateTableStatusData(data);
-      if (typeof data !== 'string' && data.length >= installed_turbine) {
-        this.props.updateNotifyAction('true');
-      }
-      else if (typeof data !== 'string' && data.length <= installed_turbine) {
-        this.props.updateNotifyAction('false');
+      if (typeof data !== "string" && data.length >= installed_turbine) {
+        this.props.updateNotifyAction("true");
+      } else if (typeof data !== "string" && data.length <= installed_turbine) {
+        this.props.updateNotifyAction("false");
       }
     });
   };
@@ -144,7 +149,7 @@ class TurboConfig extends Component {
   render() {
     const { appData } = this.props;
     const { turboConfig } = appData;
-    if (this.props.appData.notifyStatus === 'true') {
+    if (this.props.appData.notifyStatus === "true") {
       this.openNotification("bottomRight");
     }
 
@@ -256,9 +261,7 @@ class TurboConfig extends Component {
                 </label>
               </Col>
               <Col sm={3}>
-                <Form.Item
-                  name="No of Blades "
-                >
+                <Form.Item name="No of Blades ">
                   <InputNumber
                     min={blade_min}
                     max={blade_max}
@@ -324,8 +327,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  updateTurboConfig, updateTitleElements,
-  updateTableStatusData, updateNotifyAction
+  updateTurboConfig,
+  updateTitleElements,
+  updateTableStatusData,
+  updateNotifyAction,
 };
 
 const TurboContainer = connect(

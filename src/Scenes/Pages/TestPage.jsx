@@ -1,39 +1,35 @@
-import React, { Component } from 'react'
-import TestPageContainer from '../Components/TestPageComponent/TestPageContainer';
-import StatusBlock from '../Components/TestPageComponent/StatusBlock';
-import { updateTitleElements } from '../../Redux/action';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import TestPageContainer from "../Components/TestPageComponent/TestPageContainer";
+import StatusBlock from "../Components/TestPageComponent/StatusBlock";
+import { updateTitleElements } from "../../Redux/action";
+import { connect } from "react-redux";
 
 class TestPage extends Component {
   componentDidMount() {
     this.props.updateTitleElements({
-      title: 'Test Page',
-      type: 'Test',
-    })
+      title: "Test Page",
+      type: "Test",
+    });
   }
 
   render() {
     return (
-      <div >
+      <div>
         <StatusBlock />
         <TestPageContainer />
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({
-  app: state.app
-})
+const mapStateToProps = (state) => ({
+  app: state.app,
+});
 
 const mapDispatchToProps = {
-  updateTitleElements
-}
+  updateTitleElements,
+};
 
-const testPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TestPage)
+const testPage = connect(mapStateToProps, mapDispatchToProps)(TestPage);
 
 export default testPage;
-

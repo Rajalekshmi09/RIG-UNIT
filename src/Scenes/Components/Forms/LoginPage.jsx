@@ -1,54 +1,60 @@
-import React, { Component } from 'react';
-import { Col, Row, Input, Button, Form, Alert } from 'antd';
-import { UserOutlined, LockOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { loginValidation } from '../../../Services/requests';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Col, Row, Input, Button, Form, Alert } from "antd";
 import {
-  updateUserParameter, updateAppState,
-  updateLoginEvent, updateUserName
-} from '../../../Redux/action';
-import { CompanyDetails, FormDetails } from '../../../Services/constants';
-import Cookies from 'universal-cookie';
+  UserOutlined,
+  LockOutlined,
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+} from "@ant-design/icons";
+import { loginValidation } from "../../../Services/requests";
+import { connect } from "react-redux";
+import {
+  updateUserParameter,
+  updateAppState,
+  updateLoginEvent,
+  updateUserName,
+} from "../../../Redux/action";
+import { CompanyDetails, FormDetails } from "../../../Services/constants";
+import Cookies from "universal-cookie";
 const { enter_email, enter_password, alert_msg_login } = FormDetails;
 const { company_name, company_data } = CompanyDetails;
 
 class LoginPage extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       IsLogin: false,
-      loginState: false
-    }
+      loginState: false,
+    };
   }
 
   alertOnClose = () => {
     this.setState({
-      IsLogin: '',
-      loginState: ''
-    })
+      IsLogin: "",
+      loginState: "",
+    });
   };
 
   loginOnFinish = (values) => {
     let that = this;
     loginValidation(values, (data) => {
       if (data[0] == "success") {
-        that.props.updateAppState('main')
-        that.props.updateUserName(data[1])
-      }
-      else if (data == "failed") {
+        that.props.updateAppState("main");
+        that.props.updateUserName(data[1]);
+      } else if (data == "failed") {
         this.state.IsLogin = true;
         this.setState({ redirect: false });
       }
-    })
-  }
+    });
+  };
 
   signupEvent = () => {
-    this.props.updateAppState('signup');
-  }
+    this.props.updateAppState("signup");
+  };
 
   forgotPasswordEvent = () => {
-    this.props.updateAppState('forgotPassword');
-  }
+    this.props.updateAppState("forgotPassword");
+  };
 
   render() {
     const appData = this.props.app;
@@ -56,17 +62,17 @@ class LoginPage extends Component {
       <div className="background">
         <div className="container">
           <div className="wrapper">
-            <div className="form-holder" >
+            <div className="form-holder">
               <Row>
                 {/* <!-- Logo & Information Panel--> */}
-                <Col span={12}  >
+                <Col span={12}>
                   <div className="info" style={{ paddingTop: "10rem" }}>
-                    <h1 style={{ color: 'white' }}>{company_name}</h1>
+                    <h1 style={{ color: "white" }}>{company_name}</h1>
                     <p>{company_data}</p>
                   </div>
                 </Col>
                 {/* <!-- Form Panel    --> */}
-                <Col span={12} >
+                <Col span={12}>
                   <div className="content" style={{ paddingTop: "10rem" }}>
                     <Form
                       name="normal_login"
@@ -79,8 +85,10 @@ class LoginPage extends Component {
                         rules={[{ required: true, message: enter_email }]}
                       >
                         <Input
-                          style={{ backgroundColor: '#131633' }}
-                          prefix={<UserOutlined className="site-form-item-icon" />}
+                          style={{ backgroundColor: "#131633" }}
+                          prefix={
+                            <UserOutlined className="site-form-item-icon" />
+                          }
                           placeholder="Email_ID"
                         />
                       </Form.Item>
@@ -89,36 +97,60 @@ class LoginPage extends Component {
                         rules={[{ required: true, message: enter_password }]}
                       >
                         <Input.Password
-                          style={{ backgroundColor: '#131633' }}
-                          prefix={<LockOutlined className="site-form-item-icon" />}
+                          style={{ backgroundColor: "#131633" }}
+                          prefix={
+                            <LockOutlined className="site-form-item-icon" />
+                          }
                           type="password"
                           placeholder="Password"
-                          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                          iconRender={(visible) =>
+                            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                          }
                         />
                       </Form.Item>
-                      {
-                        this.state.IsLogin ?
-                          <Alert
-                            className="alert_error"
-                            closable
-                            onClose={this.alertOnClose}
-                            message={alert_msg_login}
-                            type="error" />
-                          : ''
-                      }
-                      <Form.Item style={{ paddingTop: '35px', paddingBottom: '30px', paddingLeft: '40%' }}>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                      {this.state.IsLogin ? (
+                        <Alert
+                          className="alert_error"
+                          closable
+                          onClose={this.alertOnClose}
+                          message={alert_msg_login}
+                          type="error"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <Form.Item
+                        style={{
+                          paddingTop: "35px",
+                          paddingBottom: "30px",
+                          paddingLeft: "40%",
+                        }}
+                      >
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          className="login-form-button"
+                        >
                           <span>Log in</span>
                         </Button>
                       </Form.Item>
 
-                      <div >
-                        <a onClick={this.forgotPasswordEvent} className="forgot-pass">Forgot Password?</a><br></br>
+                      <div>
+                        <a
+                          onClick={this.forgotPasswordEvent}
+                          className="forgot-pass"
+                        >
+                          Forgot Password?
+                        </a>
+                        <br></br>
                       </div>
                       <div className="signup">
-                        <p style={{ color: 'rgb(151, 150, 151)' }}>
+                        <p style={{ color: "rgb(151, 150, 151)" }}>
                           Do not have an account?
-                          <a onClick={this.signupEvent} className="forgot-pass">Signup</a></p>
+                          <a onClick={this.signupEvent} className="forgot-pass">
+                            Signup
+                          </a>
+                        </p>
                       </div>
                     </Form>
                   </div>
@@ -127,26 +159,22 @@ class LoginPage extends Component {
             </div>
           </div>
         </div>
-      </div >
-    )
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
-  app: state.app
-})
+const mapStateToProps = (state) => ({
+  app: state.app,
+});
 
 const mapDispatchToProps = {
   updateUserParameter,
   updateLoginEvent,
   updateUserName,
-  updateAppState
-}
+  updateAppState,
+};
 
-const login = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginPage)
+const login = connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 
 export default login;
-

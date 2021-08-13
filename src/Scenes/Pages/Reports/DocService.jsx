@@ -2,7 +2,7 @@
 
 // class DocService {
 //   createPdf = (html) => {
-//     savePDF(html, { 
+//     savePDF(html, {
 //       paperSize: 'Letter',
 //       fileName: 'form.pdf',
 //       margin: 3

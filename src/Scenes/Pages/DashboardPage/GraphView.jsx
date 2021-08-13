@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import CardComponent from '../../Components/ChartContainer/CardComponent';
-import StatusBlock from '../../Components/TestPageComponent/StatusBlock';
-import { updateTitleElements } from '../../../Redux/action'
-import { connect } from 'react-redux';
-import ComparisonTable from '../../Components/subComponents/ComparisonTable';
+import React, { Component } from "react";
+import CardComponent from "../../Components/ChartContainer/CardComponent";
+import StatusBlock from "../../Components/TestPageComponent/StatusBlock";
+import { updateTitleElements } from "../../../Redux/action";
+import { connect } from "react-redux";
+import ComparisonTable from "../../Components/subComponents/ComparisonTable";
 
 class GraphView extends Component {
   componentDidMount() {
     this.props.updateTitleElements({
-      title: 'Graph View',
-      type: 'Dashboard',
-    })
+      title: "Graph View",
+      type: "Dashboard",
+    });
   }
   render() {
     return (
@@ -19,20 +19,17 @@ class GraphView extends Component {
         <ComparisonTable />
         <CardComponent />
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({
-  app: state.app
-})
+const mapStateToProps = (state) => ({
+  app: state.app,
+});
 const mapDispatchToProps = {
-  updateTitleElements
-}
+  updateTitleElements,
+};
 
-const graphPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GraphView)
+const graphPage = connect(mapStateToProps, mapDispatchToProps)(GraphView);
 
 export default graphPage;
