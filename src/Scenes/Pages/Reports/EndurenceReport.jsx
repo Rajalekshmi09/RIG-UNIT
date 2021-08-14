@@ -68,17 +68,19 @@ class EndurenceReport extends Component {
         fontStyle: "bold",
         lineColor: "black",
         halign: "center",
+        fontSize: 8,
       },
 
       bodyStyles: {
         lineColor: "black",
+        fontSize: 8,
       },
       tableWidth: "wrap",
       theme: "grid",
     });
     doc.autoTable({
       html: "#example1",
-      startY: 93,
+      startY: 88,
       didParseCell: function (cell, data) {
         if (
           cell.row.section === "body" &&

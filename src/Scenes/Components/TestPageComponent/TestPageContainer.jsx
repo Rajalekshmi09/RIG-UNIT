@@ -546,14 +546,18 @@ class TestPageContainer extends Component {
         });
         setInterval(() => {
           this.requestChartData();
-        }, this.props.app.delayValue); //delay for graph
+        }, this.props.app.delayValue); //delay for receiving sensor data from plc
         axios
           .post("http://192.168.0.167:5000/start.php", {
+            //set target rpm & temp value to sent plc
             targetRPM: this.props.app.targetRPM,
             targetTemp: this.props.app.targetTemp,
           })
           .then((res) => {
+            //read the response from plc for trget temp & rpm
             let startData = res.data;
+
+            //read status from plc after start click => stage1,stage2 etc...
             axios
               .post("http://192.168.0.167:7000/testdatainsert.php")
               .then(function (response) {});
