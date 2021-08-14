@@ -18,92 +18,112 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-
 const { Option } = Select;
 const columns = [
   {
-    title: "RPM",
-    dataIndex: "rpm",
-    key: "rpm",
+    title: "Ambient Pr",
+    dataIndex: "P1",
+    key: "P1",
     fixed: "left",
   },
   {
-    title: "Combuster outlet Temperature",
-    dataIndex: "T1",
-    key: "T1",
-  },
-  {
-    title: "Turbine Inlet Temperature",
-    dataIndex: "T2",
-    key: "T2",
-  },
-  {
-    title: "Turbine outlet Temperature",
-    dataIndex: "T3",
-    key: "T3",
-  },
-  {
-    title: "Compressor Inlet Temperature",
-    dataIndex: "T4",
-    key: "T4",
-  },
-  {
-    title: "Compressor Outlet Temperature",
-    dataIndex: "T5",
-    key: "T5",
-  },
-  {
-    title: "Ambient Temperature",
-    dataIndex: "T11",
-    key: "T11",
-  },
-  {
-    title: "Combuster Inlet Pressure",
-    dataIndex: "P1",
-    key: "P1",
-  },
-  {
-    title: "Fuel Line Pressure",
+    title: "Ambient temp",
     dataIndex: "P2",
     key: "P2",
   },
   {
-    title: "Turbine Inlet Pressure",
+    title: "Compressor Inlet Pr",
     dataIndex: "P3",
     key: "P3",
   },
   {
-    title: "Ambient Pressure",
+    title: "Compressor outlet Pr",
     dataIndex: "P4",
     key: "P4",
   },
   {
-    title: "Compressor Inlet Pressure",
+    title: "Compressor Diff venturi Pr",
     dataIndex: "P5",
     key: "P5",
   },
   {
-    title: "Compressor Outlet Pressure",
+    title: "RPM",
     dataIndex: "P6",
     key: "P6",
   },
   {
-    title: "Ventury meter differencial Pressure",
+    title: "Compressor Inlet temp",
     dataIndex: "P7",
     key: "P7",
   },
   {
-    title: "Fuel Flow Rate",
-    dataIndex: "FFR",
-    key: "FFR",
+    title: "Compressor outlet temp",
+    dataIndex: "P10",
+    key: "P10",
   },
   {
-    title: "testdataDate",
+    title: "Combustor outlet temp",
+    dataIndex: "P13",
+    key: "P13",
+  },
+  {
+    title: "Combustor Inlet Pr",
+    dataIndex: "P14",
+    key: "P14",
+  },
+  {
+    title: "Turbine Inlet temp",
+    dataIndex: "P16",
+    key: "P16",
+  },
+  {
+    title: "Turbine outlet temp",
+    dataIndex: "P17",
+    key: "P17",
+  },
+  {
+    title: "Turbine vibration",
+    dataIndex: "P20",
+    key: "P20",
+  },
+  {
+    title: "Fuel flow",
+    dataIndex: "P21",
+    key: "P21",
+  },
+  {
+    title: "Fuel Pr.",
+    dataIndex: "22",
+    key: "22",
+  },
+  {
+    title: "Oil Pr.",
+    dataIndex: "23",
+    key: "23",
+  },
+  {
+    title: "Oil flow Rate",
+    dataIndex: "24",
+    key: "24",
+  },
+  {
+    title: "Oil Brg Inlet Temp",
+    dataIndex: "25",
+    key: "25",
+  },
+  {
+    title: "Oil Tank Temp",
+    dataIndex: "27",
+    key: "27",
+  },
+  {
+    title: "Testdata Date",
     dataIndex: "testdataDate",
     key: "testdataDate",
     fixed: "right",
   },
 ];
+
 class ExportData extends Component {
   constructor(props) {
     super(props);
@@ -121,7 +141,6 @@ class ExportData extends Component {
       type: "Report",
     });
   }
-
   getReport = () => {
     if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning("Select the turbo ID");
@@ -171,7 +190,6 @@ class ExportData extends Component {
         });
     }
   };
-
   //select the TestID
   handleChangeTestID = (value) => {
     axios
@@ -195,7 +213,6 @@ class ExportData extends Component {
         console.log(err);
       });
   };
-
   //select the Test Number
   handleChangetestNO = (value) => {
     this.setState({
@@ -213,7 +230,6 @@ class ExportData extends Component {
     const data = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(data, fileName + fileExtension);
   };
-
   //export pdf
   exportToPDF = () => {
     const input = document.getElementById("someRandomID");
@@ -227,11 +243,9 @@ class ExportData extends Component {
       pdf.save("download.pdf");
     });
   };
-
   render() {
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
-
     return (
       <div style={{ paddingTop: "1px" }}>
         <Layout className="layout-container">
@@ -264,7 +278,6 @@ class ExportData extends Component {
                 </Form.Item>
               </Col>
             </Col>
-
             <Col sm={2}>
               <label className="label">
                 Test No <i style={{ color: "red", fontSize: "15px" }}> *</i>
@@ -304,7 +317,6 @@ class ExportData extends Component {
             </Col>
           </Row>
         </Layout>
-
         <Button
           style={{
             marginLeft: "1270px",
@@ -319,7 +331,6 @@ class ExportData extends Component {
         >
           Export in Excel
         </Button>
-
         <Spin tip="Loading..." size="large" spinning={this.state.loading}>
           <Layout
             style={{

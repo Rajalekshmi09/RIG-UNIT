@@ -222,20 +222,6 @@ export const startDbInsert = bool => ({
   payload: bool
 })
 
-//comparisonFixedData
-export const updatecomparisonFixedData = data => ({
-  type: 'COMPARISON_FIXED_DATA',
-  payload: data
-})
-export const updateFilteredComparisonData = data => ({
-  type: 'COMPARED_SPEED_DATA',
-  payload: data
-})
-//comparisonLiveData
-export const updatecomparisonLiveData = data => ({
-  type: 'COMPARISON_LIVE_DATA',
-  payload: data
-})
 //delayValue
 export const fetchingDelayValue = data => ({
   type: 'FETCHING_DELAY_VALUE',

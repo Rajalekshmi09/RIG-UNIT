@@ -191,7 +191,11 @@ class PerformanceReport extends Component {
         .then((res) => {
           console.log(typeof res.data);
           console.log(res.data);
-          if (typeof res.data !== "string") {
+          if (
+            typeof res.data !== "string" &&
+            res.data !== undefined &&
+            res.data[0].speed_time !== null
+          ) {
             this.setState({
               reportOut1: res.data[0],
               reportOut2: res.data[1],

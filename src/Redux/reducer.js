@@ -192,19 +192,6 @@ const appReducer = (state = InitialState, action) => {
       newState.startDbInserting = false
       return newState
 
-    //comparisonFixedData    
-    case 'COMPARISON_FIXED_DATA':
-      newState.comparisonFixedData = action.payload
-      return newState
-
-    case 'COMPARED_SPEED_DATA':
-      newState.comparisonFilteredData = action.payload
-      return newState
-
-    //comparisonLiveData    
-    case 'COMPARISON_LIVE_DATA':
-      newState.comparisonLiveData = action.payload
-      return newState
     //delayValue
     case 'FETCHING_DELAY_VALUE':
       newState.delayValue = action.payload

@@ -191,7 +191,11 @@ class PerformanceAfterEndurence extends Component {
           testno: this.state.testno1,
         })
         .then((res) => {
-          if (typeof res.data !== "string") {
+          if (
+            typeof res.data !== "string" &&
+            res.data !== undefined &&
+            res.data[0].speed_time !== null
+          ) {
             this.setState({
               reportOut1: res.data[0],
               reportOut2: res.data[1],

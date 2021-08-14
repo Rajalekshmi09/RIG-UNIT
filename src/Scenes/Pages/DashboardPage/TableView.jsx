@@ -112,6 +112,7 @@ class TableView extends Component {
     });
   }
 
+  //getting live data in every delay loop
   testClick = () => {
     const liveDataObj = this.props.app.chartData[0];
     this.state.tabledata.map((item) => {

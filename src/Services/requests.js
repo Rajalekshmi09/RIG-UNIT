@@ -18,7 +18,6 @@ const sensorDataUrl = `${BASE_URL}${URL.SENSOR_DATA}`
 const turboIdValueUrl = `${BASE_URL}${URL.TURBOID_VALUE}`
 const tableStatusDataUrl = `${BASE_URL}${URL.TABLE_STATUSDATA}`
 const graphDataUrl = `${BASE_URL}${URL.GRAPH_DATA}`
-const comparisonTableDataUrl = `${BASE_URL}${URL.COMPARISONTABLE_FIXED_DATA}`
 const delayDataUrl = `${BASE_URL}${URL.DELAY_DATA}`
 
 
@@ -170,15 +169,6 @@ const getHandleChangetestID = (body, callBack) => {
     })
 };
 
-const getcomparisonFixedData = (callBack) => {
-  axios.post(comparisonTableDataUrl)
-    .then(res => {
-      callBack(res.data)
-    })
-    .catch(err => {
-      console.log(err.res)
-    })
-};
 
 const gettingDelayValue = (callBack) => {
   axios.post(delayDataUrl)
@@ -197,6 +187,5 @@ export {
   forgotValidation, registerPageValidation,
   getTableView, getSensorData,
   getHandleChangetestID, requestStatusData,
-  gettingChartData, getcomparisonFixedData,
-  gettingDelayValue
+  gettingChartData,  gettingDelayValue
 }

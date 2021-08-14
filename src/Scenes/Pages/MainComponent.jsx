@@ -25,7 +25,6 @@ import {
   updateTableStatusData,
   updateTestIdCount,
   updateTableViewData,
-  updatecomparisonFixedData,
   fetchingDelayValue,
 } from "../../Redux/action";
 import {
@@ -36,7 +35,6 @@ import {
   requestStatusData,
   getHandleChangetestID,
   getTableView,
-  getcomparisonFixedData,
   gettingDelayValue,
 } from "../../Services/requests";
 
@@ -72,11 +70,6 @@ export class MainComponent extends Component {
     // fetch turbine ID Name  on application load
     getHandleChangetestID((data) => {
       this.props.updateTestIdCount(data);
-    });
-
-    // fetch ComparisontableData on application load
-    getcomparisonFixedData((data) => {
-      this.props.updatecomparisonFixedData(data);
     });
 
     // fetch DelayValue on application load
@@ -146,7 +139,6 @@ const mapDispatchToProps = {
   updateUserParameter,
   updateTestIdCount,
   updateTableViewData,
-  updatecomparisonFixedData,
   fetchingDelayValue,
 };
 

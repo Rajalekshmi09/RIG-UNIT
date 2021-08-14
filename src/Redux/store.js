@@ -52,9 +52,6 @@ const InitialState = {
   startDbInserting: false,
 
   //grapgView
-  comparisonFixedData: '',
-  comparisonFilteredData: '',
-  comparisonLiveData: [0, 0, 0, 0, 0, 0, 0, 0, 0],
   delayValue: ''
 }
 export default InitialState

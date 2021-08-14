@@ -15,7 +15,6 @@ const url = {
   TURBOID_VALUE: 'turboIdValue.php',
   TABLE_STATUSDATA: 'statusValue.php',
   GRAPH_DATA: 'graph.php',
-  COMPARISONTABLE_FIXED_DATA: 'comparison.php',
   DELAY_DATA: 'delay.php'
 }
 
@@ -83,7 +82,6 @@ const dashboardSensor = {
   offline: 'OFFLINE'
 }
 
-
 const titleElements = [
   {
     title: '',
@@ -92,7 +90,6 @@ const titleElements = [
 ]
 
 const testParamHash = {
-  comparedData_Delay: 1000,
   Initializedata: ['Communication', 'Initialize Started', 'Initialize Completed'],
   Startdata: ['Start Completed', 'Ignite', 'Gas Opened', 'Stage1', 'Ruel Opened', 'Stage2', 'Fuel Opened', 'Stage2', 'Gas Closed', 'Stage3'],
   Shutdowndata: ['Shutdown Initiated', 'N.Shutdown Completed'],

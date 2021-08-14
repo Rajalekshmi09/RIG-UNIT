@@ -307,9 +307,10 @@ class TestPageContainer extends Component {
     });
   }
 
+  //this event trigger while clicking the initialize
   sensorData() {
+    //fetching sensor data from DB
     getSensorData((data) => {
-      //function from request page
       if (this.props.app.startDbInserting === false) {
         this.props.initiateTurboStart(data);
       } else {
