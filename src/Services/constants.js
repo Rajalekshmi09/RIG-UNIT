@@ -40,7 +40,7 @@ const CompanyDetails = {
   company_link: 'http://www.v-enertek.com/',
 }
 
-const targetKeysVal = ["3", "5", "7", "10", "13", "17"]
+const targetKeysVal = ["3", "5", "8", "10", "13", "17"]
 
 const dashboardDataVal = [
   { "key": "0", "Name": "Ambient Pressure", "chosen": false },
@@ -50,8 +50,8 @@ const dashboardDataVal = [
   { "key": "4", "Name": "Compressor Different Ventury Pressure", "chosen": false },
   { "key": "5", "Name": "RPM", "chosen": true },
   { "key": "6", "Name": "Compressor Inlet Temperature", "chosen": false },
-  { "key": "7", "Name": "Compressor Outlet Temperature", "chosen": true },
-  { "key": "8", "Name": "Combustor Outlet Temperature", "chosen": false },
+  { "key": "7", "Name": "Compressor Outlet Temperature", "chosen": false },
+  { "key": "8", "Name": "Combustor Outlet Temperature", "chosen": true },
   { "key": "9", "Name": "Combustor Pressure", "chosen": false },
   { "key": "10", "Name": "Turbine Inlet Temperature", "chosen": true },
   { "key": "11", "Name": "Turbine Outlet Temperature", "chosen": false },

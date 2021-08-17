@@ -21,106 +21,106 @@ import html2canvas from "html2canvas";
 const { Option } = Select;
 const columns = [
   {
-    title: "Ambient Pr",
-    dataIndex: "P1",
-    key: "P1",
+    title: "Testdata Time",
+    dataIndex: "testdataDate",
+    key: "testdataDate",
     fixed: "left",
   },
   {
+    title: "RPM",
+    dataIndex: "RPM",
+    key: "RPM",
+    fixed: "left",
+  },
+  {
+    title: "Ambient Pr",
+    dataIndex: "Ambient Pr",
+    key: "Ambient Pr",
+  },
+  {
     title: "Ambient temp",
-    dataIndex: "P2",
-    key: "P2",
+    dataIndex: "Ambient temp",
+    key: "Ambient temp",
   },
   {
     title: "Compressor Inlet Pr",
-    dataIndex: "P3",
-    key: "P3",
+    dataIndex: "Compressor Inlet Pr",
+    key: "Compressor Inlet Pr",
   },
   {
     title: "Compressor outlet Pr",
-    dataIndex: "P4",
-    key: "P4",
+    dataIndex: "Compressor outlet Pr",
+    key: "Compressor outlet Pr",
   },
   {
     title: "Compressor Diff venturi Pr",
-    dataIndex: "P5",
-    key: "P5",
-  },
-  {
-    title: "RPM",
-    dataIndex: "P6",
-    key: "P6",
+    dataIndex: "Compressor Diff venturi Pr",
+    key: "Compressor Diff venturi Pr",
   },
   {
     title: "Compressor Inlet temp",
-    dataIndex: "P7",
-    key: "P7",
+    dataIndex: "Compressor Inlet temp",
+    key: "Compressor Inlet temp",
   },
   {
     title: "Compressor outlet temp",
-    dataIndex: "P10",
-    key: "P10",
+    dataIndex: "Compressor outlet temp",
+    key: "Compressor outlet temp",
   },
   {
     title: "Combustor outlet temp",
-    dataIndex: "P13",
-    key: "P13",
+    dataIndex: "Combustor outlet temp",
+    key: "Combustor outlet temp",
   },
   {
     title: "Combustor Inlet Pr",
-    dataIndex: "P14",
-    key: "P14",
+    dataIndex: "Combustor Inlet Pr",
+    key: "Combustor Inlet Pr",
   },
   {
     title: "Turbine Inlet temp",
-    dataIndex: "P16",
-    key: "P16",
+    dataIndex: "Turbine Inlet temp",
+    key: "Turbine Inlet temp",
   },
   {
     title: "Turbine outlet temp",
-    dataIndex: "P17",
-    key: "P17",
+    dataIndex: "Turbine outlet temp",
+    key: "Turbine outlet temp",
   },
   {
     title: "Turbine vibration",
-    dataIndex: "P20",
-    key: "P20",
+    dataIndex: "Turbine vibration",
+    key: "Turbine vibration",
   },
   {
     title: "Fuel flow",
-    dataIndex: "P21",
-    key: "P21",
+    dataIndex: "Fuel flow",
+    key: "Fuel flow",
   },
   {
     title: "Fuel Pr.",
-    dataIndex: "22",
-    key: "22",
+    dataIndex: "Fuel Pr",
+    key: "Fuel Pr",
   },
   {
     title: "Oil Pr.",
-    dataIndex: "23",
-    key: "23",
+    dataIndex: "Oil Pr",
+    key: "Oil Pr",
   },
   {
     title: "Oil flow Rate",
-    dataIndex: "24",
-    key: "24",
+    dataIndex: "Oil flow Rate",
+    key: "Oil flow Rate",
   },
   {
     title: "Oil Brg Inlet Temp",
-    dataIndex: "25",
-    key: "25",
+    dataIndex: "Oil Brg Inlet Temp",
+    key: "Oil Brg Inlet Temp",
   },
   {
     title: "Oil Tank Temp",
-    dataIndex: "27",
-    key: "27",
-  },
-  {
-    title: "Testdata Date",
-    dataIndex: "testdataDate",
-    key: "testdataDate",
-    fixed: "right",
+    dataIndex: "Oil Tank Temp",
+    key: "Oil Tank Temp",
   },
 ];
 
@@ -246,6 +246,8 @@ class ExportData extends Component {
   render() {
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
+    // console.log(this.state.reportDetails)
+    // const Ambient_pr =
     return (
       <div style={{ paddingTop: "1px" }}>
         <Layout className="layout-container">

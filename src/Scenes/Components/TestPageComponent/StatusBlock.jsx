@@ -38,6 +38,7 @@ class StatusBlock extends Component {
   }
   render() {
     let nShutdown = false;
+    let eShutdown = false;
     let persons;
     let persons1;
     let filteredData;
@@ -51,6 +52,8 @@ class StatusBlock extends Component {
     this.props.app.turboStart.map((they) => {
       if (they.name === "N.Shutdown Completed") {
         nShutdown = true;
+      } else if (they.name === "eshutdown") {
+        eShutdown = true;
       }
     });
 
@@ -102,6 +105,7 @@ class StatusBlock extends Component {
       <div>
         <div>
           <Row>
+            {eShutdown ? <p style={styles.online}>{e_shutdown}</p> : []}
             {nShutdown ? (
               <p style={styles.offline}>{n_shutdown}</p>
             ) : (
