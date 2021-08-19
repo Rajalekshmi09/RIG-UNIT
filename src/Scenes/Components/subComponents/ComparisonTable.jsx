@@ -15,7 +15,6 @@ class ComparisonTable extends Component {
     axios
       .get("http://192.168.0.167:5000/comparison.php")
       .then((res) => {
-        console.log(res.data);
         this.setState({
           compareValue: res.data,
         });
@@ -53,9 +52,9 @@ class ComparisonTable extends Component {
         displayValueComprPr1 = It.Comprinletpressure1;
         displayValueOilPr1 = It.Oil_Pr1;
         displayValueOilTemp1 = It.Oil_temp1;
-        console.log(displayValueRPM2);
       }
     });
+
     const getColorComprPr = () => {
       if (
         displayValueComprPr2 > liveCompressorInletPressure &&
@@ -66,6 +65,7 @@ class ComparisonTable extends Component {
         return "red";
       }
     };
+
     const getColorOilPr = () => {
       if (displayValueOilPr2 > liveOilPr && displayValueOilPr1 < liveOilPr) {
         return "white";
@@ -88,8 +88,7 @@ class ComparisonTable extends Component {
     const liveTotalMassFlow = compareLiveVal.C2;
     const liveCompressorPrRatio = compareLiveVal.C13;
     const liveCompressorMassFlowRate = compareLiveVal.C18;
-    console.log(comparedVal);
-    console.log(displayValueRPM2);
+
     return (
       <div style={{ paddingTop: "25px" }}>
         <table class="content-table">

@@ -192,7 +192,7 @@ class PerformanceReport extends Component {
         })
         .then((res) => {
           console.log(typeof res.data);
-          console.log(res.data);
+
           if (
             typeof res.data !== "string" &&
             res.data !== undefined &&

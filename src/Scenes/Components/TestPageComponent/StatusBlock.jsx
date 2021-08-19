@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Col, Row } from "antd";
 import { connect } from "react-redux";
 import { dashboardSensor } from "../../../Services/constants";
+import { getTableView } from "../../../Services/requests";
 const { sensorLabel, n_shutdown, live, offline } = dashboardSensor;
 
 const styles = {
@@ -34,8 +35,29 @@ class StatusBlock extends Component {
       isT2UpArrow: true,
       isT9UpArrow: true,
       isP2UpArrow: true,
+      tabledata: [],
+      filteredTableData: [],
     };
   }
+
+  componentDidMount() {
+    //getting data from DB once
+    getTableView((data) => {
+      const arrStr = this.props.app.targetKeys; //covertion string to number
+      const dashboardDataNumArr = arrStr.map((i) => Number(i));
+      this.setState({
+        tabledata: data,
+      });
+      //filtering the limit values
+      let filteredTableData = this.state.tabledata.filter((_, index) =>
+        dashboardDataNumArr.includes(index)
+      );
+      this.setState({
+        filteredTableData: filteredTableData,
+      });
+    });
+  }
+
   render() {
     let nShutdown = false;
     let eShutdown = false;
@@ -44,6 +66,7 @@ class StatusBlock extends Component {
     let filteredData;
     let filteredData1;
     let receivedDate;
+    let colors = [];
 
     //covertion string to number
     const arrStr = this.props.app.targetKeys;
@@ -61,6 +84,7 @@ class StatusBlock extends Component {
     let filteredDataLabel = sensorLabel.filter((_, index) =>
       dashboardDataNumArr.includes(index)
     );
+
     {
       this.props.app.chartData[0]
         ? (filteredData = Object.values(this.props.app.chartData[0]).filter(
@@ -93,6 +117,19 @@ class StatusBlock extends Component {
         ? (receivedDate = this.props.app.chartData[0].testdatadate)
         : (receivedDate = null);
     }
+
+    //Assigning statusblock data color variation
+    this.state.filteredTableData
+      ? this.state.filteredTableData.map((it, y) => {
+          if (parseInt(persons[y]) > parseInt(it.upperlimit)) {
+            colors = colors.concat("red");
+          } else if (parseInt(persons[y]) < parseInt(it.lowerlimit)) {
+            colors = colors.concat("yellow");
+          } else {
+            colors = colors.concat("green");
+          }
+        })
+      : [];
 
     const date = new Date();
     const db_date = new Date(receivedDate);
@@ -155,7 +192,8 @@ class StatusBlock extends Component {
                     className="number dashtext-1"
                     style={{ paddingLeft: "20%", fontSize: "23px" }}
                   >
-                    <span>{It}</span>
+                    {/* getting the color from the color array */}
+                    <span style={{ color: colors[y] }}>{It}</span>
                   </Col>
                 </Row>
 

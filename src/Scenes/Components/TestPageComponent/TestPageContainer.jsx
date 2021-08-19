@@ -140,6 +140,7 @@ class TestPageContainer extends Component {
       errormsg: "",
       shutdownEnable: false,
       tubineStatus: false,
+      failedField: [],
     };
 
     this.startClick = this.startClick.bind(this);
@@ -291,6 +292,7 @@ class TestPageContainer extends Component {
       shutdownInitiated: true,
       shutdownEnable: false,
     });
+
     shutdownClickEvent((data) => {
       //updating to the store called shutdownInitiated
       this.props.initiateShutdown(data);
@@ -311,7 +313,10 @@ class TestPageContainer extends Component {
   sensorData() {
     //fetching sensor data from DB
     getSensorData((data) => {
-      if (this.props.app.startDbInserting === false) {
+      if (
+        this.props.app.startDbInserting === false &&
+        this.props.app.communication === true
+      ) {
         this.props.initiateTurboStart(data);
       } else {
         this.props.initiateTurboStart(null);
@@ -331,6 +336,7 @@ class TestPageContainer extends Component {
         }
         if (CommunicationData.status === "") {
           this.props.initiateCommunicationFailed();
+          this.setState({ failedField: true });
         }
         this.initializeTestClick();
       })
@@ -612,6 +618,7 @@ class TestPageContainer extends Component {
       overalldata: [],
       errormsg: "",
       turboIdTestCount: null,
+      failedField: [],
     });
   };
 
@@ -650,9 +657,6 @@ class TestPageContainer extends Component {
     const InitializedCompletedStatus = InitializedataArray.filter(
       (word) => word.name === "Initialize Completed"
     );
-
-    console.log(this.props.app);
-    console.log(InitializedCompletedStatus);
 
     var testIdValue = null;
     if (
@@ -947,12 +951,19 @@ class TestPageContainer extends Component {
                 </p>
                 {communicationFailed ? (
                   <p>
-                    <Row>
-                      <CloseOutlined
-                        style={{ color: "red", marginTop: "1%" }}
-                      />
-                      <p>{this.state.currentDateTime}- Communication failed</p>
-                    </Row>
+                    {this.state.failedField === true ? (
+                      <Row>
+                        <CloseOutlined
+                          style={{ color: "red", marginTop: "1%" }}
+                        />
+
+                        <p>
+                          {this.state.currentDateTime}- Communication failed
+                        </p>
+                      </Row>
+                    ) : (
+                      []
+                    )}
                   </p>
                 ) : (
                   []

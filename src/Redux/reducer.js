@@ -191,11 +191,12 @@ const appReducer = (state = InitialState, action) => {
     case 'START_DB_INSERT':
       newState.startDbInserting = false
       return newState
-
+ 
     //delayValue
     case 'FETCHING_DELAY_VALUE':
       newState.delayValue = action.payload
       return newState
+
     default:
       return newState
   }

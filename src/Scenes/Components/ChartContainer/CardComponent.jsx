@@ -17,7 +17,7 @@ class CardComponent extends Component {
       cardList: [],
       dummygraphData: [
         {
-          P1: dummyData,      //dummyData = 0 in constant page 
+          P1: dummyData, //dummyData = 0 in constant page
           P2: dummyData,
           P3: dummyData,
           P4: dummyData,
@@ -152,19 +152,20 @@ class CardComponent extends Component {
     };
   }
 
-  //Rendering the 6 graph component
-  // componentDidMount() {
-  //   getTableView((data) => {
-  //     //getting this function(data) from request page
-  //     const arrStr = this.props.app.targetKeys; //covertion string to number
-  //     const dashboardDataNumArr = arrStr.map((i) => Number(i));
-  //     let filteredTableData = data.filter((_, index) =>
-  //       dashboardDataNumArr.includes(index)
-  //     );
-  //     this.props.updateTableViewData(filteredTableData);
-  //     console.log(this.props.app.tableViewData);
-  //   });
-  // }
+  //Rendering the 6 graph y axis limits while updatinh the table
+  componentDidMount() {
+    getTableView((data) => {
+      //getting this function(data) from request page
+      const arrStr = this.props.app.targetKeys; //covertion string to number
+      const dashboardDataNumArr = arrStr.map((i) => Number(i));
+      let filteredTableData = data.filter((_, index) =>
+        dashboardDataNumArr.includes(index)
+      );
+      //update the tableView rendering the component
+      this.props.updateTableViewData(filteredTableData);
+      console.log(this.props.app.tableViewData);
+    });
+  }
 
   //Initially to render graph with 0 value
   interval = setInterval(() => {
@@ -267,6 +268,7 @@ class CardComponent extends Component {
     let textColor;
     const chartValue = [];
     for (let i = 0; i < filteredData.length; i++) {
+      // console.log(this.props.app.tableViewData)
       if (this.props.app.tableViewData) {
         let chart = {
           size: 8,

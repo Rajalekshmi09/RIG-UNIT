@@ -50,7 +50,7 @@ const InitialState = {
   resetTemp: '',
   resetRPM: '',
   startDbInserting: false,
-
+  
   //grapgView
   delayValue: ''
 }
