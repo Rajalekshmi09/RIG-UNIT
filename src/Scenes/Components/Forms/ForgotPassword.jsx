@@ -28,12 +28,14 @@ class ForgotPassword extends Component {
     };
   }
 
+  //error aler box close fn
   alertOnClose = () => {
     this.setState({
       IsUserName: "",
     });
   };
 
+  //Form submit fn
   submitOnFinish = (values) => {
     forgotValidation(values, (data) => {
       let inputData = data.toString();
@@ -46,6 +48,7 @@ class ForgotPassword extends Component {
     });
   };
 
+  //return login page event
   backToLoginEvent = () => {
     this.props.updateAppState("login");
   };

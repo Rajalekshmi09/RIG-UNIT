@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { updateAppState } from "../../../Redux/action";
 import { registerPageValidation } from "../../../Services/requests";
 import { CompanyDetails, FormDetails } from "../../../Services/constants";
+
 const {
   confirm_password,
   enter_email,
@@ -34,6 +35,7 @@ class RegisterPage extends Component {
     };
   }
 
+  //error alert close fn
   alertOnClose = (e) => {
     this.setState({
       IsuserName_reg: "",
@@ -41,6 +43,7 @@ class RegisterPage extends Component {
     });
   };
 
+  //Form onfinish fn
   submitRegister = (values) => {
     registerPageValidation(values, (data) => {
       let inputData = data.toString();
@@ -57,6 +60,7 @@ class RegisterPage extends Component {
     });
   };
 
+  //onclick login event
   backToLoginEvent = () => {
     this.props.updateAppState("login");
   };

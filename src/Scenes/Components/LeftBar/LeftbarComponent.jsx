@@ -33,6 +33,8 @@ class LeftbarComponent extends Component {
   //onclick function for toggle collapse
   siderHandleClick = (e, data) => {
     this.props.navigateMainPage(e.key);
+
+    //getting installed turbine name form db
     requestStatusData((data) => {
       this.props.updateTableStatusData(data);
     });

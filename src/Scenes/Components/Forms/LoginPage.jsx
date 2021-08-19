@@ -35,6 +35,7 @@ class LoginPage extends Component {
     });
   };
 
+  //Form onfinish fn
   loginOnFinish = (values) => {
     let that = this;
     loginValidation(values, (data) => {
@@ -48,10 +49,12 @@ class LoginPage extends Component {
     });
   };
 
+  //onclick signup event
   signupEvent = () => {
     this.props.updateAppState("signup");
   };
 
+  //onclick forgot password event
   forgotPasswordEvent = () => {
     this.props.updateAppState("forgotPassword");
   };

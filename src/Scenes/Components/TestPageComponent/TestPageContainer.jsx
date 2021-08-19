@@ -154,6 +154,8 @@ class TestPageContainer extends Component {
 
   componentDidMount() {
     // this.props.updateTestIdValue('')
+
+    //getting installed turbine name form db
     requestStatusData((data) => {
       if (typeof data !== "string" && data.length > installed_turbine) {
         this.props.navigateMainPage("turboConfig");

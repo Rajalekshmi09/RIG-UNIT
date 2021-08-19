@@ -27,6 +27,7 @@ class TransferElement extends React.Component {
     });
   }
 
+  //transfering data event
   getMock = () => {
     const targetKeys = [];
     const mockData = [];
@@ -56,7 +57,7 @@ class TransferElement extends React.Component {
     }, 1000);
   };
 
-  //Transfering data
+  //transfering data onclick
   handleChange = (targetKeys, direction, moveKeys) => {
     if (targetKeys.length < 6) {
       this.openNotification("bottomRight");
@@ -75,6 +76,7 @@ class TransferElement extends React.Component {
     }
   };
 
+  //resetting data
   clearChosen = () => {
     const targetKeys = [];
     const mockData = [];
