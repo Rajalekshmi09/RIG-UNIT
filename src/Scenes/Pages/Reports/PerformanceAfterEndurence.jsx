@@ -380,10 +380,10 @@ class PerformanceAfterEndurence extends Component {
             marginLeft: "1270px",
             marginBottom: "10px",
             marginTop: "10px",
-            width: "140px",
+            width: "158px",
           }}
         >
-          Export Report
+          Download Report
         </Button>
 
         <Spin tip="Loading..." size="large" spinning={this.state.loading}>
@@ -630,9 +630,7 @@ class PerformanceAfterEndurence extends Component {
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      >
-                        %
-                      </th>
+                      ></th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -640,7 +638,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        kg/cm^2
+                        kg/sec
                       </th>
                       <th
                         style={{
@@ -697,14 +695,18 @@ class PerformanceAfterEndurence extends Component {
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      ></td>
+                      >
+                        4 - 6
+                      </td>
                       <td
                         style={{
                           verticalAlign: "middle",
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      ></td>
+                      >
+                        70 - 90
+                      </td>
                       <td
                         style={{
                           verticalAlign: "middle",
@@ -952,7 +954,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {PrRatio}
+                        3.1+0.1/-0.05
                       </td>
                       <td
                         style={{
@@ -961,7 +963,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {AirMassFlow}
+                        1.4
                       </td>
                       <td
                         style={{

@@ -330,10 +330,10 @@ class EndurenceReport extends Component {
             marginLeft: "1270px",
             marginBottom: "10px",
             marginTop: "10px",
-            width: "140px",
+            width: "158px",
           }}
         >
-          Export Report
+          Download Report
         </Button>
 
         {this.state.reportOut ? (
@@ -537,14 +537,18 @@ class EndurenceReport extends Component {
                             border: "1px solid #6a6a6b",
                             textAlign: "center",
                           }}
-                        ></td>
+                        >
+                          4 - 6
+                        </td>
                         <td
                           style={{
                             verticalAlign: "middle",
                             border: "1px solid #6a6a6b",
                             textAlign: "center",
                           }}
-                        ></td>
+                        >
+                          80 - 90
+                        </td>
                         <td
                           style={{
                             verticalAlign: "middle",

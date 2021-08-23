@@ -119,17 +119,17 @@ class StatusBlock extends Component {
     }
 
     //Assigning statusblock data color variation
-    this.state.filteredTableData
-      ? this.state.filteredTableData.map((it, y) => {
-          if (parseInt(persons[y]) > parseInt(it.upperlimit)) {
-            colors = colors.concat("red");
-          } else if (parseInt(persons[y]) < parseInt(it.lowerlimit)) {
-            colors = colors.concat("yellow");
-          } else {
-            colors = colors.concat("green");
-          }
-        })
-      : [];
+    // this.state.filteredTableData
+    //   ? this.state.filteredTableData.map((it, y) => {
+    //       if (parseInt(persons[y]) > parseInt(it.upperlimit)) {
+    //         colors = colors.concat("red");
+    //       } else if (parseInt(persons[y]) < parseInt(it.lowerlimit)) {
+    //         colors = colors.concat("yellow");
+    //       } else {
+    //         colors = colors.concat("green");
+    //       }
+    //     })
+    //   : [];
 
     const date = new Date();
     const db_date = new Date(receivedDate);
@@ -142,7 +142,7 @@ class StatusBlock extends Component {
       <div>
         <div>
           <Row>
-            {eShutdown ? <p style={styles.online}>{e_shutdown}</p> : []}
+            {eShutdown ? <p style={styles.online}>E_shutdown</p> : []}
             {nShutdown ? (
               <p style={styles.offline}>{n_shutdown}</p>
             ) : (

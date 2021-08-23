@@ -146,7 +146,7 @@ const dashboardDataMessage = {
 const endurence = {
   RPM: "53900+/-1%",
   Minutes: "10+/-1",
-  trubineInletTemp: "700/-50"
+  trubineInletTemp: "700/+50"
 }
 
 const performance = {

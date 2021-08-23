@@ -323,10 +323,10 @@ class RunningReport extends Component {
             marginLeft: "1270px",
             marginBottom: "10px",
             marginTop: "10px",
-            width: "140px",
+            width: "158px",
           }}
         >
-          Export Report
+          Download Report
         </Button>
         <Spin tip="Loading..." size="large" spinning={this.state.loading}>
           <Layout
@@ -574,7 +574,7 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        kg/cm^2
+                        kg/Sec
                       </th>
                       <th
                         style={{

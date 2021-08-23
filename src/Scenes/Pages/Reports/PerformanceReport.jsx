@@ -375,10 +375,10 @@ class PerformanceReport extends Component {
             marginLeft: "1270px",
             marginBottom: "10px",
             marginTop: "10px",
-            width: "140px",
+            width: "158px",
           }}
         >
-          Export Report
+          Download Report
         </Button>
 
         <Spin tip="Loading..." size="large" spinning={this.state.loading}>
@@ -628,9 +628,7 @@ class PerformanceReport extends Component {
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      >
-                        %
-                      </th>
+                      ></th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -638,7 +636,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        %
+                        kg/sec
                       </th>
                       <th
                         style={{
@@ -695,14 +693,18 @@ class PerformanceReport extends Component {
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      ></td>
+                      >
+                        4 - 6
+                      </td>
                       <td
                         style={{
                           verticalAlign: "middle",
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                      ></td>
+                      >
+                        70 - 90
+                      </td>
                       <td
                         style={{
                           verticalAlign: "middle",
