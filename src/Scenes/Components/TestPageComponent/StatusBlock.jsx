@@ -118,18 +118,19 @@ class StatusBlock extends Component {
         : (receivedDate = null);
     }
 
+    /* eslint-disable */
     //Assigning statusblock data color variation
-    // this.state.filteredTableData
-    //   ? this.state.filteredTableData.map((it, y) => {
-    //       if (parseInt(persons[y]) > parseInt(it.upperlimit)) {
-    //         colors = colors.concat("red");
-    //       } else if (parseInt(persons[y]) < parseInt(it.lowerlimit)) {
-    //         colors = colors.concat("yellow");
-    //       } else {
-    //         colors = colors.concat("green");
-    //       }
-    //     })
-    //   : [];
+    this.state.filteredTableData
+      ? this.state.filteredTableData.map((it, y) => {
+          if (parseInt(persons[y]) > parseInt(it.upperlimit)) {
+            colors = colors.concat("red");
+          } else if (parseInt(persons[y]) < parseInt(it.lowerlimit)) {
+            colors = colors.concat("yellow");
+          } else {
+            colors = colors.concat("green");
+          }
+        })
+      : [];
 
     const date = new Date();
     const db_date = new Date(receivedDate);

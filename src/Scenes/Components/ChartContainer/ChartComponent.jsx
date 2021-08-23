@@ -28,6 +28,7 @@ class ChartComponent extends Component {
       upperLimit,
       lowerLimit,
     } = this.state;
+
     let max = parseInt(upperLimit, 10);
     let min = parseInt(lowerLimit, 10);
     let titleColor;
