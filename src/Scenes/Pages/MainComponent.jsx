@@ -17,6 +17,8 @@ import ExportData from "./Reports/ExportData";
 import PerformanceReport from "./Reports/PerformanceReport";
 import EndurenceReport from "./Reports/EndurenceReport";
 import PerformanceAfterEndurence from "./Reports/PerformanceAfterEndurence";
+import AcceptanceReport from "./Reports/AcceptanceReport";
+import axios from "axios";
 import {
   updateTurboConfig,
   updateTestConfigPage,
@@ -26,6 +28,7 @@ import {
   updateTestIdCount,
   updateTableViewData,
   fetchingDelayValue,
+  updateChartData,
 } from "../../Redux/action";
 import {
   getTurboConfigData,
@@ -36,11 +39,19 @@ import {
   getHandleChangetestID,
   getTableView,
   gettingDelayValue,
+  gettingChartData,
 } from "../../Services/requests";
+import accpetanceReport from "./Reports/AcceptanceReport";
 
 const { Content, Header, Footer } = Layout;
 
 export class MainComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      testDataInsert: false,
+    };
+  }
   componentDidMount() {
     // fetch turbo config data on application load
     getTurboConfigData((data) => {
@@ -77,6 +88,7 @@ export class MainComponent extends Component {
       this.props.fetchingDelayValue(data);
     });
 
+    // fetch graphvalue on application load
     getTableView((data) => {
       //getting this function(data) from request page
       const arrStr = this.props.app.targetKeys; //covertion string to number
@@ -85,8 +97,30 @@ export class MainComponent extends Component {
         dashboardDataNumArr.includes(index)
       );
       this.props.updateTableViewData(filteredTableData);
-      console.log(this.props.app.tableViewData);
     });
+
+    if (this.state.testDataInsert === false) {
+      // let status = "Statusblock loading";
+      axios
+        .post("http://192.168.0.167:7000/testdatainsert.php", {
+          status: "Statusblock loading",
+        })
+        .then(function (response) {
+          this.setState({
+            testDataInsert: true,
+          });
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    // fetch livedata from DB
+    setInterval(() => {
+      gettingChartData((data) => {
+        this.props.updateChartData(data);
+      });
+    }, 1000);
   }
 
   render() {
@@ -118,6 +152,8 @@ export class MainComponent extends Component {
             ) : (
               []
             )}
+            {/*add AcceptanceReport bugid-(GOARIG_7003) */}
+            {mainPage === "acceptanceReport" ? <AcceptanceReport /> : []}
           </Content>
         </Layout>
         <Footer>
@@ -140,6 +176,7 @@ const mapDispatchToProps = {
   updateTestIdCount,
   updateTableViewData,
   fetchingDelayValue,
+  updateChartData,
 };
 
 const MainContainer = connect(

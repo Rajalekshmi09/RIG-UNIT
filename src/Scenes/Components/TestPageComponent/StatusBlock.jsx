@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Progress } from "antd";
 import { connect } from "react-redux";
 import { dashboardSensor } from "../../../Services/constants";
 import { getTableView } from "../../../Services/requests";
+import { updateChartData } from "../../../Redux/action";
+
 const { sensorLabel, n_shutdown, live, offline } = dashboardSensor;
 
 const styles = {
@@ -37,6 +39,7 @@ class StatusBlock extends Component {
       isP2UpArrow: true,
       tabledata: [],
       filteredTableData: [],
+      testDataInsert: false,
     };
   }
 
@@ -67,7 +70,7 @@ class StatusBlock extends Component {
     let filteredData1;
     let receivedDate;
     let colors = [];
-
+    console.log(this.props.app);
     //covertion string to number
     const arrStr = this.props.app.targetKeys;
     const dashboardDataNumArr = arrStr.map((i) => Number(i));
@@ -119,17 +122,18 @@ class StatusBlock extends Component {
     }
 
     //Assigning statusblock data color variation
-    // this.state.filteredTableData
-    //   ? this.state.filteredTableData.map((it, y) => {
-    //       if (parseInt(persons[y]) > parseInt(it.upperlimit)) {
-    //         colors = colors.concat("red");
-    //       } else if (parseInt(persons[y]) < parseInt(it.lowerlimit)) {
-    //         colors = colors.concat("yellow");
-    //       } else {
-    //         colors = colors.concat("green");
-    //       }
-    //     })
-    //   : [];
+    /* eslint-disable */
+    this.state.filteredTableData
+      ? this.state.filteredTableData.map((it, y) => {
+          if (parseInt(persons[y]) > parseInt(it.upperlimit)) {
+            colors = colors.concat("red");
+          } else if (parseInt(persons[y]) < parseInt(it.lowerlimit)) {
+            colors = colors.concat("yellow");
+          } else {
+            colors = colors.concat("green");
+          }
+        })
+      : [];
 
     const date = new Date();
     const db_date = new Date(receivedDate);
@@ -138,6 +142,7 @@ class StatusBlock extends Component {
     if (this.props.app.showTarget === true) {
       isActive = true;
     }
+
     return (
       <div>
         <div>
@@ -158,7 +163,7 @@ class StatusBlock extends Component {
         </div>
         <Row>
           {persons.map((It, y) => (
-            <Col span={4} style={{ paddingRight: "10px" }}>
+            <Col style={{ paddingRight: "10px", width: "210px" }}>
               <div className="statistic-block block">
                 <Row className="progress-details d-flex align-items-end justify-content-between">
                   {/* up and down arrow column */}
@@ -218,6 +223,24 @@ class StatusBlock extends Component {
               </div>
             </Col>
           ))}
+          {/* GOARIG_7002 - add */}
+          <Col>
+            <div className="statistic-block block">
+              <Progress
+                strokeWidth={10}
+                strokeColor="#03fc28"
+                type="circle"
+                width={60}
+                style={{ marginLeft: "28px" }}
+                percent={this.props.app.chartData[0].P28}
+              />
+              <div className="title">
+                <div style={{ fontSize: "10px" }}>
+                  <strong>bypass valve2</strong>
+                </div>
+              </div>
+            </div>
+          </Col>
         </Row>
       </div>
     );
@@ -226,6 +249,6 @@ class StatusBlock extends Component {
 const mapStateToProps = (state) => ({
   app: state.app,
 });
-const mapDispatchToProps = {};
+const mapDispatchToProps = { updateChartData };
 const statuspage = connect(mapStateToProps, mapDispatchToProps)(StatusBlock);
 export default statuspage;

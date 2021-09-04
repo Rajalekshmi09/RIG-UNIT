@@ -153,8 +153,6 @@ class TestPageContainer extends Component {
   }
 
   componentDidMount() {
-    // this.props.updateTestIdValue('')
-
     //getting installed turbine name form db
     requestStatusData((data) => {
       if (typeof data !== "string" && data.length > installed_turbine) {
@@ -301,15 +299,16 @@ class TestPageContainer extends Component {
     });
   };
 
-  //graph data
-  requestChartData() {
-    gettingChartData((data) => {
-      //this function from request page
-      let chartData = data;
-      //updating to the store called chartdata
-      this.props.updateChartData(chartData);
-    });
-  }
+  // {/*DEL bugid-(GOARIG_7005) */}
+  // //graph data
+  // requestChartData() {
+  //   gettingChartData((data) => {
+  //     //this function from request page
+  //     let chartData = data;
+  //     //updating to the store called chartdata
+  //     this.props.updateChartData(chartData);
+  //   });
+  // }
 
   //this event trigger while clicking the initialize
   sensorData() {
@@ -402,6 +401,11 @@ class TestPageContainer extends Component {
           console.log(err);
         });
     }
+    axios
+      .post("http://192.168.0.167:7000/testdatainsertwithtestid.php", {
+        status: "Start initiated",
+      })
+      .then(function (response) {});
   };
 
   //start click
@@ -465,20 +469,15 @@ class TestPageContainer extends Component {
         }
         if (valveData[6] === "1") {
           self.setState({
-            ByPassValueII: "ON",
+            CoolingPump: "ON",
           });
         }
         if (valveData[7] === "1") {
           self.setState({
-            IgnitorSwitch: "ON",
-          });
-        }
-        if (valveData[8] === "1") {
-          self.setState({
             KeroseneFuelFlowValve: "ON",
           });
         }
-        if (valveData[9] === "1") {
+        if (valveData[8] === "1") {
           self.setState({
             AirInjectorSolenoidValve: "ON",
           });
@@ -488,7 +487,7 @@ class TestPageContainer extends Component {
             PilotFlameAirSolenoidValve: "ON",
           });
         }
-        if (valveData[9] === "1") {
+        if (valveData[10] === "1") {
           self.setState({
             Acetelenegas: "ON",
           });
@@ -552,9 +551,12 @@ class TestPageContainer extends Component {
         this.setState({
           shutdownEnable: true,
         });
-        setInterval(() => {
-          this.requestChartData();
-        }, this.props.app.delayValue); //delay for receiving sensor data from plc
+        {
+          /*DEL bugid-(GOARIG_7005) */
+        }
+        // setInterval(() => {
+        //   this.requestChartData();
+        // }, this.props.app.delayValue); //delay for receiving sensor data from plc
         axios
           .post("http://192.168.0.167:5000/start.php", {
             //set target rpm & temp value to sent plc
@@ -566,9 +568,6 @@ class TestPageContainer extends Component {
             let startData = res.data;
 
             //read status from plc after start click => stage1,stage2 etc...
-            axios
-              .post("http://192.168.0.167:7000/testdatainsert.php")
-              .then(function (response) {});
           })
           .catch((err) => {
             console.log(err);
@@ -1346,9 +1345,6 @@ class TestPageContainer extends Component {
                     </p>
                     <p>
                       {LubeOilPump} {this.state.LubeOilPump}
-                    </p>
-                    <p>
-                      {ByPassValueII} {this.state.ByPassValueII}
                     </p>
                     <p>
                       {CoolingPump} {this.state.CoolingPump}

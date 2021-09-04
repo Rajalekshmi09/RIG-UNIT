@@ -19,18 +19,17 @@ import "jspdf-autotable";
 import logo from "../../../Images/logo.png";
 import logoRig from "../../../Images/logoRig.png";
 const { Option } = Select;
-const { RPM, Minutes, trubineInletTemp } = endurence;
+const { endurence_RPM, endurence_Minutes, endurence_trubineInletTemp } =
+  endurence;
 const { turboID_alert, testNo_alert, testno_check } = reportAlert;
 
 class EndurenceReport extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reportOut: [],
-      reportOut1: [],
-      reportOut2: [],
+      endurence_reportOut: [],
       testno: [],
-      testno1: [],
+      testNumberVal: [],
       turboIdVal: [],
       tester: "",
       witness: "",
@@ -159,19 +158,22 @@ class EndurenceReport extends Component {
   getReportTable = () => {
     if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning(turboID_alert);
-    } else if (this.state.testno1 === "" || this.state.testno1.length === 0) {
+    } else if (
+      this.state.testNumberVal === "" ||
+      this.state.testNumberVal.length === 0
+    ) {
       message.warning(testNo_alert);
     }
     if (
       this.state.turboIdVal !== "" &&
-      this.state.testno1 !== "" &&
+      this.state.testNumberVal !== "" &&
       this.state.turboIdVal.length !== 0 &&
-      this.state.testno1.length !== 0
+      this.state.testNumberVal.length !== 0
     ) {
       axios
         .post("http://192.168.0.167:5000/Endurence.php", {
           turboIdVal: this.state.turboIdVal,
-          testno: this.state.testno1,
+          testno: this.state.testNumberVal,
         })
         .then((res) => {
           if (
@@ -180,7 +182,7 @@ class EndurenceReport extends Component {
             res.data[0].speed_time !== null
           ) {
             this.setState({
-              reportOut: res.data[0],
+              endurence_reportOut: res.data[0],
             });
           } else {
             message.warning(testno_check);
@@ -193,7 +195,7 @@ class EndurenceReport extends Component {
       axios
         .post("http://192.168.0.167:5000/getnames.php", {
           turboIdVal: this.state.turboIdVal,
-          testno: this.state.testno1,
+          testno: this.state.testNumberVal,
         })
         .then((res) => {
           this.setState({
@@ -235,18 +237,21 @@ class EndurenceReport extends Component {
   handleChangeTestNO = (value) => {
     //select the Test Number
     this.setState({
-      testno1: value,
+      testNumberVal: value,
     });
   };
 
   render() {
-    var rpm = Math.round(this.state.reportOut.speed_time * 100) / 100;
-    var Turbine_Inlet =
-      Math.round(this.state.reportOut.Turbine_Inlet * 100) / 100;
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
-    var Oil_pr = Math.round(this.state.reportOut.Oil_pr * 100) / 100;
-    var Oil_temp = Math.round(this.state.reportOut.Oil_temp * 100) / 100;
+    var E_rpm =
+      Math.round(this.state.endurence_reportOut.speed_time * 100) / 100;
+    var E_Turbine_Inlet =
+      Math.round(this.state.endurence_reportOut.Turbine_Inlet * 100) / 100;
+    var E_Oil_pr =
+      Math.round(this.state.endurence_reportOut.Oil_pr * 100) / 100;
+    var E_Oil_temp =
+      Math.round(this.state.endurence_reportOut.Oil_temp * 100) / 100;
 
     return (
       <div>
@@ -336,7 +341,7 @@ class EndurenceReport extends Component {
           Download Report
         </Button>
 
-        {this.state.reportOut ? (
+        {this.state.endurence_reportOut ? (
           <Spin tip="Loading..." size="large" spinning={this.state.loading}>
             <Layout
               className="bottom-container"
@@ -520,7 +525,7 @@ class EndurenceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {RPM}
+                          {endurence_RPM}
                         </td>
                         <td
                           style={{
@@ -529,7 +534,7 @@ class EndurenceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {Minutes}
+                          {endurence_Minutes}
                         </td>
                         <td
                           style={{
@@ -556,7 +561,7 @@ class EndurenceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {trubineInletTemp}
+                          {endurence_trubineInletTemp}
                         </td>
                       </tr>
                       <tr ng-repeat="Rreport in RunningResult | filter:query  ">
@@ -574,7 +579,7 @@ class EndurenceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {rpm}
+                          {E_rpm}
                         </td>
                         <td
                           style={{
@@ -582,7 +587,7 @@ class EndurenceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {this.state.reportOut.Duration}
+                          {this.state.endurence_reportOut.Duration}
                         </td>
                         <td
                           style={{
@@ -591,7 +596,7 @@ class EndurenceReport extends Component {
                           }}
                         >
                           {" "}
-                          {Oil_pr}
+                          {E_Oil_pr}
                         </td>
                         <td
                           style={{
@@ -599,7 +604,7 @@ class EndurenceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {Oil_temp}
+                          {E_Oil_temp}
                         </td>
                         <td
                           style={{
@@ -607,7 +612,7 @@ class EndurenceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {Turbine_Inlet}
+                          {E_Turbine_Inlet}
                         </td>
                       </tr>
                     </tbody>

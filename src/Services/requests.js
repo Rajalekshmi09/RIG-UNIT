@@ -14,10 +14,10 @@ const shutdownClickEventUrl = `${BASE_URL}${URL.SHUTDOWN_CLICK}`
 const resetClickEventUrl = `${BASE_URL}${URL.RESET_CLICK}`
 const updateConfigDataUrl = `${BASE_URL}${URL.UPDATE_CONFIG_DATA}`
 const tableViewUrl = `${BASE_URL}${URL.TABLE_VIEW}`
-const sensorDataUrl = `${BASE_URL}${URL.SENSOR_DATA}`
+const sensorDataUrl = `http://192.168.0.167:8002/getdata.php`
 const turboIdValueUrl = `${BASE_URL}${URL.TURBOID_VALUE}`
 const tableStatusDataUrl = `${BASE_URL}${URL.TABLE_STATUSDATA}`
-const graphDataUrl = `${BASE_URL}${URL.GRAPH_DATA}`
+const graphDataUrl = `http://192.168.0.167:8001/graph.php`
 const delayDataUrl = `${BASE_URL}${URL.DELAY_DATA}`
 
 

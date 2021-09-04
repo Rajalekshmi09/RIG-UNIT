@@ -13,11 +13,7 @@ import {
 import axios from "axios";
 import { updateTitleElements } from "../../../Redux/action";
 import { connect } from "react-redux";
-import {
-  performance,
-  reportAlert,
-  CompanyDetails,
-} from "../../../Services/constants";
+import { performance, reportAlert } from "../../../Services/constants";
 import Doc from "./DocService";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -41,10 +37,10 @@ class PerformanceAfterEndurence extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reportOut1: [],
-      reportOut2: [],
+      PAE_reportOut1: [],
+      PAE_reportOut2: [],
       testno: [],
-      testno1: [],
+      testNumberVal: [],
       turboIdVal: [],
       tester: "",
       witness: "",
@@ -178,19 +174,22 @@ class PerformanceAfterEndurence extends Component {
   getReport = () => {
     if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning(turboID_alert);
-    } else if (this.state.testno1 === "" || this.state.testno1.length === 0) {
+    } else if (
+      this.state.testNumberVal === "" ||
+      this.state.testNumberVal.length === 0
+    ) {
       message.warning(testNo_alert);
     }
     if (
       this.state.turboIdVal !== "" &&
-      this.state.testno1 !== "" &&
+      this.state.testNumberVal !== "" &&
       this.state.turboIdVal.length !== 0 &&
-      this.state.testno1.length !== 0
+      this.state.testNumberVal.length !== 0
     ) {
       axios
         .post("http://192.168.0.167:5000/Performance.php", {
           turboIdVal: this.state.turboIdVal,
-          testno: this.state.testno1,
+          testno: this.state.testNumberVal,
         })
         .then((res) => {
           if (
@@ -199,8 +198,8 @@ class PerformanceAfterEndurence extends Component {
             res.data[0].speed_time !== null
           ) {
             this.setState({
-              reportOut1: res.data[0],
-              reportOut2: res.data[1],
+              PAE_reportOut1: res.data[0],
+              PAE_reportOut2: res.data[1],
             });
           } else {
             message.warning(testno_check);
@@ -213,7 +212,7 @@ class PerformanceAfterEndurence extends Component {
       axios
         .post("http://192.168.0.167:5000/getnames.php", {
           turboIdVal: this.state.turboIdVal,
-          testno: this.state.testno1,
+          testno: this.state.testNumberVal,
         })
         .then((res) => {
           this.setState({
@@ -257,7 +256,7 @@ class PerformanceAfterEndurence extends Component {
   //select the test number
   handleChangeTestNO = (value) => {
     this.setState({
-      testno1: value,
+      testNumberVal: value,
     });
   };
   clearReport = () => {
@@ -267,34 +266,42 @@ class PerformanceAfterEndurence extends Component {
     });
   };
   render() {
-    var rpm1 = Math.round(this.state.reportOut1.speed_time * 100) / 100;
-    var rpm2 = Math.round(this.state.reportOut2.speed_time * 100) / 100;
-    var Turbine_Inlet1 =
-      Math.round(this.state.reportOut1.Turbine_Inlet * 100) / 100;
-    var Turbine_Inlet2 =
-      Math.round(this.state.reportOut2.Turbine_Inlet * 100) / 100;
-    var Compr_Inlet_pr1 =
-      Math.round(this.state.reportOut1.Compr_Inlet_pr * 100) / 100;
-    var Compr_Inlet_pr2 =
-      Math.round(this.state.reportOut2.Compr_Inlet_pr * 100) / 100;
-    var Oil_pr1 = Math.round(this.state.reportOut1.Oil_pr * 100) / 100;
-    var Oil_pr2 = Math.round(this.state.reportOut2.Oil_pr * 100) / 100;
-    var Oil_temp1 = Math.round(this.state.reportOut1.Oil_temp * 100) / 100;
-    var Oil_temp2 = Math.round(this.state.reportOut2.Oil_temp * 100) / 100;
-    var Compr_Outlet_pr1 =
-      Math.round(this.state.reportOut1.Compr_Outlet_pr * 100) / 100;
-    var Compr_Outlet_pr2 =
-      Math.round(this.state.reportOut2.Compr_Outlet_pr * 100) / 100;
-    var pr_ratio1 = Math.round(this.state.reportOut1.pr_ratio * 100) / 100;
-    var pr_ratio2 = Math.round(this.state.reportOut2.pr_ratio * 100) / 100;
-    var Air_Mass_Flow1 = Math.round(this.state.reportOut1.Air_Mass_Flow) / 100;
-    var Air_Mass_Flow2 = Math.round(this.state.reportOut1.Air_Mass_Flow) / 100;
-    var Compr_Efficiency1 =
-      Math.round(this.state.reportOut1.Compr_Efficiency) / 100;
-    var Compr_Efficiency2 =
-      Math.round(this.state.reportOut1.Compr_Efficiency) / 100;
-    var Surge_margin1 = Math.round(this.state.reportOut1.Surge_margin) / 100;
-    var Surge_margin2 = Math.round(this.state.reportOut1.Surge_margin) / 100;
+    var PAE_rpm1 = Math.round(this.state.PAE_reportOut1.speed_time * 100) / 100;
+    var PAE_rpm2 = Math.round(this.state.PAE_reportOut2.speed_time * 100) / 100;
+    var PAE_Turbine_Inlet1 =
+      Math.round(this.state.PAE_reportOut1.Turbine_Inlet * 100) / 100;
+    var PAE_Turbine_Inlet2 =
+      Math.round(this.state.PAE_reportOut2.Turbine_Inlet * 100) / 100;
+    var PAE_Compr_Inlet_pr1 =
+      Math.round(this.state.PAE_reportOut1.Compr_Inlet_pr * 100) / 100;
+    var PAE_Compr_Inlet_pr2 =
+      Math.round(this.state.PAE_reportOut2.Compr_Inlet_pr * 100) / 100;
+    var PAE_Oil_pr1 = Math.round(this.state.PAE_reportOut1.Oil_pr * 100) / 100;
+    var PAE_Oil_pr2 = Math.round(this.state.PAE_reportOut2.Oil_pr * 100) / 100;
+    var PAE_Oil_temp1 =
+      Math.round(this.state.PAE_reportOut1.Oil_temp * 100) / 100;
+    var PAE_Oil_temp2 =
+      Math.round(this.state.PAE_reportOut2.Oil_temp * 100) / 100;
+    var PAE_Compr_Outlet_pr1 =
+      Math.round(this.state.PAE_reportOut1.Compr_Outlet_pr * 100) / 100;
+    var PAE_Compr_Outlet_pr2 =
+      Math.round(this.state.PAE_reportOut2.Compr_Outlet_pr * 100) / 100;
+    var PAE_pr_ratio1 =
+      Math.round(this.state.PAE_reportOut1.pr_ratio * 100) / 100;
+    var PAE_pr_ratio2 =
+      Math.round(this.state.PAE_reportOut2.pr_ratio * 100) / 100;
+    var PAE_Air_Mass_Flow1 =
+      Math.round(this.state.PAE_reportOut1.Air_Mass_Flow) / 100;
+    var PAE_Air_Mass_Flow2 =
+      Math.round(this.state.PAE_reportOut1.Air_Mass_Flow) / 100;
+    var PAE_Compr_Efficiency1 =
+      Math.round(this.state.PAE_reportOut1.Compr_Efficiency) / 100;
+    var PAE_Compr_Efficiency2 =
+      Math.round(this.state.PAE_reportOut1.Compr_Efficiency) / 100;
+    var PAE_Surge_margin1 =
+      Math.round(this.state.PAE_reportOut1.Surge_margin) / 100;
+    var PAE_Surge_margin2 =
+      Math.round(this.state.PAE_reportOut1.Surge_margin) / 100;
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
 
@@ -783,7 +790,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {rpm1}
+                        {PAE_rpm1}
                       </td>
                       <td
                         style={{
@@ -792,17 +799,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {this.state.reportOut1.Duration}
-                      </td>
-                      <td
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        {" "}
-                        {Oil_pr1}
+                        {this.state.PAE_reportOut1.Duration}
                       </td>
                       <td
                         style={{
@@ -812,7 +809,7 @@ class PerformanceAfterEndurence extends Component {
                         }}
                       >
                         {" "}
-                        {Oil_temp1}
+                        {PAE_Oil_pr1}
                       </td>
                       <td
                         style={{
@@ -821,7 +818,8 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Turbine_Inlet1}
+                        {" "}
+                        {PAE_Oil_temp1}
                       </td>
                       <td
                         style={{
@@ -830,7 +828,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Inlet_pr1}
+                        {PAE_Turbine_Inlet1}
                       </td>
                       <td
                         style={{
@@ -839,7 +837,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Outlet_pr1}
+                        {PAE_Compr_Inlet_pr1}
                       </td>
                       <td
                         style={{
@@ -848,7 +846,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {pr_ratio1}
+                        {PAE_Compr_Outlet_pr1}
                       </td>
                       <td
                         style={{
@@ -857,7 +855,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Air_Mass_Flow1}
+                        {PAE_pr_ratio1}
                       </td>
                       <td
                         style={{
@@ -866,7 +864,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Efficiency1}
+                        {PAE_Air_Mass_Flow1}
                       </td>
                       <td
                         style={{
@@ -875,7 +873,16 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Surge_margin1}
+                        {PAE_Compr_Efficiency1}
+                      </td>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        {PAE_Surge_margin1}
                       </td>
                     </tr>
                     <tr>
@@ -996,7 +1003,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {rpm2}
+                        {PAE_rpm2}
                       </td>
                       <td
                         style={{
@@ -1005,17 +1012,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {this.state.reportOut2.Duration}
-                      </td>
-                      <td
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        {" "}
-                        {Oil_pr2}
+                        {this.state.PAE_reportOut2.Duration}
                       </td>
                       <td
                         style={{
@@ -1025,7 +1022,7 @@ class PerformanceAfterEndurence extends Component {
                         }}
                       >
                         {" "}
-                        {Oil_temp1}
+                        {PAE_Oil_pr2}
                       </td>
                       <td
                         style={{
@@ -1034,7 +1031,8 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Turbine_Inlet2}
+                        {" "}
+                        {PAE_Oil_temp2}
                       </td>
                       <td
                         style={{
@@ -1043,7 +1041,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Inlet_pr2}
+                        {PAE_Turbine_Inlet2}
                       </td>
                       <td
                         style={{
@@ -1052,7 +1050,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Outlet_pr2}
+                        {PAE_Compr_Inlet_pr2}
                       </td>
                       <td
                         style={{
@@ -1061,7 +1059,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {pr_ratio2}
+                        {PAE_Compr_Outlet_pr2}
                       </td>
                       <td
                         style={{
@@ -1070,7 +1068,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Air_Mass_Flow2}
+                        {PAE_pr_ratio2}
                       </td>
                       <td
                         style={{
@@ -1079,7 +1077,7 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Efficiency2}
+                        {PAE_Air_Mass_Flow2}
                       </td>
                       <td
                         style={{
@@ -1088,7 +1086,16 @@ class PerformanceAfterEndurence extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Surge_margin2}
+                        {PAE_Compr_Efficiency2}
+                      </td>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        {PAE_Surge_margin2}
                       </td>
                     </tr>
                   </tbody>

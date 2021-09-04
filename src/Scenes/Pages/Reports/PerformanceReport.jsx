@@ -13,11 +13,7 @@ import {
 import axios from "axios";
 import { updateTitleElements } from "../../../Redux/action";
 import { connect } from "react-redux";
-import {
-  performance,
-  CompanyDetails,
-  reportAlert,
-} from "../../../Services/constants";
+import { performance, reportAlert } from "../../../Services/constants";
 import Doc from "./DocService";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -42,10 +38,10 @@ class PerformanceReport extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reportOut1: [],
-      reportOut2: [],
+      performance_reportOut1: [],
+      performance_reportOut2: [],
       testno: [],
-      testno1: [],
+      testNumberVal: [],
       turboIdVal: [],
       tester: "",
       witness: "",
@@ -176,22 +172,25 @@ class PerformanceReport extends Component {
   getReport = () => {
     if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning(turboID_alert);
-    } else if (this.state.testno1 === "" || this.state.testno1.length === 0) {
+    } else if (
+      this.state.testNumberVal === "" ||
+      this.state.testNumberVal.length === 0
+    ) {
       message.warning(testNo_alert);
     }
     if (
       this.state.turboIdVal !== "" &&
-      this.state.testno1 !== "" &&
+      this.state.testNumberVal !== "" &&
       this.state.turboIdVal.length !== 0 &&
-      this.state.testno1.length !== 0
+      this.state.testNumberVal.length !== 0
     ) {
       axios
         .post("http://192.168.0.167:5000/Performance.php", {
           turboIdVal: this.state.turboIdVal,
-          testno: this.state.testno1,
+          testno: this.state.testNumberVal,
         })
         .then((res) => {
-          console.log(typeof res.data);
+          console.log(res.data);
 
           if (
             typeof res.data !== "string" &&
@@ -199,8 +198,8 @@ class PerformanceReport extends Component {
             res.data[0].speed_time !== null
           ) {
             this.setState({
-              reportOut1: res.data[0],
-              reportOut2: res.data[1],
+              performance_reportOut1: res.data[0],
+              performance_reportOut2: res.data[1],
             });
           } else {
             message.warning(testno_check);
@@ -213,7 +212,7 @@ class PerformanceReport extends Component {
       axios
         .post("http://192.168.0.167:5000/getnames.php", {
           turboIdVal: this.state.turboIdVal,
-          testno: this.state.testno1,
+          testno: this.state.testNumberVal,
         })
         .then((res) => {
           this.setState({
@@ -257,39 +256,51 @@ class PerformanceReport extends Component {
   //select the test number
   handleChangeTestNO = (value) => {
     this.setState({
-      testno1: value,
+      testNumberVal: value,
     });
   };
 
   render() {
-    var rpm1 = Math.round(this.state.reportOut1.speed_time * 100) / 100;
-    var rpm2 = Math.round(this.state.reportOut2.speed_time * 100) / 100;
-    var Turbine_Inlet1 =
-      Math.round(this.state.reportOut1.Turbine_Inlet * 100) / 100;
-    var Turbine_Inlet2 =
-      Math.round(this.state.reportOut2.Turbine_Inlet * 100) / 100;
-    var Compr_Inlet_pr1 =
-      Math.round(this.state.reportOut1.Compr_Inlet_pr * 100) / 100;
-    var Compr_Inlet_pr2 =
-      Math.round(this.state.reportOut2.Compr_Inlet_pr * 100) / 100;
-    var Compr_Outlet_pr1 =
-      Math.round(this.state.reportOut1.Compr_Outlet_pr * 100) / 100;
-    var Compr_Outlet_pr2 =
-      Math.round(this.state.reportOut2.Compr_Outlet_pr * 100) / 100;
-    var Oil_pr1 = Math.round(this.state.reportOut1.Oil_pr * 100) / 100;
-    var Oil_pr2 = Math.round(this.state.reportOut2.Oil_pr * 100) / 100;
-    var Oil_temp1 = Math.round(this.state.reportOut1.Oil_temp * 100) / 100;
-    var Oil_temp2 = Math.round(this.state.reportOut2.Oil_temp * 100) / 100;
-    var pr_ratio1 = Math.round(this.state.reportOut1.pr_ratio * 100) / 100;
-    var pr_ratio2 = Math.round(this.state.reportOut2.pr_ratio * 100) / 100;
-    var Air_Mass_Flow1 = Math.round(this.state.reportOut1.Air_Mass_Flow) / 100;
-    var Air_Mass_Flow2 = Math.round(this.state.reportOut1.Air_Mass_Flow) / 100;
-    var Compr_Efficiency1 =
-      Math.round(this.state.reportOut1.Compr_Efficiency) / 100;
-    var Compr_Efficiency2 =
-      Math.round(this.state.reportOut1.Compr_Efficiency) / 100;
-    var Surge_margin1 = Math.round(this.state.reportOut1.Surge_margin) / 100;
-    var Surge_margin2 = Math.round(this.state.reportOut1.Surge_margin) / 100;
+    var P_rpm1 =
+      Math.round(this.state.performance_reportOut1.speed_time * 100) / 100;
+    var P_rpm2 =
+      Math.round(this.state.performance_reportOut2.speed_time * 100) / 100;
+    var P_Turbine_Inlet1 =
+      Math.round(this.state.performance_reportOut1.Turbine_Inlet * 100) / 100;
+    var P_Turbine_Inlet2 =
+      Math.round(this.state.performance_reportOut2.Turbine_Inlet * 100) / 100;
+    var P_Compr_Inlet_pr1 =
+      Math.round(this.state.performance_reportOut1.Compr_Inlet_pr * 100) / 100;
+    var P_Compr_Inlet_pr2 =
+      Math.round(this.state.performance_reportOut2.Compr_Inlet_pr * 100) / 100;
+    var P_Compr_Outlet_pr1 =
+      Math.round(this.state.performance_reportOut1.Compr_Outlet_pr * 100) / 100;
+    var P_Compr_Outlet_pr2 =
+      Math.round(this.state.performance_reportOut2.Compr_Outlet_pr * 100) / 100;
+    var P_Oil_pr1 =
+      Math.round(this.state.performance_reportOut1.Oil_pr * 100) / 100;
+    var P_Oil_pr2 =
+      Math.round(this.state.performance_reportOut2.Oil_pr * 100) / 100;
+    var P_Oil_temp1 =
+      Math.round(this.state.performance_reportOut1.Oil_temp * 100) / 100;
+    var P_Oil_temp2 =
+      Math.round(this.state.performance_reportOut2.Oil_temp * 100) / 100;
+    var P_pr_ratio1 =
+      Math.round(this.state.performance_reportOut1.pr_ratio * 100) / 100;
+    var P_pr_ratio2 =
+      Math.round(this.state.performance_reportOut2.pr_ratio * 100) / 100;
+    var P_Air_Mass_Flow1 =
+      Math.round(this.state.performance_reportOut1.Air_Mass_Flow) / 100;
+    var P_Air_Mass_Flow2 =
+      Math.round(this.state.performance_reportOut1.Air_Mass_Flow) / 100;
+    var P_Compr_Efficiency1 =
+      Math.round(this.state.performance_reportOut1.Compr_Efficiency) / 100;
+    var P_Compr_Efficiency2 =
+      Math.round(this.state.performance_reportOut1.Compr_Efficiency) / 100;
+    var P_Surge_margin1 =
+      Math.round(this.state.performance_reportOut1.Surge_margin) / 100;
+    var P_Surge_margin2 =
+      Math.round(this.state.performance_reportOut1.Surge_margin) / 100;
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
 
@@ -430,7 +441,7 @@ class PerformanceReport extends Component {
                   </tr>
                   {/* <tr>
                     <td>TEST ID</td>
-                    <td>{this.state.testno1}</td>
+                    <td>{this.state.testNumberVal}</td>
                   </tr> */}
                 </table>
 
@@ -781,7 +792,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {rpm1}
+                        {P_rpm1}
                       </td>
                       <td
                         style={{
@@ -790,7 +801,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {this.state.reportOut1.Duration}
+                        {this.state.performance_reportOut1.Duration}
                       </td>
                       <td
                         style={{
@@ -799,7 +810,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Oil_pr1}
+                        {P_Oil_pr1}
                       </td>
                       <td
                         style={{
@@ -808,7 +819,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Oil_temp1}
+                        {P_Oil_temp1}
                       </td>
                       <td
                         style={{
@@ -817,7 +828,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Turbine_Inlet1}
+                        {P_Turbine_Inlet1}
                       </td>
                       <td
                         style={{
@@ -826,7 +837,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Inlet_pr1}
+                        {P_Compr_Inlet_pr1}
                       </td>
                       <td
                         style={{
@@ -835,7 +846,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Outlet_pr1}
+                        {P_Compr_Outlet_pr1}
                       </td>
                       <td
                         style={{
@@ -844,7 +855,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {pr_ratio1}
+                        {P_pr_ratio1}
                       </td>
                       <td
                         style={{
@@ -853,7 +864,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Air_Mass_Flow1}
+                        {P_Air_Mass_Flow1}
                       </td>
                       <td
                         style={{
@@ -862,7 +873,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Efficiency1}
+                        {P_Compr_Efficiency1}
                       </td>
                       <td
                         style={{
@@ -871,7 +882,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Surge_margin1}
+                        {P_Surge_margin1}
                       </td>
                     </tr>
                     <tr>
@@ -992,7 +1003,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {rpm2}
+                        {P_rpm2}
                       </td>
                       <td
                         style={{
@@ -1001,7 +1012,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {this.state.reportOut2.Duration}
+                        {this.state.performance_reportOut2.Duration}
                       </td>
                       <td
                         style={{
@@ -1010,7 +1021,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Oil_pr2}
+                        {P_Oil_pr2}
                       </td>
                       <td
                         style={{
@@ -1019,7 +1030,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Oil_temp2}
+                        {P_Oil_temp2}
                       </td>
                       <td
                         style={{
@@ -1028,7 +1039,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Turbine_Inlet2}
+                        {P_Turbine_Inlet2}
                       </td>
                       <td
                         style={{
@@ -1037,7 +1048,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Inlet_pr2}
+                        {P_Compr_Inlet_pr2}
                       </td>
                       <td
                         style={{
@@ -1046,7 +1057,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Outlet_pr2}
+                        {P_Compr_Outlet_pr2}
                       </td>
                       <td
                         style={{
@@ -1055,7 +1066,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {pr_ratio2}
+                        {P_pr_ratio2}
                       </td>
                       <td
                         style={{
@@ -1064,7 +1075,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Air_Mass_Flow2}
+                        {P_Air_Mass_Flow2}
                       </td>
                       <td
                         style={{
@@ -1073,7 +1084,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Compr_Efficiency2}
+                        {P_Compr_Efficiency2}
                       </td>
                       <td
                         style={{
@@ -1082,7 +1093,7 @@ class PerformanceReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        {Surge_margin2}
+                        {P_Surge_margin2}
                       </td>
                     </tr>
                   </tbody>
