@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { toggleLeftBar, updateAppState } from "../../../Redux/action";
+import { logoutEvent } from "../../../Services/requests";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 
@@ -21,6 +22,8 @@ class HeaderComponent extends Component {
   //function for logout
   backToLoginEvent = () => {
     window.location.reload(false);
+    /* ADD bugid-(GOARIG_7006)*/
+    logoutEvent((data) => {});
   };
 
   render() {

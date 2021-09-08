@@ -31,6 +31,8 @@ const InitialState = {
   statusData: '',
   reset: false,
   chartData: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  /* ADD bugid-(GOARIG_7014)   */
+  chartData2: [0, 0, 0, 0],
   shutdownInitiated: false,
   communicationFailed: false,
   communication: false,
@@ -50,7 +52,6 @@ const InitialState = {
   resetTemp: '',
   resetRPM: '',
   startDbInserting: false,
-  
   //grapgView
   delayValue: ''
 }

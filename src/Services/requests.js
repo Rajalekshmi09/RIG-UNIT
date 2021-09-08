@@ -14,12 +14,16 @@ const shutdownClickEventUrl = `${BASE_URL}${URL.SHUTDOWN_CLICK}`
 const resetClickEventUrl = `${BASE_URL}${URL.RESET_CLICK}`
 const updateConfigDataUrl = `${BASE_URL}${URL.UPDATE_CONFIG_DATA}`
 const tableViewUrl = `${BASE_URL}${URL.TABLE_VIEW}`
-const sensorDataUrl = `${BASE_URL}${URL.SENSOR_DATA}`
+const sensorDataUrl = `http://192.168.0.167:8002/getdata.php`
 const turboIdValueUrl = `${BASE_URL}${URL.TURBOID_VALUE}`
 const tableStatusDataUrl = `${BASE_URL}${URL.TABLE_STATUSDATA}`
-const graphDataUrl = `${BASE_URL}${URL.GRAPH_DATA}`
+const graphDataUrl = `http://192.168.0.167:8001/graph.php`
 const delayDataUrl = `${BASE_URL}${URL.DELAY_DATA}`
-
+// {/*ADD bugid-(GOARIG_7006) */}
+const logoutEventUrl = `${BASE_URL}${URL.LOGOUT_EVENT}`
+const testdataAfterShutdownUrl = `http://192.168.0.167:7000/testdatainsertaftershutdown.php`
+// {/*ADD bugid-(GOARIG_7014) */}
+const ststusBlockRow2Url = `http://192.168.0.167:8003/statusblock2.php`
 
 // Form requests
 const loginValidation = (values, callBack) => {
@@ -169,7 +173,6 @@ const getHandleChangetestID = (body, callBack) => {
     })
 };
 
-
 const gettingDelayValue = (callBack) => {
   axios.post(delayDataUrl)
     .then(res => {
@@ -179,6 +182,38 @@ const gettingDelayValue = (callBack) => {
       console.log(err.res)
     })
 };
+// {/*ADD bugid-(GOARIG_7006) */}
+const logoutEvent = (callBack) => {
+  axios.post(logoutEventUrl)
+    .then(res => {
+      callBack(res.data)
+    })
+    .catch(err => {
+      console.log(err.res)
+    })
+};
+// {/*ADD bugid-(GOARIG_7006) */}
+const gettingTestdataAftershutdown = (callBack) => {
+  axios.post(testdataAfterShutdownUrl)
+    .then(res => {
+      callBack(res.data)
+    })
+    .catch(err => {
+      console.log(err.res)
+    })
+};
+// {/*ADD bugid-(GOARIG_7014) */}
+const gettingChartData2 = (callBack) => {
+  axios.get(ststusBlockRow2Url)
+    .then(res => {
+      let chartdata = res.data;
+      callBack(chartdata)
+
+    }).catch(err => {
+      console.log(err);
+    })
+}
+
 export {
   getTurboConfigData, turbineConfigSubmit,
   getTestConfigData, getParamConfigData,
@@ -187,5 +222,6 @@ export {
   forgotValidation, registerPageValidation,
   getTableView, getSensorData,
   getHandleChangetestID, requestStatusData,
-  gettingChartData,  gettingDelayValue
+  gettingChartData,  gettingDelayValue,
+  logoutEvent,gettingTestdataAftershutdown,gettingChartData2
 }

@@ -31,6 +31,8 @@ class ComparisonTable extends Component {
     const liveCompressorInletPressure = compareLiveVal.P3;
     const liveOilPr = compareLiveVal.P23;
     const liveOilTemp = compareLiveVal.P25;
+    const liveturbine_inlet_gas = compareLiveVal.P16;
+    const livecompr_outlet_pr = compareLiveVal.P4;
     let displayValueRPM2;
     let displayValueComprPr2;
     let displayValueOilPr2;
@@ -39,6 +41,10 @@ class ComparisonTable extends Component {
     let displayValueComprPr1;
     let displayValueOilPr1;
     let displayValueOilTemp1;
+    let displayValueturbine_inletgastemp1;
+    let displayValueturbine_inletgastemp2;
+    let displayValuecomproutletpressure2;
+    let displayValuecomproutletpressure1;
     comparedVal.map((It) => {
       if (
         parseInt(It.rpm1) <= parseInt(liveRPM) &&
@@ -52,6 +58,11 @@ class ComparisonTable extends Component {
         displayValueComprPr1 = It.Comprinletpressure1;
         displayValueOilPr1 = It.Oil_Pr1;
         displayValueOilTemp1 = It.Oil_temp1;
+        /* ADD DATAbugid-(GOARIG_7004) */
+        displayValueturbine_inletgastemp1 = It.turbine_inletgastemp1;
+        displayValueturbine_inletgastemp2 = It.turbine_inletgastemp2;
+        displayValuecomproutletpressure1 = It.comproutletpressure1;
+        displayValuecomproutletpressure2 = It.comproutletpressure2;
       }
     });
 
@@ -73,6 +84,7 @@ class ComparisonTable extends Component {
         return "red";
       }
     };
+
     const getColorOilTemp = () => {
       if (
         displayValueOilTemp2 > liveOilTemp &&
@@ -83,11 +95,37 @@ class ComparisonTable extends Component {
         return "red";
       }
     };
-    const liveCompressorOutletPr = compareLiveVal.P4;
-    const liveTurbineInletGasTemp = compareLiveVal.P16;
-    const liveTotalMassFlow = compareLiveVal.C2;
-    const liveCompressorPrRatio = compareLiveVal.C13;
-    const liveCompressorMassFlowRate = compareLiveVal.C18;
+
+    /* ADD DATAbugid-(GOARIG_7004)   */
+    const getColoturbine_inletgastemp = () => {
+      if (
+        displayValueturbine_inletgastemp2 > liveturbine_inlet_gas &&
+        displayValueturbine_inletgastemp1 < liveturbine_inlet_gas
+      ) {
+        return "white";
+      } else {
+        return "red";
+      }
+    };
+
+    /* ADD DATAbugid-(GOARIG_7004)   */
+    const getColorcomproutletpressure = () => {
+      if (
+        displayValuecomproutletpressure2 > livecompr_outlet_pr &&
+        displayValuecomproutletpressure1 < livecompr_outlet_pr
+      ) {
+        return "white";
+      } else {
+        return "red";
+      }
+    };
+
+    //{ /*DEL - GOARIG_7004 */}
+    // const liveCompressorOutletPr = compareLiveVal.P4;
+    // const liveTurbineInletGasTemp = compareLiveVal.P16;
+    // const liveTotalMassFlow = compareLiveVal.C2;
+    // const liveCompressorPrRatio = compareLiveVal.C13;
+    // const liveCompressorMassFlowRate = compareLiveVal.C18;
 
     return (
       <div style={{ paddingTop: "25px" }}>
@@ -98,6 +136,8 @@ class ComparisonTable extends Component {
               <th>Compr Inlet Pr</th>
               <th>Oil Pr</th>
               <th>Oil Temp</th>
+              <th>Turbine Inlet Gas Temp</th>
+              <th>Compr. Outlet Pressure</th>
             </tr>
           </thead>
           <tbody>
@@ -107,6 +147,8 @@ class ComparisonTable extends Component {
                 <td>{displayValueComprPr2}</td>
                 <td>{displayValueOilPr2}</td>
                 <td>{displayValueOilTemp2}</td>
+                <td>{displayValueturbine_inletgastemp2}</td>
+                <td>{displayValuecomproutletpressure2}</td>
               </tr>
             ) : (
               []
@@ -118,6 +160,13 @@ class ComparisonTable extends Component {
               </td>
               <td style={{ color: getColorOilPr() }}>{liveOilPr}</td>
               <td style={{ color: getColorOilTemp() }}>{liveOilTemp}</td>
+              {/*ADD - GOARIG_7004 */}
+              <td style={{ color: getColoturbine_inletgastemp() }}>
+                {liveturbine_inlet_gas}
+              </td>
+              <td style={{ color: getColorcomproutletpressure() }}>
+                {livecompr_outlet_pr}
+              </td>
             </tr>
           </tbody>
         </table>

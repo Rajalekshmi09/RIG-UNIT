@@ -37,7 +37,7 @@ class ChartComponent extends Component {
       if (It > max) {
         titleColor = "red";
       } else if (It < max && It > min) {
-        titleColor = "green";
+        titleColor = "#03fc28";
       } else if (It < min) {
         titleColor = "yellow";
       }

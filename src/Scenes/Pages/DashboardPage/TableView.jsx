@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import StatusBlock from "../../Components/TestPageComponent/StatusBlock";
+import StatusBlockRow2 from "../../Components/TestPageComponent/StatusBlockRow2";
 import { Table, Row, Col } from "antd";
 import {
   updateTitleElements,
@@ -44,7 +45,7 @@ const columns = [
         if (parseInt(liveData) > parseInt(upperlimit.upperlimit)) return "red";
         if (parseInt(liveData) < parseInt(upperlimit.lowerlimit))
           return "yellow";
-        return "green";
+        return "#03fc28";
       };
       return {
         props: {
@@ -134,6 +135,8 @@ class TableView extends Component {
     return (
       <div>
         <StatusBlock />
+        {/*ADD bugid-(GOARIG_7014) */}
+        <StatusBlockRow2 />
         <ComparisonTable />
         <div>
           <Row>

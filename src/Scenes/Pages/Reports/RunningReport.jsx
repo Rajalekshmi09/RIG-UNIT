@@ -28,12 +28,11 @@ class RunningReport extends Component {
     this.state = {
       reportOut1: [],
       testno: [],
-      testno1: [],
+      testNumberVal: [],
       turboIdVal: [],
       tester: "",
       witness: "",
       loading: false,
-      defaultTestno: "Select Turbo ID",
     };
   }
   componentDidMount() {
@@ -159,22 +158,24 @@ class RunningReport extends Component {
   getReport = () => {
     if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning(turboID_alert);
-    } else if (this.state.testno1 === "" || this.state.testno1.length === 0) {
+    } else if (
+      this.state.testNumberVal === "" ||
+      this.state.testNumberVal.length === 0
+    ) {
       message.warning(testNo_alert);
     }
     if (
       this.state.turboIdVal !== "" &&
-      this.state.testno1 !== "" &&
+      this.state.testNumberVal !== "" &&
       this.state.turboIdVal.length !== 0 &&
-      this.state.testno1.length !== 0
+      this.state.testNumberVal.length !== 0
     ) {
       axios
         .post("http://192.168.0.167:5000/runningReport.php", {
           turboIdVal: this.state.turboIdVal,
-          testno: this.state.testno1,
+          testno: this.state.testNumberVal,
         })
         .then((res) => {
-          console.log(typeof res.data);
           if (typeof res.data !== "string") {
             this.setState({
               reportOut1: res.data,
@@ -190,7 +191,7 @@ class RunningReport extends Component {
       axios
         .post("http://192.168.0.167:5000/getnames.php", {
           turboIdVal: this.state.turboIdVal,
-          testno: this.state.testno1,
+          testno: this.state.testNumberVal,
         })
         .then((res) => {
           this.setState({
@@ -234,7 +235,7 @@ class RunningReport extends Component {
   //select the TstNO
   handleChangeTestNO = (value) => {
     this.setState({
-      testno1: value,
+      testNumberVal: value,
     });
   };
 
@@ -285,7 +286,7 @@ class RunningReport extends Component {
                 <Form.Item name="options">
                   <Input.Group compact>
                     <Select
-                      defaultValue={this.state.defaultTestno}
+                      defaultValue="Select Test No"
                       style={{ width: "300px" }}
                       onChange={this.handleChangeTestNO}
                     >
@@ -377,7 +378,7 @@ class RunningReport extends Component {
                   </tr>
                   {/* <tr>
                     <td>TEST ID</td>
-                    <td>{this.state.testno1}</td>
+                    <td>{this.state.testNumberVal}</td>
                   </tr> */}
                 </table>
 

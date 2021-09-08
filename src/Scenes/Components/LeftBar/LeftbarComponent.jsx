@@ -15,6 +15,7 @@ import { FiSettings, FiActivity } from "react-icons/fi";
 import { AiOutlineTable, AiFillDatabase, AiFillSignal } from "react-icons/ai";
 import { BiTrendingUp } from "react-icons/bi";
 import { CgPerformance } from "react-icons/cg";
+import { BsCardChecklist } from "react-icons/bs";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -146,6 +147,13 @@ class LeftbarComponent extends Component {
               icon={<CgPerformance style={{ color: "#42dbdc" }} />}
             >
               Performance After Endurence
+            </Menu.Item>
+            {/*add AcceptanceReport bugid-(GOARIG_7003) */}
+            <Menu.Item
+              key="acceptanceReport"
+              icon={<BsCardChecklist style={{ color: "#42dbdc" }} />}
+            >
+              Acceptance Report
             </Menu.Item>
             <Menu.Item
               key="exportData"

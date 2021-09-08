@@ -56,6 +56,8 @@ import {
   updateTestIdCount,
   updateTurboMode,
   updateDropDown,
+  //{/*ADD - GOARIG_7014 */}
+  updateChartData2,
 } from "../../../Redux/action";
 import ListItems from "../subComponents/ListItems";
 import {
@@ -63,7 +65,12 @@ import {
   getSensorData,
   getHandleChangetestID,
   requestStatusData,
-  gettingChartData,
+
+  //{/*ADD - GOARIG_7006 */}
+  gettingTestdataAftershutdown,
+  logoutEvent,
+  //{/*ADD - GOARIG_7014 */}
+  gettingChartData2,
 } from "../../../Services/requests";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -84,7 +91,15 @@ const {
   warning_mode,
   warning_name,
   alert_targetval,
+
+  /*MOD bugid-(GOARIG_7015) */
+  Initializedata,
+  Startdata,
+  nShutdowndata,
+  eShutdowndata,
+  Resetdata,
 } = testParamHash;
+
 const { installed_turbine } = turboConfigValue;
 const {
   value,
@@ -94,13 +109,15 @@ const {
   ByPassSolenoidValve1,
   KerosenePump,
   LubeOilPump,
-  ByPassValueII,
   CoolingPump,
   KeroseneFuelFlowValve,
   AirInjectorSolenoidValve,
   PilotFlameAirSolenoidValve,
   Acetelenegas,
+  //  {/* ADD -  GOARIG_7010 */}
+  ErrorCode,
 } = helpPopup;
+
 class TestPageContainer extends Component {
   constructor(props) {
     super(props);
@@ -128,12 +145,14 @@ class TestPageContainer extends Component {
       ByPassSolenoidValve1: "OFF",
       KerosenePump: "OFF",
       LubeOilPump: "OFF",
-      ByPassValueII: "OFF",
       CoolingPump: "OFF",
       KeroseneFuelFlowValve: "OFF",
       AirInjectorSolenoidValve: "OFF",
       PilotFlameAirSolenoidValve: "OFF",
       Acetelenegas: "OFF",
+
+      // ADD -  GOARIG_7010
+      ErrorCode: "0",
       currentDateTime: "",
       turbostartname: [],
       overalldata: [],
@@ -141,6 +160,9 @@ class TestPageContainer extends Component {
       shutdownEnable: false,
       tubineStatus: false,
       failedField: [],
+
+      /*ADD bugid-(GOARIG_7015) */
+      eShutdowndatabit: false,
     };
 
     this.startClick = this.startClick.bind(this);
@@ -153,8 +175,6 @@ class TestPageContainer extends Component {
   }
 
   componentDidMount() {
-    // this.props.updateTestIdValue('')
-
     //getting installed turbine name form db
     requestStatusData((data) => {
       if (typeof data !== "string" && data.length > installed_turbine) {
@@ -289,10 +309,15 @@ class TestPageContainer extends Component {
   //onclick for shutdown
   shutdownClick = () => {
     clearInterval(this.startClick);
-
     this.setState({
       shutdownInitiated: true,
       shutdownEnable: false,
+    });
+
+    // {/*ADD BugID - GOARIG_7006 */}
+    //getting testdata insert after shutdown
+    gettingTestdataAftershutdown((data) => {
+      console.log(data);
     });
 
     shutdownClickEvent((data) => {
@@ -301,15 +326,16 @@ class TestPageContainer extends Component {
     });
   };
 
-  //graph data
-  requestChartData() {
-    gettingChartData((data) => {
-      //this function from request page
-      let chartData = data;
-      //updating to the store called chartdata
-      this.props.updateChartData(chartData);
-    });
-  }
+  // {/*DEL bugid-(GOARIG_7005) */}
+  // //graph data
+  // requestChartData() {
+  //   gettingChartData((data) => {
+  //     //this function from request page
+  //     let chartData = data;
+  //     //updating to the store called chartdata
+  //     this.props.updateChartData(chartData);
+  //   });
+  // }
 
   //this event trigger while clicking the initialize
   sensorData() {
@@ -332,7 +358,6 @@ class TestPageContainer extends Component {
       .get("http://192.168.0.167:5000/initialize.php")
       .then((res) => {
         let CommunicationData = res.data;
-        console.log(res.data);
         if (CommunicationData.status === "1") {
           this.props.initiateCommunication();
         }
@@ -396,12 +421,29 @@ class TestPageContainer extends Component {
           this.communicationstatus();
           let interval = setInterval(() => {
             this.sensorData();
-          }, 500); //delay for getData command status
+            /*ADD bugid-(GOARIG_7015) */
+            let eShutdowndataArraybit = this.props.app.turboStart.filter((it) =>
+              eShutdowndata.find((val) => val === it.name)
+            );
+            eShutdowndataArraybit.map((It) =>
+              It.item == "E.Shutdown Completed"
+                ? this.setState({
+                    eShutdowndatabit: true,
+                  })
+                : []
+            );
+          }, 1000); //delay for getData command status
         })
         .catch((err) => {
           console.log(err);
         });
     }
+    /*ADD bugid-(GOARIG_7015) */
+    axios
+      .post("http://192.168.0.167:7000/testdatainsertwithtestid.php", {
+        status: "Start initiated",
+      })
+      .then(function (response) {});
   };
 
   //start click
@@ -418,6 +460,13 @@ class TestPageContainer extends Component {
       .catch((err) => {
         console.log(err);
       });
+
+    /*ADD bugid-(GOARIG_7014) */
+    setInterval(() => {
+      gettingChartData2((data) => {
+        this.props.updateChartData2(data);
+      });
+    }, 1000);
   };
 
   //help event onClick
@@ -432,6 +481,10 @@ class TestPageContainer extends Component {
         });
         self.setState({
           valvestatus: response.data.valvestatus,
+        });
+        // {/* ADD -  GOARIG_7010 */}
+        self.setState({
+          ErrorCode: valveData[11],
         });
         if (valveData[0] === "1") {
           self.setState({
@@ -464,21 +517,18 @@ class TestPageContainer extends Component {
           });
         }
         if (valveData[6] === "1") {
+          //{/*ADD - GOARIG_7004 */}
           self.setState({
-            ByPassValueII: "ON",
+            CoolingPump: "ON",
           });
         }
         if (valveData[7] === "1") {
           self.setState({
-            IgnitorSwitch: "ON",
-          });
-        }
-        if (valveData[8] === "1") {
-          self.setState({
+            //{/*ADD - GOARIG_7004 */}
             KeroseneFuelFlowValve: "ON",
           });
         }
-        if (valveData[9] === "1") {
+        if (valveData[8] === "1") {
           self.setState({
             AirInjectorSolenoidValve: "ON",
           });
@@ -488,7 +538,7 @@ class TestPageContainer extends Component {
             PilotFlameAirSolenoidValve: "ON",
           });
         }
-        if (valveData[9] === "1") {
+        if (valveData[10] === "1") {
           self.setState({
             Acetelenegas: "ON",
           });
@@ -552,9 +602,12 @@ class TestPageContainer extends Component {
         this.setState({
           shutdownEnable: true,
         });
-        setInterval(() => {
-          this.requestChartData();
-        }, this.props.app.delayValue); //delay for receiving sensor data from plc
+        {
+          /*DEL bugid-(GOARIG_7005) */
+        }
+        // setInterval(() => {
+        //   this.requestChartData();
+        // }, this.props.app.delayValue); //delay for receiving sensor data from plc
         axios
           .post("http://192.168.0.167:5000/start.php", {
             //set target rpm & temp value to sent plc
@@ -566,9 +619,6 @@ class TestPageContainer extends Component {
             let startData = res.data;
 
             //read status from plc after start click => stage1,stage2 etc...
-            axios
-              .post("http://192.168.0.167:7000/testdatainsert.php")
-              .then(function (response) {});
           })
           .catch((err) => {
             console.log(err);
@@ -592,6 +642,9 @@ class TestPageContainer extends Component {
     this.props.updateTestIdCount("");
     this.props.updateTestIdValue("");
     this.props.updateTurboMode("");
+
+    /*ADD bugid-(GOARIG_7006) */
+    logoutEvent((data) => {});
 
     this.setState({
       turboIdDefaultValue: "Select Turbo ID",
@@ -621,13 +674,13 @@ class TestPageContainer extends Component {
       errormsg: "",
       turboIdTestCount: null,
       failedField: [],
+      eShutdowndatabit: false,
     });
   };
 
   //alertOnclose
   alertOnClose = () => {
     this.props.initiateTargetState();
-    console.log(this.props.app.targetState);
   };
 
   render() {
@@ -641,17 +694,26 @@ class TestPageContainer extends Component {
     const resetTemp = this.props.app.resetTemp;
     const resetRPM = this.props.app.resetRPM;
     const turboStart = this.props.app.turboStart;
-    const { Initializedata, Startdata, Shutdowndata, Resetdata } =
-      testParamHash;
+
+    /*DEL bugid-(GOARIG_7015) */
+    // const { Initializedata, Startdata, Shutdowndata, Resetdata } =
+    // testParamHash;
+
     const InitializedataArray = turboStart.filter((it) =>
       Initializedata.find((val) => val === it.name)
     );
     const StartdataArray = turboStart.filter((it) =>
       Startdata.find((val) => val === it.name)
     );
-    const ShutdowndataArray = turboStart.filter((it) =>
-      Shutdowndata.find((val) => val === it.name)
+    const nShutdowndataArray = turboStart.filter((it) =>
+      nShutdowndata.find((val) => val === it.name)
     );
+
+    /*ADD bugid-(GOARIG_7015) */
+    const eShutdowndataArray = turboStart.filter((it) =>
+      eShutdowndata.find((val) => val === it.name)
+    );
+
     const ResetdataArray = turboStart.filter((it) =>
       Resetdata.find((val) => val === it.name)
     );
@@ -938,10 +1000,16 @@ class TestPageContainer extends Component {
               <Card
                 style={{ width: 185, cursor: "pointer", borderColor: "green" }}
               >
-                <DownloadOutlined
-                  className="icon-button1"
-                  onClick={() => this.initializeClick()}
-                />
+                {/* MOD bugid-(GOARIG_7016)  */}
+                {communication === true || communicationFailed === true ? (
+                  <DownloadOutlined className="iconbutton1-basic" />
+                ) : (
+                  <DownloadOutlined
+                    className="icon-button1"
+                    onClick={() => this.initializeClick()}
+                  />
+                )}
+
                 <p
                   style={{
                     color: "#42dad6",
@@ -1081,6 +1149,7 @@ class TestPageContainer extends Component {
                 ) : (
                   ""
                 )}
+
                 {showTarget ? (
                   <div>
                     Target Temp : {targetTemp}, &nbsp; RPM : {targetRPM}
@@ -1088,6 +1157,7 @@ class TestPageContainer extends Component {
                 ) : (
                   []
                 )}
+
                 {showTarget ? (
                   <p style={{ height: "15px", width: "180px" }}>
                     <Row>
@@ -1272,7 +1342,25 @@ class TestPageContainer extends Component {
               {shutdownInitiated ? (
                 <p style={{ height: "15px", color: "white" }}>
                   <Row>
-                    {ShutdowndataArray.map((item) => {
+                    {nShutdowndataArray.map((item) => {
+                      return (
+                        <div>
+                          <CheckOutlined style={{ color: "green" }} />
+                          {item.testcommandsTime} - {item.name}
+                        </div>
+                      );
+                    })}
+                  </Row>
+                </p>
+              ) : (
+                []
+              )}
+              {/* ADD bugid-(GOARIG_7015)  */}
+              {/* E-shutdown */}
+              {showTarget ? (
+                <p style={{ height: "15px", color: "white" }}>
+                  <Row>
+                    {eShutdowndataArray.map((item) => {
                       return (
                         <div>
                           <CheckOutlined style={{ color: "green" }} />
@@ -1291,6 +1379,8 @@ class TestPageContainer extends Component {
               <Card
                 style={
                   shutdownInitiated ||
+                  /*ADD bugid-(GOARIG_7015) */
+                  eShutdowndataArray.length === 2 ||
                   (showTarget === false && communication === false)
                     ? { width: 100, cursor: "pointer", borderColor: "green" }
                     : { width: 100, borderColor: "gray" }
@@ -1298,6 +1388,8 @@ class TestPageContainer extends Component {
               >
                 <div>
                   {shutdownInitiated ||
+                  /*DEL bugid-(GOARIG_7015) */
+                  eShutdowndataArray.length === 2 ||
                   (showTarget === false && communication === false) ? (
                     <RedoOutlined
                       className="icon-button2"
@@ -1307,8 +1399,11 @@ class TestPageContainer extends Component {
                     <RedoOutlined className="iconbutton2-basic" />
                   )}
                 </div>
+                {/* ADD bugid-(GOARIG_7015) */}
                 {shutdownInitiated ||
-                (showTarget === false && communication === false) ? (
+                eShutdowndataArray.length === 2 ||
+                (showTarget === false && communication === false) ||
+                communicationFailed === true ? (
                   <p style={{ color: "#42dad6", fontSize: "20px" }}>Reset</p>
                 ) : (
                   <p style={{ color: "gray", fontSize: "20px" }}>Reset</p>
@@ -1348,9 +1443,6 @@ class TestPageContainer extends Component {
                       {LubeOilPump} {this.state.LubeOilPump}
                     </p>
                     <p>
-                      {ByPassValueII} {this.state.ByPassValueII}
-                    </p>
-                    <p>
                       {CoolingPump} {this.state.CoolingPump}
                     </p>
                     <p>
@@ -1366,6 +1458,10 @@ class TestPageContainer extends Component {
                     </p>
                     <p>
                       {Acetelenegas} {this.state.Acetelenegas}
+                    </p>
+                    {/* ADD -  GOARIG_7010 */}
+                    <p>
+                      {ErrorCode} {this.state.ErrorCode}
                     </p>
                   </div>
                 }
@@ -1436,6 +1532,7 @@ const mapDispatchToProps = {
   updateTurboMode,
   updateDropDown,
   updateNotifyAction,
+  updateChartData2,
 };
 
 const TestContainer = connect(

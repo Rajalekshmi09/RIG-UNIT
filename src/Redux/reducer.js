@@ -29,15 +29,19 @@ const appReducer = (state = InitialState, action) => {
     case 'UPDATE_CHART_DATA':
       newState.chartData = action.payload ? action.payload : []
       return newState
-
+      /* ADD bugid-(GOARIG_7014)   */
+    //chartData2
+    case 'UPDATE_CHART_DATA2':
+      newState.chartData2 = action.payload ? action.payload : []
+      return newState
+      
     /* ---config page --- */
     //testConfigPage
     case 'UPDATE_TEST_CONFIG_PAGE':
       newState.testConfigPage = action.payload ? action.payload : []
       return newState
     //turboConfig
-    case 'UPDATE_TURBO_CONFIG':
-      console.log(newState)
+    case 'UPDATE_TURBO_CONFIG':    
       newState.turboConfig = action.payload ? action.payload : []
       return newState
     //paramConfig
@@ -191,7 +195,7 @@ const appReducer = (state = InitialState, action) => {
     case 'START_DB_INSERT':
       newState.startDbInserting = false
       return newState
- 
+
     //delayValue
     case 'FETCHING_DELAY_VALUE':
       newState.delayValue = action.payload

@@ -2,13 +2,21 @@
   width: 100%;
   margin-left: 200;
 }
+.ant-progress-circle .ant-progress-text {
+  color: white;
+}
+
 /*
-* ==========================================================
-*       Toggle
-* ==========================================================
+* ================================
+*    report table
+* ================================
 */
-table#example1 {
-  margin-top: 20px;
+/* //ADD AcceptanceReport bugid-(GOARIG_7003) */
+table#example1,
+#example2,
+#example3,
+#example4 {
+  margin-top: 25px;
   height: 250px;
   width: 100%;
   font-size: 14px;
@@ -20,6 +28,12 @@ div#allreport h1 {
   font-size: 32px;
   color: white;
 }
+
+/*
+* ==========================================================
+*       Toggle
+* ==========================================================
+*/
 .trigger {
   padding: 0 24px;
   font-size: 20px;
@@ -768,7 +782,8 @@ div#allreport h1 {
   padding-left: 10px;
   padding-right: 10px;
   background: #131633;
-  color: #8a8d93;
+  /* ADD bugid-(GOARIG_7013)   */
+  color: #fff;
 }
 .statistic-block .title {
   text-align: center;
@@ -781,7 +796,8 @@ div#allreport h1 {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: 13px !important;
-  color: #8a8d93;
+  /* ADD bugid-(GOARIG_7013)   */
+  color: #fff;
   margin-bottom: -5px !important;
 }
 .statistic-block .number {

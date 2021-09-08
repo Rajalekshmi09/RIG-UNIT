@@ -15,7 +15,9 @@ const url = {
   TURBOID_VALUE: 'turboIdValue.php',
   TABLE_STATUSDATA: 'statusValue.php',
   GRAPH_DATA: 'graph.php',
-  DELAY_DATA: 'delay.php'
+  DELAY_DATA: 'delay.php',
+    // {/*ADD bugid-(GOARIG_7006) */}
+  LOGOUT_EVENT: 'logout.php',
 }
 
 const FormDetails = {
@@ -40,13 +42,13 @@ const CompanyDetails = {
   company_link: 'http://www.v-enertek.com/',
 }
 
-const targetKeysVal = ["3", "5", "8", "10", "13", "17"]
+const targetKeysVal = ["5", "8", "10", "13", "17","18"]
 
 const dashboardDataVal = [
   { "key": "0", "Name": "Ambient Pressure", "chosen": false },
   { "key": "1", "Name": "Ambient Temperature", "chosen": false },
   { "key": "2", "Name": "Compressor Inlet Pressure", "chosen": false },
-  { "key": "3", "Name": "Compressor Outlet Pressure", "chosen": true },
+  { "key": "3", "Name": "Compressor Outlet Pressure", "chosen": false },
   { "key": "4", "Name": "Compressor Different Ventury Pressure", "chosen": false },
   { "key": "5", "Name": "RPM", "chosen": true },
   { "key": "6", "Name": "Compressor Inlet Temperature", "chosen": false },
@@ -61,7 +63,7 @@ const dashboardDataVal = [
   { "key": "15", "Name": "Oil Pressure", "chosen": false },
   { "key": "16", "Name": "Oil Flow Rate", "chosen": false },
   { "key": "17", "Name": "Oil Brg Inlet Temperature", "chosen": true },
-  { "key": "18", "Name": "Oil Tank Temperature", "chosen": false },
+  { "key": "18", "Name": "Oil Tank Temperature", "chosen": true },
 ]
 
 const dashboardSensor = {
@@ -74,10 +76,20 @@ const dashboardSensor = {
     "Fuel Flow", "Fuel Pressure", "Oil Pressure", "Oil Flow Rate",
     "Oil Brg Inlet Temperature", "Oil Tank Temperature"
   ],
+   // {/*ADD bugid-(GOARIG_7014) */}
+  sensorLabel_row2 : [
+    "Compression Ratio",
+    "Mass Flow",
+    "Air Fuel Flow",
+    "Surge Margin",
+  ],
+   targetKeysVal_row2 :  [11, 16, 24, 22],
 
   dummyData: 0,
   chartMax: 5,
-  n_shutdown: 'N-Shutdown',
+   // {/*ADD bugid-(GOARIG_7015) */}
+  n_shutdown: 'N.Shutdown',
+  e_shutdown: 'E.Shutdown',
   live: 'LIVE',
   offline: 'OFFLINE'
 }
@@ -92,7 +104,9 @@ const titleElements = [
 const testParamHash = {
   Initializedata: ['Communication', 'Initialize Started', 'Initialize Completed'],
   Startdata: ['Start Completed', 'Ignite', 'Gas Opened', 'Stage1', 'Ruel Opened', 'Stage2', 'Fuel Opened', 'Stage2', 'Gas Closed', 'Stage3'],
-  Shutdowndata: ['Shutdown Initiated', 'N.Shutdown Completed'],
+  nShutdowndata: ['Shutdown Initiated', 'N.Shutdown Completed'],
+   // {/*ADD bugid-(GOARIG_7015) */}
+  eShutdowndata: ['E.Shutdown Initiated', 'E.Shutdown Completed'],
   Resetdata: ['Reset Values'],
   Tester_warning: 'Already exists',
   Witness_warning: 'Already exists',
@@ -116,6 +130,8 @@ const helpPopup = {
   AirInjectorSolenoidValve: 'Air Injector Solenoid Valve : ',
   PilotFlameAirSolenoidValve: ' Pilot Flame Air Solenoid Valve   : ',
   Acetelenegas: 'Acetelene gas : ',
+   // {/*ADD bugid-(GOARIG_7010) */}
+  ErrorCode: 'ERROR CODE : ',
 }
 
 const turboConfigValue = {
@@ -144,9 +160,9 @@ const dashboardDataMessage = {
 }
 
 const endurence = {
-  RPM: "53900+/-1%",
-  Minutes: "10+/-1",
-  trubineInletTemp: "700/+50"
+  endurence_RPM: "53900+/-1%",
+  endurence_Minutes: "10+/-1",
+  endurence_trubineInletTemp: "700/+50"
 }
 
 const performance = {

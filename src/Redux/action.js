@@ -33,6 +33,13 @@ export const updateChartData = data => ({
   payload: data
 })
 
+/* ADD bugid-(GOARIG_7014)   */
+// chartData2
+export const updateChartData2 = data => ({
+  type: 'UPDATE_CHART_DATA2',
+  payload: data
+})
+
 /* ---config page --- */
 // testConfigPage
 export const updateTestConfigPage = data => ({

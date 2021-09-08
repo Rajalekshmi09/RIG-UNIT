@@ -160,7 +160,7 @@ class ExportData extends Component {
         })
         .then((res) => {
           let data = res.data;
-          console.log(typeof data);
+
           if (data.length > 5 && typeof data !== "string") {
             this.setState({
               reportDetails: data,
@@ -246,7 +246,7 @@ class ExportData extends Component {
   render() {
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
-    // console.log(this.state.reportDetails)
+
     // const Ambient_pr =
     return (
       <div style={{ paddingTop: "1px" }}>

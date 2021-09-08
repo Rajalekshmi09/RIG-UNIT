@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Progress } from "antd";
 import { connect } from "react-redux";
 import { dashboardSensor } from "../../../Services/constants";
 import { getTableView } from "../../../Services/requests";
-const { sensorLabel, n_shutdown, live, offline } = dashboardSensor;
+
+const { sensorLabel, n_shutdown, e_shutdown, live, offline } = dashboardSensor;
 
 const styles = {
   online: {
-    color: "green",
+    color: "#03fc28",
     position: "absolute",
     right: 20,
     top: 120,
@@ -30,11 +31,6 @@ class StatusBlock extends Component {
     this.state = {
       cardList: this.props.cardlist,
       persons: [],
-      isRpmUpArrow: true,
-      isT1UpArrow: true,
-      isT2UpArrow: true,
-      isT9UpArrow: true,
-      isP2UpArrow: true,
       tabledata: [],
       filteredTableData: [],
     };
@@ -75,7 +71,7 @@ class StatusBlock extends Component {
     this.props.app.turboStart.map((they) => {
       if (they.name === "N.Shutdown Completed") {
         nShutdown = true;
-      } else if (they.name === "eshutdown") {
+      } else if (they.name === "E.Shutdown Completed") {
         eShutdown = true;
       }
     });
@@ -98,7 +94,7 @@ class StatusBlock extends Component {
         ? (filteredData1 = Object.values(this.props.app.chartData[1]).filter(
             (_, index) => dashboardDataNumArr.includes(index)
           ))
-        : (filteredData = []);
+        : (filteredData1 = []);
     }
 
     {
@@ -119,17 +115,18 @@ class StatusBlock extends Component {
     }
 
     //Assigning statusblock data color variation
-    // this.state.filteredTableData
-    //   ? this.state.filteredTableData.map((it, y) => {
-    //       if (parseInt(persons[y]) > parseInt(it.upperlimit)) {
-    //         colors = colors.concat("red");
-    //       } else if (parseInt(persons[y]) < parseInt(it.lowerlimit)) {
-    //         colors = colors.concat("yellow");
-    //       } else {
-    //         colors = colors.concat("green");
-    //       }
-    //     })
-    //   : [];
+    /* eslint-disable */
+    this.state.filteredTableData
+      ? this.state.filteredTableData.map((it, y) => {
+          if (parseInt(persons[y]) > parseInt(it.upperlimit)) {
+            colors = colors.concat("red");
+          } else if (parseInt(persons[y]) < parseInt(it.lowerlimit)) {
+            colors = colors.concat("yellow");
+          } else {
+            colors = colors.concat("#03fc28");
+          }
+        })
+      : [];
 
     const date = new Date();
     const db_date = new Date(receivedDate);
@@ -138,19 +135,27 @@ class StatusBlock extends Component {
     if (this.props.app.showTarget === true) {
       isActive = true;
     }
+
     return (
       <div>
         <div>
+          {/* ADD -  GOARIG_7008  */}
+          {/* ADD bugid-(GOARIG_7014)*/}
           <Row>
-            {eShutdown ? <p style={styles.online}>E_shutdown</p> : []}
-            {nShutdown ? (
-              <p style={styles.offline}>{n_shutdown}</p>
+            {eShutdown ? (
+              <p style={styles.offline}>{e_shutdown}</p>
             ) : (
               <Row>
-                {isActive ? (
-                  <p style={styles.online}>{live}</p>
+                {nShutdown ? (
+                  <p style={styles.offline}>{n_shutdown}</p>
                 ) : (
-                  <p style={styles.offline}>{offline}</p>
+                  <Row>
+                    {isActive ? (
+                      <p style={styles.online}>{live}</p>
+                    ) : (
+                      <p style={styles.offline}>{offline}</p>
+                    )}
+                  </Row>
                 )}
               </Row>
             )}
@@ -158,7 +163,7 @@ class StatusBlock extends Component {
         </div>
         <Row>
           {persons.map((It, y) => (
-            <Col span={4} style={{ paddingRight: "10px" }}>
+            <Col style={{ paddingRight: "10px", width: "210px" }}>
               <div className="statistic-block block">
                 <Row className="progress-details d-flex align-items-end justify-content-between">
                   {/* up and down arrow column */}
@@ -218,6 +223,24 @@ class StatusBlock extends Component {
               </div>
             </Col>
           ))}
+          {/* GOARIG_7002 - ADD */}
+          <Col>
+            <div className="statistic-block block">
+              <Progress
+                strokeWidth={10}
+                strokeColor="#03fc28"
+                type="circle"
+                width={60}
+                style={{ marginLeft: "28px" }}
+                percent={this.props.app.chartData[0].P28}
+              />
+              <div className="title">
+                <div style={{ fontSize: "10px" }}>
+                  <strong>bypass valve2</strong>
+                </div>
+              </div>
+            </div>
+          </Col>
         </Row>
       </div>
     );
