@@ -52,7 +52,14 @@ const InitialState = {
   resetTemp: '',
   resetRPM: '',
   startDbInserting: false,
+   /*ADD bugid-(GOARIG_7019) */
+  startDisable:false,
+
   //grapgView
-  delayValue: ''
+  delayValue: '',
+
+  //breakinterval
+  clearSetInterval: false,
+
 }
 export default InitialState

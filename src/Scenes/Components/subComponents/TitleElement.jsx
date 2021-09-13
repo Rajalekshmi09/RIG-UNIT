@@ -15,7 +15,7 @@ class TitleElement extends Component {
     const titleValue = this.props.app.titleElements;
     return (
       <div>
-        <Layout style={{ backgroundColor: "#212840", paddingBottom: "20px" }}>
+        <Layout style={{ backgroundColor: "#212840", paddingBottom: "5px" }}>
           <Row>
             <p style={{ color: "#42dad6", fontSize: "25px" }}>EnerTek </p>
             <p style={{ color: "#585a5f", fontSize: "25px" }}>

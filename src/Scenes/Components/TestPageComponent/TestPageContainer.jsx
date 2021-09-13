@@ -58,6 +58,8 @@ import {
   updateDropDown,
   //{/*ADD - GOARIG_7014 */}
   updateChartData2,
+  startDisableEvent,
+  enableclearSetInterval,
 } from "../../../Redux/action";
 import ListItems from "../subComponents/ListItems";
 import {
@@ -157,12 +159,11 @@ class TestPageContainer extends Component {
       turbostartname: [],
       overalldata: [],
       errormsg: "",
-      shutdownEnable: false,
+
+      /*DEL bugid-(GOARIG_7019) */
+      // shutdownEnable: false,
       tubineStatus: false,
       failedField: [],
-
-      /*ADD bugid-(GOARIG_7015) */
-      eShutdowndatabit: false,
     };
 
     this.startClick = this.startClick.bind(this);
@@ -188,10 +189,7 @@ class TestPageContainer extends Component {
 
   //helpPopover action
   handleVisibleChange = (visible) => {
-    if (
-      this.props.app.shutdownInitiated === false &&
-      this.props.app.showTarget === true
-    ) {
+    if (this.props.app.showTarget === true) {
       this.setState({ visible });
     }
   };
@@ -309,11 +307,12 @@ class TestPageContainer extends Component {
   //onclick for shutdown
   shutdownClick = () => {
     clearInterval(this.startClick);
-    this.setState({
-      shutdownInitiated: true,
-      shutdownEnable: false,
-    });
-
+    /*DEL bugid-(GOARIG_7019) */
+    // this.setState({
+    //   shutdownEnable: false,
+    // });
+    /*ADD bugid-(GOARIG_7019) */
+    this.props.startDisableEvent(false);
     // {/*ADD BugID - GOARIG_7006 */}
     //getting testdata insert after shutdown
     gettingTestdataAftershutdown((data) => {
@@ -340,15 +339,15 @@ class TestPageContainer extends Component {
   //this event trigger while clicking the initialize
   sensorData() {
     //fetching sensor data from DB
-    getSensorData((data) => {
-      if (
-        this.props.app.startDbInserting === false &&
-        this.props.app.communication === true
-      ) {
-        this.props.initiateTurboStart(data);
-      } else {
-        this.props.initiateTurboStart(null);
+    // getSensorData((data) => {
+    axios.get("http://192.168.0.167:8002/getdata.php").then((res) => {
+      let val = res.data;
+      if (this.props.app.communication === true && val.length >= 1) {
+        this.props.initiateTurboStart(val);
       }
+      // else {
+      //   this.props.initiateTurboStart([]);
+      // }
     });
   }
 
@@ -360,8 +359,7 @@ class TestPageContainer extends Component {
         let CommunicationData = res.data;
         if (CommunicationData.status === "1") {
           this.props.initiateCommunication();
-        }
-        if (CommunicationData.status === "") {
+        } else if (CommunicationData.status === "") {
           this.props.initiateCommunicationFailed();
           this.setState({ failedField: true });
         }
@@ -376,6 +374,7 @@ class TestPageContainer extends Component {
   initializeClick = () => {
     this.props.startDbInsert();
     this.props.updateDropDown(null);
+    this.props.enableclearSetInterval(false);
     if (
       this.props.app.turboMode === "" ||
       this.props.app.turboMode === undefined
@@ -419,24 +418,16 @@ class TestPageContainer extends Component {
         })
         .then((res) => {
           this.communicationstatus();
-          let interval = setInterval(() => {
-            this.sensorData();
-            /*ADD bugid-(GOARIG_7015) */
-            let eShutdowndataArraybit = this.props.app.turboStart.filter((it) =>
-              eShutdowndata.find((val) => val === it.name)
-            );
-            eShutdowndataArraybit.map((It) =>
-              It.item == "E.Shutdown Completed"
-                ? this.setState({
-                    eShutdowndatabit: true,
-                  })
-                : []
-            );
-          }, 1000); //delay for getData command status
         })
         .catch((err) => {
           console.log(err);
         });
+      const interval = setInterval(() => {
+        this.sensorData();
+        if (this.props.app.clearSetInterval === true) {
+          clearInterval(interval);
+        }
+      }, 1000);
     }
     /*ADD bugid-(GOARIG_7015) */
     axios
@@ -462,9 +453,12 @@ class TestPageContainer extends Component {
       });
 
     /*ADD bugid-(GOARIG_7014) */
-    setInterval(() => {
+    const statusblockInterval = setInterval(() => {
       gettingChartData2((data) => {
         this.props.updateChartData2(data);
+        if (this.props.app.clearSetInterval === true) {
+          clearInterval(statusblockInterval);
+        }
       });
     }, 1000);
   };
@@ -599,9 +593,12 @@ class TestPageContainer extends Component {
     if (this.props.app.communication === true) {
       if (this.props.app.targetRPM !== "" && this.props.app.targetTemp !== "") {
         this.props.initiateShowTarget();
-        this.setState({
-          shutdownEnable: true,
-        });
+        /*DEL bugid-(GOARIG_7019) */
+        // this.setState({
+        //   shutdownEnable: true,
+        // });
+        /*ADD bugid-(GOARIG_7019) */
+        this.props.startDisableEvent(true);
         {
           /*DEL bugid-(GOARIG_7005) */
         }
@@ -638,11 +635,14 @@ class TestPageContainer extends Component {
 
   //reSet action
   reloadAllEvents = () => {
+    this.props.enableclearSetInterval(true);
     this.props.stopDbInsert();
     this.props.updateTestIdCount("");
     this.props.updateTestIdValue("");
     this.props.updateTurboMode("");
-
+    this.props.initiateTurboStart([]);
+    /*ADD bugid-(GOARIG_7019) */
+    this.props.startDisableEvent(false);
     /*ADD bugid-(GOARIG_7006) */
     logoutEvent((data) => {});
 
@@ -674,7 +674,6 @@ class TestPageContainer extends Component {
       errormsg: "",
       turboIdTestCount: null,
       failedField: [],
-      eShutdowndatabit: false,
     });
   };
 
@@ -693,7 +692,13 @@ class TestPageContainer extends Component {
     const targetRPM = this.props.app.targetRPM;
     const resetTemp = this.props.app.resetTemp;
     const resetRPM = this.props.app.resetRPM;
-    const turboStart = this.props.app.turboStart;
+    let turboStart = [];
+    if (this.props.app.turboStart) {
+      turboStart = this.props.app.turboStart;
+    }
+
+    console.log(this.props.app);
+    console.log(this.props.app.turboStart);
 
     /*DEL bugid-(GOARIG_7015) */
     // const { Initializedata, Startdata, Shutdowndata, Resetdata } =
@@ -702,9 +707,12 @@ class TestPageContainer extends Component {
     const InitializedataArray = turboStart.filter((it) =>
       Initializedata.find((val) => val === it.name)
     );
+    console.log(InitializedataArray);
+
     const StartdataArray = turboStart.filter((it) =>
       Startdata.find((val) => val === it.name)
     );
+
     const nShutdowndataArray = turboStart.filter((it) =>
       nShutdowndata.find((val) => val === it.name)
     );
@@ -762,7 +770,7 @@ class TestPageContainer extends Component {
                 <Layout
                   style={{
                     backgroundColor: "transparent",
-                    paddingTop: "20px",
+                    paddingTop: "0px",
                     paddingLeft: "20px",
                   }}
                 >
@@ -1053,7 +1061,6 @@ class TestPageContainer extends Component {
                   []
                 )}
               </Card>
-              ,
             </Col>
 
             <Col
@@ -1070,12 +1077,14 @@ class TestPageContainer extends Component {
             <Col span={3}>
               <Card
                 style={
-                  InitializedCompletedStatus.length == 1 && communication
+                  InitializedCompletedStatus.length >= 1 && communication
                     ? { width: 185, cursor: "pointer", borderColor: "green" }
                     : { width: 185, borderColor: "gray" }
                 }
               >
-                {InitializedCompletedStatus.length == 1 && communication ? (
+                {InitializedCompletedStatus.length >= 1 &&
+                communication &&
+                this.props.app.startDisable === false ? (
                   <PlaySquareOutlined
                     className="icon-button1"
                     onClick={() => this.startClick()}
@@ -1083,7 +1092,7 @@ class TestPageContainer extends Component {
                 ) : (
                   <PlaySquareOutlined className="iconbutton1-basic" />
                 )}
-                {InitializedCompletedStatus.length == 1 && communication ? (
+                {InitializedCompletedStatus.length >= 1 && communication ? (
                   <p
                     style={{
                       color: "#42dad6",
@@ -1107,7 +1116,7 @@ class TestPageContainer extends Component {
                   </p>
                 )}
 
-                {InitializedCompletedStatus.length == 1 && communication ? (
+                {InitializedCompletedStatus.length >= 1 && communication ? (
                   <p>
                     <Row>
                       <Col>
@@ -1284,7 +1293,6 @@ class TestPageContainer extends Component {
                   []
                 )}
               </Card>
-              ,
             </Col>
 
             <Col
@@ -1301,13 +1309,15 @@ class TestPageContainer extends Component {
             <Col span={4}>
               <Card
                 style={
-                  showTarget
+                  /*ADD bugid-(GOARIG_7018) */
+                  showTarget || communication
                     ? { width: 185, borderColor: "red", cursor: "pointer" }
                     : { width: 185, borderColor: "gray" }
                 }
               >
                 <div>
-                  {showTarget ? (
+                  {/*ADD bugid-(GOARIG_7018) */}
+                  {showTarget || communication ? (
                     <PoweroffOutlined
                       className="icon-button3"
                       onClick={() => this.shutdownClick()}
@@ -1316,7 +1326,7 @@ class TestPageContainer extends Component {
                     <PoweroffOutlined className="iconbutton3-basic" />
                   )}
                 </div>
-                {showTarget ? (
+                {showTarget || communication ? (
                   <p
                     style={{
                       color: "#42dad6",
@@ -1338,9 +1348,9 @@ class TestPageContainer extends Component {
                   </p>
                 )}
               </Card>
-              ,
+
               {shutdownInitiated ? (
-                <p style={{ height: "15px", color: "white" }}>
+                <p style={{ height: "15px", color: "white", marginTop: "7px" }}>
                   <Row>
                     {nShutdowndataArray.map((item) => {
                       return (
@@ -1358,7 +1368,7 @@ class TestPageContainer extends Component {
               {/* ADD bugid-(GOARIG_7015)  */}
               {/* E-shutdown */}
               {showTarget ? (
-                <p style={{ height: "15px", color: "white" }}>
+                <p style={{ height: "15px", color: "white", marginTop: "7px" }}>
                   <Row>
                     {eShutdowndataArray.map((item) => {
                       return (
@@ -1378,18 +1388,24 @@ class TestPageContainer extends Component {
             <Col span={3}>
               <Card
                 style={
-                  shutdownInitiated ||
+                  //  ADD bugid-(GOARIG_7020)
+                  (nShutdowndataArray.length >= 1 &&
+                    eShutdowndataArray.length >= 1) ||
+                  nShutdowndataArray.length >= 2 ||
                   /*ADD bugid-(GOARIG_7015) */
-                  eShutdowndataArray.length === 2 ||
+                  eShutdowndataArray.length >= 2 ||
                   (showTarget === false && communication === false)
                     ? { width: 100, cursor: "pointer", borderColor: "green" }
                     : { width: 100, borderColor: "gray" }
                 }
               >
                 <div>
-                  {shutdownInitiated ||
+                  {/* ADD bugid-(GOARIG_7020) */}
+                  {(nShutdowndataArray.length >= 1 &&
+                    eShutdowndataArray.length >= 1) ||
+                  nShutdowndataArray.length >= 2 ||
                   /*DEL bugid-(GOARIG_7015) */
-                  eShutdowndataArray.length === 2 ||
+                  eShutdowndataArray.length >= 2 ||
                   (showTarget === false && communication === false) ? (
                     <RedoOutlined
                       className="icon-button2"
@@ -1399,9 +1415,14 @@ class TestPageContainer extends Component {
                     <RedoOutlined className="iconbutton2-basic" />
                   )}
                 </div>
-                {/* ADD bugid-(GOARIG_7015) */}
-                {shutdownInitiated ||
-                eShutdowndataArray.length === 2 ||
+
+                {/* ADD bugid-(GOARIG_7020) */}
+
+                {(nShutdowndataArray.length >= 1 &&
+                  eShutdowndataArray.length >= 1) ||
+                nShutdowndataArray.length >= 2 ||
+                //  {/* ADD bugid-(GOARIG_7015) */}
+                eShutdowndataArray.length >= 2 ||
                 (showTarget === false && communication === false) ||
                 communicationFailed === true ? (
                   <p style={{ color: "#42dad6", fontSize: "20px" }}>Reset</p>
@@ -1409,7 +1430,6 @@ class TestPageContainer extends Component {
                   <p style={{ color: "gray", fontSize: "20px" }}>Reset</p>
                 )}
               </Card>
-              ,
             </Col>
 
             <Col span={2}>
@@ -1533,6 +1553,8 @@ const mapDispatchToProps = {
   updateDropDown,
   updateNotifyAction,
   updateChartData2,
+  startDisableEvent,
+  enableclearSetInterval,
 };
 
 const TestContainer = connect(

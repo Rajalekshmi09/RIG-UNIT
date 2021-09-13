@@ -41,13 +41,13 @@ class StatusBlockRow2 extends Component {
     {
       this.props.app.chartData2[0]
         ? (persons = filteredData)
-        : (persons = [0, 0, 0, 0]);
+        : (persons = [0, 0, 0, 0, 0]);
     }
 
     {
       this.props.app.chartData2[1]
         ? (persons1 = filteredData1)
-        : (persons1 = [0, 0, 0, 0]);
+        : (persons1 = [0, 0, 0, 0, 0]);
     }
 
     return (

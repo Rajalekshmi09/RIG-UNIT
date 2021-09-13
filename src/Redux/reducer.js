@@ -195,12 +195,21 @@ const appReducer = (state = InitialState, action) => {
     case 'START_DB_INSERT':
       newState.startDbInserting = false
       return newState
-
+    /*ADD bugid-(GOARIG_7019) */
+    //startDisable
+    case 'SHUTDOWN_ENABLE_EVENT':
+     newState.startDisable = action.payload
+    return newState
+     
     //delayValue
     case 'FETCHING_DELAY_VALUE':
       newState.delayValue = action.payload
       return newState
 
+    //clearSetInterval
+    case 'ENABLE_CLEAR_SETINTERVAL':
+      newState.clearSetInterval = action.payload
+      return newState
     default:
       return newState
   }

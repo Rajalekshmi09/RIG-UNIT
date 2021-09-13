@@ -82,8 +82,9 @@ const dashboardSensor = {
     "Mass Flow",
     "Air Fuel Flow",
     "Surge Margin",
+    "Corrected RPM"
   ],
-   targetKeysVal_row2 :  [11, 16, 24, 22],
+   targetKeysVal_row2 :  [11, 16, 24, 22,21],
 
   dummyData: 0,
   chartMax: 5,
@@ -104,7 +105,7 @@ const titleElements = [
 const testParamHash = {
   Initializedata: ['Communication', 'Initialize Started', 'Initialize Completed'],
   Startdata: ['Start Completed', 'Ignite', 'Gas Opened', 'Stage1', 'Ruel Opened', 'Stage2', 'Fuel Opened', 'Stage2', 'Gas Closed', 'Stage3'],
-  nShutdowndata: ['Shutdown Initiated', 'N.Shutdown Completed'],
+  nShutdowndata: ['N.Shutdown Initiated', 'N.Shutdown Completed'],
    // {/*ADD bugid-(GOARIG_7015) */}
   eShutdowndata: ['E.Shutdown Initiated', 'E.Shutdown Completed'],
   Resetdata: ['Reset Values'],

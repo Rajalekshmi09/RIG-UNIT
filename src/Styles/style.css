@@ -65,7 +65,7 @@ div#allreport h1 {
   flex: auto;
   background-color: #212840;
   min-height: 0;
-  padding: 25px;
+  padding: 10px 25px 25px 25px;
 }
 /*  Navbar  */
 .logout-content {

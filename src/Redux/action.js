@@ -218,19 +218,32 @@ export const getResetRPM = data => ({
   payload: data
 })
 
-//  stopDbInsert
+// stopDbInsert
 export const stopDbInsert = bool => ({
   type: 'STOP_DB_INSERT',
   payload: bool
 })
-
+//startDbInserting
 export const startDbInsert = bool => ({
   type: 'START_DB_INSERT',
   payload: bool
 })
 
+ /*ADD bugid-(GOARIG_7019) */
+//startDisable
+export const startDisableEvent = data => ({
+  type: 'SHUTDOWN_ENABLE_EVENT',
+  payload: data
+})
+
 //delayValue
 export const fetchingDelayValue = data => ({
   type: 'FETCHING_DELAY_VALUE',
+  payload: data
+})
+
+//clearSetInterval
+export const enableclearSetInterval = data => ({
+  type: 'ENABLE_CLEAR_SETINTERVAL',
   payload: data
 })
