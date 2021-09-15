@@ -29,6 +29,8 @@ import {
   updateTableViewData,
   fetchingDelayValue,
   updateChartData,
+  updateChartData2,
+  initiateTurboStart,
 } from "../../Redux/action";
 import {
   getTurboConfigData,
@@ -40,6 +42,8 @@ import {
   getTableView,
   gettingDelayValue,
   gettingChartData,
+  gettingChartData2,
+  getSensorData,
 } from "../../Services/requests";
 import accpetanceReport from "./Reports/AcceptanceReport";
 
@@ -53,6 +57,7 @@ export class MainComponent extends Component {
       testDataInsert: false,
     };
   }
+
   componentDidMount() {
     // fetch turbo config data on application load
     getTurboConfigData((data) => {
@@ -84,10 +89,10 @@ export class MainComponent extends Component {
       this.props.updateTestIdCount(data);
     });
 
-    // fetch DelayValue on application load
-    gettingDelayValue((data) => {
-      this.props.fetchingDelayValue(data);
-    });
+    // // fetch DelayValue on application load
+    // gettingDelayValue((data) => {
+    //   this.props.fetchingDelayValue(data);
+    // });
 
     // fetch graphvalue on application load
     getTableView((data) => {
@@ -99,6 +104,7 @@ export class MainComponent extends Component {
       );
       this.props.updateTableViewData(filteredTableData);
     });
+
     /*ADD bugid-(GOARIG_7017) */
     if (this.state.testDataInsert === false) {
       // let status = "Statusblock loading";
@@ -119,6 +125,23 @@ export class MainComponent extends Component {
     setInterval(() => {
       gettingChartData((data) => {
         this.props.updateChartData(data);
+      });
+    }, this.props.app.delayValue);
+
+    /*ADD bugid-(GOARIG_7014) */
+    setInterval(() => {
+      gettingChartData2((data) => {
+        this.props.updateChartData2(data);
+      });
+    }, this.props.app.delayValue);
+
+    // {/*ADD bugid-(GOARIG_2022) */}
+    setInterval(() => {
+      getSensorData((data) => {
+        let val = data;
+        if (this.props.app.communication === true && val.length >= 1) {
+          this.props.initiateTurboStart(val);
+        }
       });
     }, 1000);
   }
@@ -177,6 +200,8 @@ const mapDispatchToProps = {
   updateTableViewData,
   fetchingDelayValue,
   updateChartData,
+  updateChartData2,
+  initiateTurboStart,
 };
 
 const MainContainer = connect(

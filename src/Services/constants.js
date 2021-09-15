@@ -80,11 +80,11 @@ const dashboardSensor = {
   sensorLabel_row2 : [
     "Compression Ratio",
     "Mass Flow",
-    "Air Fuel Flow",
+    "Corrected RPM",
     "Surge Margin",
-    "Corrected RPM"
+    "Air Fuel Flow"
   ],
-   targetKeysVal_row2 :  [11, 16, 24, 22,21],
+   targetKeysVal_row2 :  [2, 16, 24, 22,21],
 
   dummyData: 0,
   chartMax: 5,

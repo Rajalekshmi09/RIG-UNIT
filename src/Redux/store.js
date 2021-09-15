@@ -4,7 +4,7 @@ const InitialState = {
   mainPage: 'testPage',
   appState: "login",
   userName: '',
-  userParams: null,
+  userParams: '',
   leftBarView: false,
   collapsed: true,
   titleElements: titleElements,
@@ -55,8 +55,10 @@ const InitialState = {
    /*ADD bugid-(GOARIG_7019) */
   startDisable:false,
 
+  /* ADD bugid-(GOARIG_7021)   */
+  testIdData: 0,
   //grapgView
-  delayValue: '',
+  delayValue: 1000,
 
   //breakinterval
   clearSetInterval: false,

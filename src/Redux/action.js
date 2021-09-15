@@ -236,6 +236,13 @@ export const startDisableEvent = data => ({
   payload: data
 })
 
+ /* ADD bugid-(GOARIG_7021)   */
+// testIdData
+export const gettingTestIdData = data => ({
+  type: 'GETTING_TEST_ID_DATA',
+  payload: data
+})
+
 //delayValue
 export const fetchingDelayValue = data => ({
   type: 'FETCHING_DELAY_VALUE',

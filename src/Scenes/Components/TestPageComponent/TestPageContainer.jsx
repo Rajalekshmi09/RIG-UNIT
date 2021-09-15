@@ -48,6 +48,7 @@ import {
   stopDbInsert,
   startDbInsert,
   updateNotifyAction,
+  gettingTestIdData,
 } from "../../../Redux/action";
 import {
   updateChartData,
@@ -56,8 +57,6 @@ import {
   updateTestIdCount,
   updateTurboMode,
   updateDropDown,
-  //{/*ADD - GOARIG_7014 */}
-  updateChartData2,
   startDisableEvent,
   enableclearSetInterval,
 } from "../../../Redux/action";
@@ -71,8 +70,6 @@ import {
   //{/*ADD - GOARIG_7006 */}
   gettingTestdataAftershutdown,
   logoutEvent,
-  //{/*ADD - GOARIG_7014 */}
-  gettingChartData2,
 } from "../../../Services/requests";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -165,7 +162,7 @@ class TestPageContainer extends Component {
       tubineStatus: false,
       failedField: [],
     };
-
+    this.interval = null;
     this.startClick = this.startClick.bind(this);
     this.addTesterItem = this.addTesterItem.bind(this);
     this.addWitnessItem = this.addWitnessItem.bind(this);
@@ -306,13 +303,14 @@ class TestPageContainer extends Component {
 
   //onclick for shutdown
   shutdownClick = () => {
-    clearInterval(this.startClick);
     /*DEL bugid-(GOARIG_7019) */
     // this.setState({
     //   shutdownEnable: false,
     // });
-    /*ADD bugid-(GOARIG_7019) */
-    this.props.startDisableEvent(false);
+
+    // /*ADD bugid-(GOARIG_7019) */
+    // this.props.startDisableEvent(false);
+
     // {/*ADD BugID - GOARIG_7006 */}
     //getting testdata insert after shutdown
     gettingTestdataAftershutdown((data) => {
@@ -336,25 +334,28 @@ class TestPageContainer extends Component {
   //   });
   // }
 
-  //this event trigger while clicking the initialize
-  sensorData() {
-    //fetching sensor data from DB
-    // getSensorData((data) => {
-    axios.get("http://192.168.0.167:8002/getdata.php").then((res) => {
-      let val = res.data;
-      if (this.props.app.communication === true && val.length >= 1) {
-        this.props.initiateTurboStart(val);
-      }
-      // else {
-      //   this.props.initiateTurboStart([]);
-      // }
-    });
-  }
+  // {/*DEL bugid-(GOARIG_2022) */}
+  // //this event trigger while clicking the initialize
+  // sensorData() {
+  //   //fetching sensor data from DB
+  //   getSensorData((data) => {
+  //     let val = data;
+  //     if (this.props.app.communication === true && val.length >= 1) {
+  //       this.props.initiateTurboStart(val);
+  //     }
+  //     // else {
+  //     //   this.props.initiateTurboStart([]);
+  //     // }
+  //   });
+  // }
 
   //getting communication value in request page
   communicationstatus() {
+    /* ADD bugid-(GOARIG_7021)   */
     axios
-      .get("http://192.168.0.167:5000/initialize.php")
+      .post("http://192.168.0.167:5000/initialize.php", {
+        testId: this.props.app.testIdData,
+      })
       .then((res) => {
         let CommunicationData = res.data;
         if (CommunicationData.status === "1") {
@@ -417,18 +418,21 @@ class TestPageContainer extends Component {
           turboMode: this.props.app.turboMode,
         })
         .then((res) => {
+          /* ADD bugid-(GOARIG_7021)   */
+          let data = res.data;
+          this.props.gettingTestIdData(data);
           this.communicationstatus();
         })
         .catch((err) => {
           console.log(err);
         });
-      const interval = setInterval(() => {
-        this.sensorData();
-        if (this.props.app.clearSetInterval === true) {
-          clearInterval(interval);
-        }
-      }, 1000);
+
+      // this.interval = setInterval(() => {
+      //   console.log(this.interval);
+      //   this.sensorData();
+      // }, 1000);
     }
+
     /*ADD bugid-(GOARIG_7015) */
     axios
       .post("http://192.168.0.167:7000/testdatainsertwithtestid.php", {
@@ -451,16 +455,6 @@ class TestPageContainer extends Component {
       .catch((err) => {
         console.log(err);
       });
-
-    /*ADD bugid-(GOARIG_7014) */
-    const statusblockInterval = setInterval(() => {
-      gettingChartData2((data) => {
-        this.props.updateChartData2(data);
-        if (this.props.app.clearSetInterval === true) {
-          clearInterval(statusblockInterval);
-        }
-      });
-    }, 1000);
   };
 
   //help event onClick
@@ -635,6 +629,8 @@ class TestPageContainer extends Component {
 
   //reSet action
   reloadAllEvents = () => {
+    /*ADD bugid-(GOARIG_7021) */
+    this.props.gettingTestIdData(0);
     this.props.enableclearSetInterval(true);
     this.props.stopDbInsert();
     this.props.updateTestIdCount("");
@@ -1552,9 +1548,9 @@ const mapDispatchToProps = {
   updateTurboMode,
   updateDropDown,
   updateNotifyAction,
-  updateChartData2,
   startDisableEvent,
   enableclearSetInterval,
+  gettingTestIdData,
 };
 
 const TestContainer = connect(
