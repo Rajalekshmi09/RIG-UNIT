@@ -185,7 +185,7 @@ class PerformanceReport extends Component {
       this.state.testNumberVal.length !== 0
     ) {
       axios
-        .post("http://192.168.0.167:5000/Performance.php", {
+        .post("http://localhost:5000/Performance.php", {
           turboIdVal: this.state.turboIdVal,
           testno: this.state.testNumberVal,
         })
@@ -208,7 +208,7 @@ class PerformanceReport extends Component {
         });
       this.setState({ loading: true });
       axios
-        .post("http://192.168.0.167:5000/getnames.php", {
+        .post("http://localhost:5000/getnames.php", {
           turboIdVal: this.state.turboIdVal,
           testno: this.state.testNumberVal,
         })
@@ -230,7 +230,7 @@ class PerformanceReport extends Component {
   //select the test ID
   handleChangeTestID = (value) => {
     axios
-      .post("http://192.168.0.167:5000/exportData.php", { turboIdVal: value })
+      .post("http://localhost:5000/exportData.php", { turboIdVal: value })
       .then((res) => {
         let data = res.data;
         if (typeof data === "string") {

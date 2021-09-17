@@ -795,7 +795,7 @@ div#allreport h1 {
 .statistic-block strong {
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 13px !important;
+  font-size: 12px !important;
   /* ADD bugid-(GOARIG_7013)   */
   color: #fff;
   margin-bottom: -5px !important;

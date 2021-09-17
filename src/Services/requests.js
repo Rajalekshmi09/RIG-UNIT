@@ -14,16 +14,16 @@ const shutdownClickEventUrl = `${BASE_URL}${URL.SHUTDOWN_CLICK}`
 const resetClickEventUrl = `${BASE_URL}${URL.RESET_CLICK}`
 const updateConfigDataUrl = `${BASE_URL}${URL.UPDATE_CONFIG_DATA}`
 const tableViewUrl = `${BASE_URL}${URL.TABLE_VIEW}`
-const sensorDataUrl = `http://192.168.0.167:8002/getdata.php`
+const sensorDataUrl = `http://localhost:8002/getdata.php`
 const turboIdValueUrl = `${BASE_URL}${URL.TURBOID_VALUE}`
 const tableStatusDataUrl = `${BASE_URL}${URL.TABLE_STATUSDATA}`
-const graphDataUrl = `http://192.168.0.167:8001/graph.php`
+const graphDataUrl = `http://localhost:8001/graph.php`
 const delayDataUrl = `${BASE_URL}${URL.DELAY_DATA}`
 // {/*ADD bugid-(GOARIG_7006) */}
 const logoutEventUrl = `${BASE_URL}${URL.LOGOUT_EVENT}`
-const testdataAfterShutdownUrl = `http://192.168.0.167:7000/testdatainsertaftershutdown.php`
+const testdataAfterShutdownUrl = `http://localhost:7000/testdatainsertaftershutdown.php`
 // {/*ADD bugid-(GOARIG_7014) */}
-const ststusBlockRow2Url = `http://192.168.0.167:8003/statusblock2.php`
+const ststusBlockRow2Url = `http://localhost:8003/statusblock2.php`
 
 // Form requests
 const loginValidation = (values, callBack) => {

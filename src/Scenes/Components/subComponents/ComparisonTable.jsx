@@ -13,7 +13,7 @@ class ComparisonTable extends Component {
   //Rendering the comparison table
   componentDidMount() {
     axios
-      .get("http://192.168.0.167:5000/comparison.php")
+      .get("http://localhost:5000/comparison.php")
       .then((res) => {
         this.setState({
           compareValue: res.data,

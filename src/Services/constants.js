@@ -1,5 +1,5 @@
 const url = {
-  BASE_URL: 'http://192.168.0.167:5000/',
+  BASE_URL: 'http://localhost:5000/',
   LOGIN_VALIDATION: 'login_validation.php',
   FORGOT_VALIDATION: 'forget.php',
   REGISTERPAGE_VALIDATION: 'Registration.php',

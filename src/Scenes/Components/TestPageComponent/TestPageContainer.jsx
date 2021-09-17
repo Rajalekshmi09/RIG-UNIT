@@ -349,7 +349,7 @@ class TestPageContainer extends Component {
   communicationstatus() {
     /* ADD bugid-(GOARIG_7021)   */
     axios
-      .post("http://192.168.0.167:5000/initialize.php", {
+      .post("http://localhost:5000/initialize.php", {
         testId: this.props.app.testIdData,
       })
       .then((res) => {
@@ -406,7 +406,7 @@ class TestPageContainer extends Component {
       this.props.app.testIdValue.length !== 0
     ) {
       axios
-        .post("http://192.168.0.167:5000/gettestid.php", {
+        .post("http://localhost:5000/gettestid.php", {
           turboIdVal: this.props.app.testIdValue,
           testerItems: this.state.testerItems,
           witnessItems: this.state.witnessItems,
@@ -425,7 +425,7 @@ class TestPageContainer extends Component {
 
     /*ADD bugid-(GOARIG_7015) */
     axios
-      .post("http://192.168.0.167:7000/testdatainsertwithtestid.php", {
+      .post("http://localhost:7000/testdatainsertwithtestid.php", {
         status: "Start initiated",
       })
       .then(function (response) {});
@@ -440,7 +440,7 @@ class TestPageContainer extends Component {
       currentDateTime: time,
     });
     axios
-      .get("http://192.168.0.167:8000/testdata.php")
+      .get("http://localhost:8000/testdata.php")
       .then(function (response) {})
       .catch((err) => {
         console.log(err);
@@ -451,7 +451,7 @@ class TestPageContainer extends Component {
   onClickhelp = () => {
     var self = this;
     axios
-      .get("http://192.168.0.167:5000/valvestatus.php")
+      .get("http://localhost:5000/valvestatus.php")
       .then(function (response) {
         let valveData = response.data.valvestatus.split(",");
         self.setState({
@@ -562,7 +562,7 @@ class TestPageContainer extends Component {
   //reset event onClick
   resetOnClick = () => {
     axios
-      .post("http://192.168.0.167:5000/reset.php", {
+      .post("http://localhost:5000/reset.php", {
         ResetRPM: this.props.app.resetRPM,
         ResetTemp: this.props.app.resetTemp,
       })
@@ -591,7 +591,7 @@ class TestPageContainer extends Component {
         // }, this.props.app.delayValue);
         //delay for receiving sensor data from plc
         axios
-          .post("http://192.168.0.167:5000/start.php", {
+          .post("http://localhost:5000/start.php", {
             //set target rpm & temp value to sent plc
             targetRPM: this.props.app.targetRPM,
             targetTemp: this.props.app.targetTemp,

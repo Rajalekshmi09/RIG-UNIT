@@ -109,7 +109,7 @@ export class MainComponent extends Component {
     if (this.state.testDataInsert === false) {
       // let status = "Statusblock loading";
       axios
-        .post("http://192.168.0.167:7000/testdatainsert.php", {
+        .post("http://localhost:7000/testdatainsert.php", {
           status: "Statusblock loading",
         })
         .then(function (response) {
