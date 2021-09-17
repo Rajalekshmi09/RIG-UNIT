@@ -28,6 +28,7 @@ class LoginPage extends Component {
     };
   }
 
+  //error alert close fn
   alertOnClose = () => {
     this.setState({
       IsLogin: "",

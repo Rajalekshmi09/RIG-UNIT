@@ -58,7 +58,6 @@ import {
   updateTurboMode,
   updateDropDown,
   startDisableEvent,
-  enableclearSetInterval,
 } from "../../../Redux/action";
 import ListItems from "../subComponents/ListItems";
 import {
@@ -308,9 +307,6 @@ class TestPageContainer extends Component {
     //   shutdownEnable: false,
     // });
 
-    // /*ADD bugid-(GOARIG_7019) */
-    // this.props.startDisableEvent(false);
-
     // {/*ADD BugID - GOARIG_7006 */}
     //getting testdata insert after shutdown
     gettingTestdataAftershutdown((data) => {
@@ -375,7 +371,6 @@ class TestPageContainer extends Component {
   initializeClick = () => {
     this.props.startDbInsert();
     this.props.updateDropDown(null);
-    this.props.enableclearSetInterval(false);
     if (
       this.props.app.turboMode === "" ||
       this.props.app.turboMode === undefined
@@ -426,11 +421,6 @@ class TestPageContainer extends Component {
         .catch((err) => {
           console.log(err);
         });
-
-      // this.interval = setInterval(() => {
-      //   console.log(this.interval);
-      //   this.sensorData();
-      // }, 1000);
     }
 
     /*ADD bugid-(GOARIG_7015) */
@@ -598,7 +588,8 @@ class TestPageContainer extends Component {
         }
         // setInterval(() => {
         //   this.requestChartData();
-        // }, this.props.app.delayValue); //delay for receiving sensor data from plc
+        // }, this.props.app.delayValue);
+        //delay for receiving sensor data from plc
         axios
           .post("http://192.168.0.167:5000/start.php", {
             //set target rpm & temp value to sent plc
@@ -631,7 +622,6 @@ class TestPageContainer extends Component {
   reloadAllEvents = () => {
     /*ADD bugid-(GOARIG_7021) */
     this.props.gettingTestIdData(0);
-    this.props.enableclearSetInterval(true);
     this.props.stopDbInsert();
     this.props.updateTestIdCount("");
     this.props.updateTestIdValue("");
@@ -693,9 +683,6 @@ class TestPageContainer extends Component {
       turboStart = this.props.app.turboStart;
     }
 
-    console.log(this.props.app);
-    console.log(this.props.app.turboStart);
-
     /*DEL bugid-(GOARIG_7015) */
     // const { Initializedata, Startdata, Shutdowndata, Resetdata } =
     // testParamHash;
@@ -703,7 +690,6 @@ class TestPageContainer extends Component {
     const InitializedataArray = turboStart.filter((it) =>
       Initializedata.find((val) => val === it.name)
     );
-    console.log(InitializedataArray);
 
     const StartdataArray = turboStart.filter((it) =>
       Startdata.find((val) => val === it.name)
@@ -1549,7 +1535,6 @@ const mapDispatchToProps = {
   updateDropDown,
   updateNotifyAction,
   startDisableEvent,
-  enableclearSetInterval,
   gettingTestIdData,
 };
 

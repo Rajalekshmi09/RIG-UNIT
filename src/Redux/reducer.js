@@ -29,19 +29,19 @@ const appReducer = (state = InitialState, action) => {
     case 'UPDATE_CHART_DATA':
       newState.chartData = action.payload ? action.payload : []
       return newState
-      /* ADD bugid-(GOARIG_7014)   */
+    /* ADD bugid-(GOARIG_7014)   */
     //chartData2
     case 'UPDATE_CHART_DATA2':
       newState.chartData2 = action.payload ? action.payload : []
       return newState
-      
+
     /* ---config page --- */
     //testConfigPage
     case 'UPDATE_TEST_CONFIG_PAGE':
       newState.testConfigPage = action.payload ? action.payload : []
       return newState
     //turboConfig
-    case 'UPDATE_TURBO_CONFIG':    
+    case 'UPDATE_TURBO_CONFIG':
       newState.turboConfig = action.payload ? action.payload : []
       return newState
     //paramConfig
@@ -199,24 +199,20 @@ const appReducer = (state = InitialState, action) => {
     /*ADD bugid-(GOARIG_7019) */
     //startDisable
     case 'SHUTDOWN_ENABLE_EVENT':
-     newState.startDisable = action.payload
-    return newState
-    
-     /* ADD bugid-(GOARIG_7021)   */
+      newState.startDisable = action.payload
+      return newState
+
+    /* ADD bugid-(GOARIG_7021)   */
     //testIdData
     case 'GETTING_TEST_ID_DATA':
       newState.testIdData = action.payload
-     return newState
-   
+      return newState
+
     //delayValue
     case 'FETCHING_DELAY_VALUE':
       newState.delayValue = action.payload
       return newState
 
-    //clearSetInterval
-    case 'ENABLE_CLEAR_SETINTERVAL':
-      newState.clearSetInterval = action.payload
-      return newState
     default:
       return newState
   }

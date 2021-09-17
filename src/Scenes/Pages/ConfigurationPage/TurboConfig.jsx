@@ -99,6 +99,8 @@ class TurboConfig extends Component {
     turbineConfigSubmit(body, (data) => {
       this.props.updateTurboConfig(data);
     });
+
+    //getting installed turbine name form db
     requestStatusData((data) => {
       this.props.updateTableStatusData(data);
       if (typeof data !== "string" && data.length >= installed_turbine) {

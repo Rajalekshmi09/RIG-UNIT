@@ -248,9 +248,3 @@ export const fetchingDelayValue = data => ({
   type: 'FETCHING_DELAY_VALUE',
   payload: data
 })
-
-//clearSetInterval
-export const enableclearSetInterval = data => ({
-  type: 'ENABLE_CLEAR_SETINTERVAL',
-  payload: data
-})
