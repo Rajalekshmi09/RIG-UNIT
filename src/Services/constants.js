@@ -42,6 +42,7 @@ const CompanyDetails = {
   company_link: 'http://www.v-enertek.com/',
 }
 
+//status block 1st row default value index
 const targetKeysVal = ["5", "8", "10", "13", "17","18"]
 
 const dashboardDataVal = [
@@ -82,9 +83,13 @@ const dashboardSensor = {
     "Mass Flow",
     "Corrected RPM",
     "Surge Margin",
-    "Air Fuel Flow"
+    "Air Fuel Flow",
+    "Turbine Vibration",
   ],
-   targetKeysVal_row2 :  [2, 16, 24, 22,21],
+  
+  //filter for statusblockRow2 
+  //number should be 2 less than the actual index like c13 = 11  
+   targetKeysVal_row2 :  [11, 16, 21, 22,24,25],
 
   dummyData: 0,
   chartMax: 5,

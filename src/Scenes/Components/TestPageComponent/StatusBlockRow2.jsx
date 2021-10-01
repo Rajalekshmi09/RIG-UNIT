@@ -41,20 +41,20 @@ class StatusBlockRow2 extends Component {
     {
       this.props.app.chartData2[0]
         ? (persons = filteredData)
-        : (persons = [0, 0, 0, 0, 0]);
+        : (persons = [0, 0, 0, 0, 0, 0]);
     }
 
     {
       this.props.app.chartData2[1]
         ? (persons1 = filteredData1)
-        : (persons1 = [0, 0, 0, 0, 0]);
+        : (persons1 = [0, 0, 0, 0, 0, 0]);
     }
 
     return (
       <div style={{ marginTop: "25px" }}>
         <Row>
           {persons.map((It, y) => (
-            <Col style={{ paddingRight: "10px", width: "210px" }}>
+            <Col style={{ paddingRight: "10px", width: "213px" }}>
               <div className="statistic-block block">
                 <Row className="progress-details d-flex align-items-end justify-content-between">
                   {/* up and down arrow column */}

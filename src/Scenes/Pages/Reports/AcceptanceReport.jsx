@@ -73,16 +73,19 @@ class AcceptanceReport extends Component {
     doc.text(75, 10, "ACCEPTANCE TEST REPORT");
     var image = new Image();
     image.src = "../../../Images/up-arrow-1.gif";
-    doc.addImage(logoRig, "PNG", 10, 25, 75, 20);
+    doc.addImage(logoRig, "PNG", 10, 15, 35, 20);
     doc.autoTable({
       html: "#report-constants",
       startX: 50,
-      startY: 51,
-      margins: {
-        top: 40,
-        bottom: 60,
-        left: 5,
-        right: 5,
+      startY: 35,
+      didDrawCell: function (data) {
+        if (data.column.index === 5) {
+          var td = data.cell.raw;
+          var img = td.getElementsByTagName("img")[0];
+          var dim = data.cell.height - data.cell.padding("vertical");
+          var textPos = data.cell.textPos;
+          doc.addImage(img.src, textPos.x, textPos.y, dim, dim);
+        }
       },
       headerStyles: {
         lineWidth: 0.1,
@@ -91,21 +94,24 @@ class AcceptanceReport extends Component {
         fontStyle: "bold",
         lineColor: "black",
         halign: "center",
-        fontSize: 8,
+        fontSize: 7,
       },
 
       bodyStyles: {
         lineColor: "black",
-        fontSize: 8,
+        fontSize: 7,
       },
       tableWidth: "wrap",
       theme: "grid",
+      styles: {
+        cellPadding: 2,
+      },
     });
 
     //running report
     doc.autoTable({
       html: "#example1",
-      startY: 88,
+      startY: 70,
       didParseCell: function (cell, data) {
         if (
           cell.row.section === "body" &&
@@ -115,12 +121,12 @@ class AcceptanceReport extends Component {
           cell.cell.styles.textColor = "black";
         }
       },
-      margins: {
-        top: 40,
-        bottom: 60,
-        left: 5,
-        right: 5,
-      },
+      // margins: {
+      //   top: 40,
+      //   bottom: 60,
+      //   left: 5,
+      //   right: 5,
+      // },
       headerStyles: {
         lineWidth: 0.1,
         fillColor: "white",
@@ -136,12 +142,15 @@ class AcceptanceReport extends Component {
         fontStyle: "bold",
       },
       theme: "grid",
+      styles: {
+        cellPadding: 1,
+      },
     });
 
     // performance report
     doc.autoTable({
       html: "#example2",
-      startY: 180,
+      startY: 138,
       didParseCell: function (cell, data) {
         if (
           cell.row.section === "body" &&
@@ -151,12 +160,12 @@ class AcceptanceReport extends Component {
           cell.cell.styles.textColor = "black";
         }
       },
-      margins: {
-        top: 40,
-        bottom: 60,
-        left: 5,
-        right: 5,
-      },
+      // margins: {
+      //   top: 40,
+      //   bottom: 60,
+      //   left: 5,
+      //   right: 5,
+      // },
       headerStyles: {
         lineWidth: 0.1,
         fillColor: "white",
@@ -172,12 +181,15 @@ class AcceptanceReport extends Component {
         fontStyle: "bold",
       },
       theme: "grid",
+      styles: {
+        cellPadding: 1,
+      },
     });
 
     // endurence report
     doc.autoTable({
       html: "#example3",
-      startY: 210,
+      startY: 170,
       didParseCell: function (cell, data) {
         if (
           cell.row.section === "body" &&
@@ -187,12 +199,12 @@ class AcceptanceReport extends Component {
           cell.cell.styles.textColor = "black";
         }
       },
-      margins: {
-        top: 40,
-        bottom: 60,
-        left: 5,
-        right: 5,
-      },
+      // margins: {
+      //   top: 40,
+      //   bottom: 60,
+      //   left: 5,
+      //   right: 5,
+      // },
       headerStyles: {
         lineWidth: 0.1,
         fillColor: "white",
@@ -208,12 +220,15 @@ class AcceptanceReport extends Component {
         fontStyle: "bold",
       },
       theme: "grid",
+      styles: {
+        cellPadding: 1,
+      },
     });
 
     // performance after endurence report
     doc.autoTable({
       html: "#example4",
-      startY: 80,
+      startY: 198,
       didParseCell: function (cell, data) {
         if (
           cell.row.section === "body" &&
@@ -223,12 +238,12 @@ class AcceptanceReport extends Component {
           cell.cell.styles.textColor = "black";
         }
       },
-      margins: {
-        top: 40,
-        bottom: 60,
-        left: 5,
-        right: 5,
-      },
+      // margins: {
+      //   top: 40,
+      //   bottom: 60,
+      //   left: 5,
+      //   right: 5,
+      // },
       headerStyles: {
         lineWidth: 0.1,
         fillColor: "white",
@@ -244,6 +259,9 @@ class AcceptanceReport extends Component {
         fontStyle: "bold",
       },
       theme: "grid",
+      styles: {
+        cellPadding: 1,
+      },
     });
 
     let finalY = doc.lastAutoTable.finalY;
@@ -261,12 +279,12 @@ class AcceptanceReport extends Component {
     }
     doc.setFontSize(8);
     //doc.setTextColor(255, 0, 0);
-    doc.text(15, finalY + 10, "Tested By: ");
+    doc.text(15, finalY + 5, "Tested By: ");
 
     const textWidth = doc.getTextWidth("Tested By: ");
     doc.setLineWidth(0.3);
     doc.setDrawColor(0, 0, 0);
-    doc.line(15, finalY + 11, 10 + (textWidth + 4), finalY + 11);
+    // doc.line(15, finalY + 11, 10 + (textWidth + 4), finalY + 11);
     var testerAry = tester.split(",");
     var incrementHeight = 5;
     if (testerAry.length > 0) {
@@ -277,7 +295,7 @@ class AcceptanceReport extends Component {
     }
     doc.text(150, finalY + 10, "Witnessed By: ");
     const textWidth1 = doc.getTextWidth("Witnessed By: ");
-    doc.line(150, finalY + 11, 150 + (textWidth1 - 2), finalY + 11);
+    // doc.line(150, finalY + 11, 150 + (textWidth1 - 2), finalY + 11);
     var rWitnessNameAry = rWitnessName.split(",");
     incrementHeight = 5;
     if (rWitnessNameAry.length > 0) {
@@ -646,32 +664,42 @@ class AcceptanceReport extends Component {
 
               <div className="table-responsive">
                 <img alt="logo" style={{ width: "25%" }} src={logo} />
-                <table id="report-constants" style={{ marginTop: "10px" }}>
+                <table>
                   <tr>
-                    <th>ATR REF. NO </th>
-                    <th>TC/0/01</th>
+                    <td>
+                      <table
+                        id="report-constants"
+                        style={{ marginTop: "10px" }}
+                      >
+                        <tr>
+                          <th>ATR REF. NO </th>
+                          <th>TC/0/01</th>
+                        </tr>
+                        <tr>
+                          <td>ATP REF. NO </td>
+                          <td>2002 TRS/86</td>
+                          <tr></tr>
+                        </tr>
+                        <tr>
+                          <td>PART NUMBER</td>
+                          <td>sb3336-00-011/sb337-100SB</td>
+                        </tr>
+                        <tr>
+                          <td>PART NAME</td>
+                          <td>Turbocharger</td>
+                        </tr>
+                        <tr>
+                          <td>SERIAL NUMBER</td>
+                          <td>{this.state.turboIdVal}</td>
+                        </tr>
+                      </table>
+                    </td>
+                    {/* <td>
+                      <img alt="logo" style={{ width: "50%" }} src={logo} />
+                    </td> */}
                   </tr>
-                  <tr>
-                    <td>ATP REF. NO </td>
-                    <td>2002 TRS/86</td>
-                  </tr>
-                  <tr>
-                    <td>PART NUMBER</td>
-                    <td>sb3336-00-011/sb337-100SB</td>
-                  </tr>
-                  <tr>
-                    <td>PART NAME</td>
-                    <td>Turbocharger</td>
-                  </tr>
-                  <tr>
-                    <td>SERIAL NUMBER</td>
-                    <td>{this.state.turboIdVal}</td>
-                  </tr>
-                  {/* <tr>
-                    <td>TEST ID</td>
-                    <td>{this.state.testNumberVal}</td>
-                  </tr> */}
                 </table>
+
                 <div></div>
                 <table
                   className="table table-striped table-sm export-table"

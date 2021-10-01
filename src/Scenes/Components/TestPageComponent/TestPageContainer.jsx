@@ -682,7 +682,7 @@ class TestPageContainer extends Component {
     if (this.props.app.turboStart) {
       turboStart = this.props.app.turboStart;
     }
-
+    console.log(this.props.app);
     /*DEL bugid-(GOARIG_7015) */
     // const { Initializedata, Startdata, Shutdowndata, Resetdata } =
     // testParamHash;

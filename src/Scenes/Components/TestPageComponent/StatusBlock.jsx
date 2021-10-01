@@ -165,7 +165,7 @@ class StatusBlock extends Component {
         </div>
         <Row>
           {persons.map((It, y) => (
-            <Col style={{ paddingRight: "10px", width: "210px" }}>
+            <Col style={{ paddingRight: "10px", width: "213px" }}>
               <div className="statistic-block block">
                 <Row className="progress-details d-flex align-items-end justify-content-between">
                   {/* up and down arrow column */}
