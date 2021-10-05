@@ -31,38 +31,38 @@ class ExportData extends Component {
       emptyTestno: false,
       loading: false,
       title: [],
-
       formulaUnit: {
-        Turbine_Nozzle_Area: "m2",
-        Total_Mass_FlowRate: "kg/sec",
-        Combustor_Inlet_AirFlow: "kg/sec",
-        Combustor_Input_Energy: "KJ",
-        Specific_Heat_Capacity: "KJ/Kg-K",
-        Combustor_Output_Energy: "KJ",
-        Combustor_Input_FuelEnergy: "KJ",
-        Combustor_Ideal_Efficiency: "η",
-        Turbine_Expansion_Ratio: "",
-        Turbine_Differential_Temperature: "Deg C",
-        Turbine_Power: "KW",
-        Turbine_Isentropic_Efficiency: "ηT",
-        Compressor_Pressure_Ratio: "",
-        Compressor_Differential_Temperature: "Degree C",
-        Ventury_meter_differentialPressure: "mm water",
-        Actual_Differential_Pressure: "pascal",
-        Ventury_Volume_FlowRate: "m3",
-        Compressor_Mass_FlowRate: "",
-        Compressor_Power: "KW",
-        Compressor_Efficiency: "ηc",
-        Compressor_Air_Flow: "kg/sec",
-        Combustor_Flue_Gasflowrate: "kg/sec",
-        Corrected_Compressor_rpm: "rpm",
-        Surge_Margin: "%",
-        Corrected_mass_flowofcompressor: "kg/sec",
-        Air_Fuel_ratio: "",
+        "Turbine Nozzle Area": "m2",
+        "Total Mass Flow Rate": "kg/sec",
+        "Combustor Inlet Air Flow": "kg/sec",
+        "Combustor Input Energy": "KJ",
+        "Specific Heat Capacity": "KJ/Kg-K",
+        "Combustor Output Energy": "KJ",
+        "Combustor Input Fuel Energy": "KJ",
+        "Combustor Ideal Efficiency": "η",
+        "Turbine Expansion Ratio": "",
+        "Turbine Differential Temperature": "Deg C",
+        "Turbine Power": "KW",
+        "Turbine Isentropic Efficiency": "ηT",
+        "Compressor Pressure Ratio": "",
+        "Compressor Differential Temperature": "Degree C",
+        "Ventury meter differential Pressure": "mm water",
+        "Actual Differential Pressure": "pascal",
+        "Ventury Volume Flow Rate": "m3",
+        "Compressor Mass Flow Rate": "",
+        "Compressor Power": "KW",
+        "Compressor Efficiency": "ηc",
+        "Compressor Air Flow": "kg/sec",
+        "Combustor Flue Gas flow rate": "kg/sec",
+        "Corrected Compressor rpm": "rpm",
+        "Surge Margin": "%",
+        "Corrected mass flow of compressor": "kg/sec",
+        "Air Fuel ratio": "",
         testdataDate: "Time",
       },
     };
   }
+
   componentDidMount() {
     this.props.updateTitleElements({
       title: "ExportData",
@@ -76,9 +76,8 @@ class ExportData extends Component {
     let createUnit = paramValue.map((It) => It.unitname);
 
     createParam.forEach((key, i) => (paramObj[key] = createUnit[i]));
-
-    console.log(paramObj);
   }
+
   getReport = () => {
     if (this.state.turboIdVal === "" || this.state.turboIdVal.length === 0) {
       message.warning("Select the turbo ID");
@@ -97,22 +96,22 @@ class ExportData extends Component {
           testno: this.state.testno1,
         })
         .then((res) => {
-          let data = res.data;
+          var data = res.data;
           console.log(data);
 
           if (data.length > 5 && typeof data !== "string") {
-            // console.log(data.unshift(merged));
+            // let unitMerged = { ...paramObj, ...this.state.formulaUnit };
+            // console.log(unitMerged);
+
+            // let exportdataUnit = data.push(unitMerged);
+            // console.log(exportdataUnit.reverse);
 
             this.setState({
               reportDetails: data,
             });
-
-            let titleName = Object.keys(data[0]);
-
             this.setState({
               title: Object.keys(data[0]),
             });
-            console.log(this.state.reportDetails);
           } else {
             message.warning("Check the test No");
           }
@@ -168,6 +167,7 @@ class ExportData extends Component {
       testno1: value,
     });
   };
+
   //exporting csv
   exportToCSV = (csvData, fileName) => {
     const fileType =
@@ -196,325 +196,289 @@ class ExportData extends Component {
   render() {
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
-    console.log(this.state.title);
-    let merged = { ...this.state.formulaUnit, ...paramObj };
+    console.log(this.state.reportDetails);
+
     const columns = [
       {
-        title: this.state.title[0] + "\n" + "\n" + merged["testdataDate"],
+        title: this.state.title[0],
         dataIndex: "testdataDate",
         key: "testdataDate",
         fixed: "left",
         width: 105,
       },
       {
-        title: this.state.title[1] + "\n" + merged["RPM"],
+        title: this.state.title[1],
         dataIndex: "RPM",
         key: "RPM",
         fixed: "left",
         width: 100,
       },
       {
-        title: this.state.title[2] + "\n" + merged["Ambient Pr"],
+        title: this.state.title[2],
         dataIndex: "Ambient Pr",
         key: "Ambient Pr",
         width: 100,
       },
       {
-        title: this.state.title[3] + "\n" + merged["Ambient temp"],
+        title: this.state.title[3],
         dataIndex: "Ambient temp",
         key: "Ambient temp",
         width: 100,
       },
       {
-        title: this.state.title[4] + "\n" + merged["Compressor Inlet Pr"],
+        title: this.state.title[4],
         dataIndex: "Compressor Inlet Pr",
         key: "Compressor Inlet Pr",
         width: 100,
       },
       {
-        title: this.state.title[5] + "\n" + merged["Compressor outlet Pr"],
+        title: this.state.title[5],
         dataIndex: "Compressor outlet Pr",
         key: "Compressor outlet Pr",
         width: 100,
       },
       {
-        title:
-          this.state.title[6] + "\n" + merged["Compressor Diff venturi Pr"],
+        title: this.state.title[6],
         dataIndex: "Compressor Diff venturi Pr",
         key: "Compressor Diff venturi Pr",
         width: 100,
       },
       {
-        title: this.state.title[7] + "\n" + merged["Compressor Inlet temp"],
+        title: this.state.title[7],
         dataIndex: "Compressor Inlet temp",
         key: "Compressor Inlet temp",
         width: 100,
       },
       {
-        title: this.state.title[8] + "\n" + merged["Compressor outlet temp"],
+        title: this.state.title[8],
         dataIndex: "Compressor outlet temp",
         key: "Compressor outlet temp",
         width: 100,
       },
       {
-        title: this.state.title[9] + "\n" + merged["Combustor outlet temp"],
+        title: this.state.title[9],
         dataIndex: "Combustor outlet temp",
         key: "Combustor outlet temp",
         width: 100,
       },
       {
-        title: this.state.title[10] + "\n" + merged["Combustor Inlet Pr"],
+        title: this.state.title[10],
         dataIndex: "Combustor Inlet Pr",
         key: "Combustor Inlet Pr",
         width: 100,
       },
       {
-        title: this.state.title[11] + "\n" + merged["Turbine Inlet temp"],
+        title: this.state.title[11],
         dataIndex: "Turbine Inlet temp",
         key: "Turbine Inlet temp",
         width: 100,
       },
       {
-        title: this.state.title[12] + "\n" + merged["Turbine outlet temp"],
+        title: this.state.title[12],
         dataIndex: "Turbine outlet temp",
         key: "Turbine outlet temp",
         width: 100,
       },
       {
-        title: this.state.title[13] + "\n" + merged["Turbine vibration"],
+        title: this.state.title[13],
         dataIndex: "Turbine vibration",
         key: "Turbine vibration",
         width: 100,
       },
       {
-        title: this.state.title[14] + "\n" + merged["Fuel flow"],
+        title: this.state.title[14],
         dataIndex: "Fuel flow",
         key: "Fuel flow",
         width: 100,
       },
       {
-        title: this.state.title[15] + "\n" + merged["Fuel Pr"],
+        title: this.state.title[15],
         dataIndex: "Fuel Pr",
         key: "Fuel Pr",
         width: 100,
       },
       {
-        title: this.state.title[16] + "\n" + merged["Oil Pr"],
+        title: this.state.title[16],
         dataIndex: "Oil Pr",
         key: "Oil Pr",
         width: 100,
       },
       {
-        title: this.state.title[17] + "\n" + merged["Oil flow Rate"],
+        title: this.state.title[17],
         dataIndex: "Oil flow Rate",
         key: "Oil flow Rate",
         width: 100,
       },
       {
-        title: this.state.title[18] + "\n" + merged["Oil Brg Inlet Temp"],
+        title: this.state.title[18],
         dataIndex: "Oil Brg Inlet Temp",
         key: "Oil Brg Inlet Temp",
         width: 100,
       },
       {
-        title: this.state.title[19] + "\n" + merged["Oil Tank Temp"],
+        title: this.state.title[19],
         dataIndex: "Oil Tank Temp",
         key: "Oil Tank Temp",
         width: 100,
       },
       {
-        title: "Turbine Nozzle Area " + "\n" + merged.Turbine_Nozzle_Area,
-        dataIndex: "Turbine Nozzle Area ",
-        key: "Turbine Nozzle Area ",
+        title: "Turbine Nozzle Area",
+        dataIndex: "Turbine Nozzle Area",
+        key: "Turbine Nozzle Area",
         width: 100,
       },
       {
-        title: "Total Mass Flow Rate" + "\n" + merged.Total_Mass_FlowRate,
+        title: "Total Mass Flow Rate",
         dataIndex: "Total Mass Flow Rate",
         key: "Total Mass Flow Rate",
         width: 100,
       },
       {
-        title:
-          "Combustor Inlet Air Flow" + "\n" + merged.Combustor_Inlet_AirFlow,
+        title: "Combustor Inlet Air Flow",
         dataIndex: "Combustor Inlet Air Flow",
         key: "Combustor Inlet Air Flow",
         width: 100,
       },
       {
-        title: "Combustor Input Energy" + "\n" + merged.Combustor_Input_Energy,
+        title: "Combustor Input Energy",
         dataIndex: "Combustor Input Energy",
         key: "Combustor Input Energy",
         width: 100,
       },
       {
-        title: "Specific Heat Capacity" + "\n" + merged.Specific_Heat_Capacity,
+        title: "Specific Heat Capacity",
         dataIndex: "Specific Heat Capacity",
         key: "Specific Heat Capacity",
         width: 100,
       },
       {
-        title:
-          "Combustor Output Energy" + "\n" + merged.Combustor_Output_Energy,
+        title: "Combustor Output Energy",
         dataIndex: "Combustor Output Energy",
         key: "Combustor Output Energy",
         width: 100,
       },
       {
-        title:
-          "Combustor Input FuelEnergy" +
-          "\n" +
-          merged.Combustor_Input_FuelEnergy,
+        title: "Combustor Input Fuel Energy",
         dataIndex: "Combustor Input Fuel Energy",
         key: "Combustor Input Fuel Energy",
         width: 100,
       },
       {
-        title:
-          "Combustor Ideal Efficiency" +
-          "\n" +
-          merged.Combustor_Ideal_Efficiency,
+        title: "Combustor Ideal Efficiency",
         dataIndex: "Combustor Ideal Efficiency",
         key: "Combustor Ideal Efficiency",
         width: 100,
       },
       {
-        title:
-          "Turbine Expansion Ratio" + "\n" + merged.Turbine_Expansion_Ratio,
+        title: "Turbine Expansion Ratio",
         dataIndex: "Turbine Expansion Ratio",
         key: "Turbine Expansion Ratio",
         width: 100,
       },
       {
-        title:
-          "Turbine Differential Temperature" +
-          "\n" +
-          merged.Turbine_Differential_Temperature,
+        title: "Turbine Differential Temperature",
         dataIndex: "Turbine Differential Temperature",
         key: "Turbine Differential Temperature",
         width: 100,
       },
       {
-        title: "Turbine Power" + "\n" + merged.Turbine_Power,
+        title: "Turbine Power",
         dataIndex: "Turbine Power",
         key: "Turbine Power",
         width: 100,
       },
       {
-        title:
-          "Turbine Isentropic Efficiency" +
-          "\n" +
-          merged.Turbine_Isentropic_Efficiency,
+        title: "Turbine Isentropic Efficiency",
         dataIndex: "Turbine Isentropic Efficiency",
         key: "Turbine Isentropic Efficiency",
         width: 100,
       },
       {
-        title:
-          "Compressor Pressure Ratio" + "\n" + merged.Compressor_Pressure_Ratio,
+        title: "Compressor Pressure Ratio",
         dataIndex: "Compressor Pressure Ratio",
         key: "Compressor Pressure Ratio",
         width: 100,
       },
       {
-        title:
-          "Compressor Differential Temperature" +
-          "\n" +
-          merged.Compressor_Differential_Temperature,
+        title: "Compressor Differential Temperature",
         dataIndex: "Compressor Differential Temperature",
         key: "Compressor Differential Temperature",
         width: 100,
       },
       {
-        title:
-          "Ventury meter differential Pressure" +
-          "\n" +
-          merged.Ventury_meter_differentialPressure,
+        title: "Ventury meter differential Pressure",
         dataIndex: "Ventury meter differential Pressure",
         key: "Ventury meter differential Pressure",
         width: 100,
       },
       {
-        title:
-          "Actual Differential Pressure" +
-          "\n" +
-          merged.Actual_Differential_Pressure,
+        title: "Actual Differential Pressure",
         dataIndex: "Actual Differential Pressure",
         key: "Actual Differential Pressure",
         width: 100,
       },
       {
-        title:
-          "Ventury Volume FlowRate" + "\n" + merged.Ventury_Volume_FlowRate,
+        title: "Ventury Volume Flow Rate",
         dataIndex: "Ventury Volume Flow Rate",
         key: "Ventury Volume Flow Rate",
         width: 100,
       },
       {
-        title:
-          "Compressor Mass FlowRate" + "\n" + merged.Compressor_Mass_FlowRate,
+        title: "Compressor Mass Flow Rate",
         dataIndex: "Compressor Mass Flow Rate",
         key: "Compressor Mass Flow Rate",
         width: 100,
       },
       {
-        title: "Compressor Power" + "\n" + merged.Compressor_Power,
+        title: "Compressor Power",
         dataIndex: "Compressor Power",
         key: "Compressor Power",
         width: 100,
       },
       {
-        title: "Compressor Efficiency" + "\n" + merged.Compressor_Efficiency,
+        title: "Compressor Efficiency",
         dataIndex: "Compressor Efficiency",
         key: "Compressor Efficiency",
         width: 100,
       },
       {
-        title: "Compressor Air Flow" + "\n" + merged.Compressor_Air_Flow,
+        title: "Compressor Air Flow",
         dataIndex: "Compressor Air Flow",
         key: "Compressor Air Flow",
         width: 100,
       },
       {
-        title:
-          "Combustor FlueGas flow rate" +
-          "\n" +
-          merged.Combustor_Flue_Gasflowrate,
+        title: "Combustor Flue Gas flow rate",
         dataIndex: "Combustor Flue Gas flow rate",
         key: "Combustor Flue Gas flow rate",
         width: 100,
       },
       {
-        title:
-          "Corrected Compressor rpm" + "\n" + merged.Corrected_Compressor_rpm,
-        dataIndex: "Corrected  Compressor rpm",
-        key: "Corrected  Compressor rpm",
+        title: "Corrected Compressor rpm",
+        dataIndex: "Corrected Compressor rpm",
+        key: "Corrected Compressor rpm",
         width: 100,
       },
       {
-        title: "Surge Margin" + "\n" + merged.Surge_Margin,
+        title: "Surge Margin",
         dataIndex: "Surge Margin",
         key: "Surge Margin",
         width: 100,
       },
       {
-        title:
-          "Corrected mass flow of compressor" +
-          "\n" +
-          merged.Corrected_mass_flowofcompressor,
+        title: "Corrected mass flow of compressor",
         dataIndex: "Corrected mass flow of compressor",
         key: "Corrected mass flow of compressor",
         width: 100,
       },
       {
-        title: "Air Fuel ratio" + "\n" + merged.Air_Fuel_ratio,
+        title: "Air Fuel ratio",
         dataIndex: "Air Fuel ratio",
         key: "Air Fuel ratio",
         width: 100,
       },
     ];
 
-    console.log(this.state.title[0]);
     return (
       <div style={{ paddingTop: "1px" }}>
         <Layout className="layout-container">
@@ -627,7 +591,7 @@ class ExportData extends Component {
                 columns={columns}
                 pagination={false}
                 dataSource={this.state.reportDetails}
-                scroll={{ x: 2000 }}
+                scroll={{ x: 2000, y: 500 }}
               />
             ) : (
               <Table id="someRandomID" size="middle" scroll={{ x: 2000 }} />
