@@ -120,7 +120,7 @@ const testParamHash = {
   warning_Id: "Please select the turbo ID",
   warning_mode: "Please select turbo mode",
   warning_name: "Please enter tester name",
-  alert_targetval: "Please enter target values",
+  alert_targetval: "Please enter target values",  
 }
 const helpPopup = {
   value: 'VALVE STATUS AT :',

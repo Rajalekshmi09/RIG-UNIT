@@ -97,11 +97,10 @@ class ExportData extends Component {
         })
         .then((res) => {
           var data = res.data;
-          console.log(data);
 
+          /*ADD bugid-(GOARIG_7024) */
           if (data.length > 5 && typeof data !== "string") {
             // let unitMerged = { ...paramObj, ...this.state.formulaUnit };
-            // console.log(unitMerged);
 
             // let exportdataUnit = data.push(unitMerged);
             // console.log(exportdataUnit.reverse);
@@ -196,7 +195,6 @@ class ExportData extends Component {
   render() {
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
-    console.log(this.state.reportDetails);
 
     const columns = [
       {

@@ -330,7 +330,7 @@ class TestPageContainer extends Component {
   //   });
   // }
 
-  // {/*DEL bugid-(GOARIG_2022) */}
+  // {/*DEL bugid-(GOARIG_7022) */}
   // //this event trigger while clicking the initialize
   // sensorData() {
   //   //fetching sensor data from DB
@@ -417,18 +417,19 @@ class TestPageContainer extends Component {
           let data = res.data;
           this.props.gettingTestIdData(data);
           this.communicationstatus();
+
+          /*ADD bugid-(GOARIG_7026) */
+          // insert the test no to the db for exportdata
+          axios
+            .post("http://localhost:7000/testdatainsertwithtestid.php", {
+              status: "Start initiated",
+            })
+            .then(function (response) {});
         })
         .catch((err) => {
           console.log(err);
         });
     }
-
-    /*ADD bugid-(GOARIG_7015) */
-    axios
-      .post("http://localhost:7000/testdatainsertwithtestid.php", {
-        status: "Start initiated",
-      })
-      .then(function (response) {});
   };
 
   //start click
@@ -575,38 +576,51 @@ class TestPageContainer extends Component {
   //start event onClick
   startClick = () => {
     if (this.props.app.communication === true) {
-      if (this.props.app.targetRPM !== "" && this.props.app.targetTemp !== "") {
-        this.props.initiateShowTarget();
-        /*DEL bugid-(GOARIG_7019) */
-        // this.setState({
-        //   shutdownEnable: true,
-        // });
-        /*ADD bugid-(GOARIG_7019) */
-        this.props.startDisableEvent(true);
-        {
-          /*DEL bugid-(GOARIG_7005) */
-        }
-        // setInterval(() => {
-        //   this.requestChartData();
-        // }, this.props.app.delayValue);
-        //delay for receiving sensor data from plc
-        axios
-          .post("http://localhost:5000/start.php", {
-            //set target rpm & temp value to sent plc
-            targetRPM: this.props.app.targetRPM,
-            targetTemp: this.props.app.targetTemp,
-          })
-          .then((res) => {
-            //read the response from plc for trget temp & rpm
-            let startData = res.data;
-
-            //read status from plc after start click => stage1,stage2 etc...
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+      /*ADD bugid-(GOARIG_7025) */
+      if (
+        parseInt(this.props.app.targetTemp) >
+          parseInt(this.props.app.paramConfig[16].upperlimit) ||
+        parseInt(this.props.app.targetRPM) >
+          parseInt(this.props.app.paramConfig[15].upperlimit)
+      ) {
+        message.error("Temprature or RPM exceeded the limit");
       } else {
-        this.props.initiateTargetState();
+        if (
+          this.props.app.targetRPM !== "" &&
+          this.props.app.targetTemp !== ""
+        ) {
+          this.props.initiateShowTarget();
+          /*DEL bugid-(GOARIG_7019) */
+          // this.setState({
+          //   shutdownEnable: true,
+          // });
+          /*ADD bugid-(GOARIG_7019) */
+          this.props.startDisableEvent(true);
+          {
+            /*DEL bugid-(GOARIG_7005) */
+          }
+          // setInterval(() => {
+          //   this.requestChartData();
+          // }, this.props.app.delayValue);
+          //delay for receiving sensor data from plc
+          axios
+            .post("http://localhost:5000/start.php", {
+              //set target rpm & temp value to sent plc
+              targetRPM: this.props.app.targetRPM,
+              targetTemp: this.props.app.targetTemp,
+            })
+            .then((res) => {
+              //read the response from plc for trget temp & rpm
+              let startData = res.data;
+
+              //read status from plc after start click => stage1,stage2 etc...
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          this.props.initiateTargetState();
+        }
       }
     }
   };
@@ -679,10 +693,11 @@ class TestPageContainer extends Component {
     const resetTemp = this.props.app.resetTemp;
     const resetRPM = this.props.app.resetRPM;
     let turboStart = [];
+
     if (this.props.app.turboStart) {
       turboStart = this.props.app.turboStart;
     }
-    console.log(this.props.app);
+
     /*DEL bugid-(GOARIG_7015) */
     // const { Initializedata, Startdata, Shutdowndata, Resetdata } =
     // testParamHash;

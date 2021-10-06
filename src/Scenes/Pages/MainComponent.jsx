@@ -135,7 +135,7 @@ export class MainComponent extends Component {
       });
     }, this.props.app.delayValue);
 
-    // {/*ADD bugid-(GOARIG_2022) */}
+    // {/*ADD bugid-(GOARIG_7022) */}
     setInterval(() => {
       getSensorData((data) => {
         let val = data;
