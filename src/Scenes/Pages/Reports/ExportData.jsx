@@ -49,7 +49,7 @@ class ExportData extends Component {
         "Ventury meter differential Pressure": "mm water",
         "Actual Differential Pressure": "pascal",
         "Ventury Volume Flow Rate": "m3",
-        "Compressor Mass Flow Rate": "",
+        "Compressor Mass Flow Rate": "kg/sec",
         "Compressor Power": "KW",
         "Compressor Efficiency": "ηc",
         "Compressor Air Flow": "kg/sec",
@@ -58,6 +58,8 @@ class ExportData extends Component {
         "Surge Margin": "%",
         "Corrected mass flow of compressor": "kg/sec",
         "Air Fuel ratio": "",
+      },
+      timeUnit: {
         testdataDate: "Time",
       },
     };
@@ -72,8 +74,21 @@ class ExportData extends Component {
       ? this.props.app.paramConfig
       : [];
 
-    let createParam = paramValue.map((It) => It.Paramname);
-    let createUnit = paramValue.map((It) => It.unitname);
+    //while adding the unit row in the table,exported excel sheet not in the correct order,
+    //so here changed the order of the array index value
+
+    const index = [
+      15, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18,
+    ];
+
+    const createdData = index.map((i) => paramValue[i]);
+
+    let createParam = this.props.app.paramConfig
+      ? createdData.map((It) => It.Paramname)
+      : [];
+    let createUnit = this.props.app.paramConfig
+      ? createdData.map((It) => It.unitname)
+      : [];
 
     createParam.forEach((key, i) => (paramObj[key] = createUnit[i]));
   }
@@ -100,16 +115,23 @@ class ExportData extends Component {
 
           /*ADD bugid-(GOARIG_7024) */
           if (data.length > 5 && typeof data !== "string") {
-            // let unitMerged = { ...paramObj, ...this.state.formulaUnit };
-
-            // let exportdataUnit = data.push(unitMerged);
-            // console.log(exportdataUnit.reverse);
-
-            this.setState({
-              reportDetails: data,
-            });
+            //updated the export data title
             this.setState({
               title: Object.keys(data[0]),
+            });
+
+            //merging the testdatatime,live data unit,formula unit
+            let unitMerged = {
+              ...this.state.timeUnit,
+              ...paramObj,
+              ...this.state.formulaUnit,
+            };
+            //concatinating the unitData with the live data
+            let exportdataData = [].concat(unitMerged, data);
+
+            //updating the data to the state
+            this.setState({
+              reportDetails: exportdataData,
             });
           } else {
             message.warning("Check the test No");
@@ -178,19 +200,20 @@ class ExportData extends Component {
     const data = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(data, fileName + fileExtension);
   };
+
   //export pdf
-  exportToPDF = () => {
-    const input = document.getElementById("someRandomID");
-    html2canvas(input).then((canvas) => {
-      var imgWidth = 200;
-      var imgHeight = (canvas.height * imgWidth) / canvas.width;
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      var position = 0;
-      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
-      pdf.save("download.pdf");
-    });
-  };
+  // exportToPDF = () => {
+  //   const input = document.getElementById("someRandomID");
+  //   html2canvas(input).then((canvas) => {
+  //     var imgWidth = 200;
+  //     var imgHeight = (canvas.height * imgWidth) / canvas.width;
+  //     const imgData = canvas.toDataURL("image/png");
+  //     const pdf = new jsPDF("p", "mm", "a4");
+  //     var position = 0;
+  //     pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+  //     pdf.save("download.pdf");
+  //   });
+  // };
 
   render() {
     const testIdValue = this.props.app.turboConfig;
@@ -199,124 +222,124 @@ class ExportData extends Component {
     const columns = [
       {
         title: this.state.title[0],
-        dataIndex: "testdataDate",
-        key: "testdataDate",
+        dataIndex: this.state.title[0],
+        key: this.state.title[0],
         fixed: "left",
         width: 105,
       },
       {
         title: this.state.title[1],
-        dataIndex: "RPM",
-        key: "RPM",
-        fixed: "left",
+        dataIndex: this.state.title[1],
+        key: this.state.title[1],
+        fixed: this.state.title[1],
         width: 100,
       },
       {
         title: this.state.title[2],
-        dataIndex: "Ambient Pr",
-        key: "Ambient Pr",
+        dataIndex: this.state.title[2],
+        key: this.state.title[2],
         width: 100,
       },
       {
         title: this.state.title[3],
-        dataIndex: "Ambient temp",
-        key: "Ambient temp",
+        dataIndex: this.state.title[3],
+        key: this.state.title[3],
         width: 100,
       },
       {
         title: this.state.title[4],
-        dataIndex: "Compressor Inlet Pr",
-        key: "Compressor Inlet Pr",
+        dataIndex: this.state.title[4],
+        key: this.state.title[4],
         width: 100,
       },
       {
         title: this.state.title[5],
-        dataIndex: "Compressor outlet Pr",
-        key: "Compressor outlet Pr",
+        dataIndex: this.state.title[5],
+        key: this.state.title[5],
         width: 100,
       },
       {
         title: this.state.title[6],
-        dataIndex: "Compressor Diff venturi Pr",
-        key: "Compressor Diff venturi Pr",
+        dataIndex: this.state.title[6],
+        key: this.state.title[6],
         width: 100,
       },
       {
         title: this.state.title[7],
-        dataIndex: "Compressor Inlet temp",
-        key: "Compressor Inlet temp",
+        dataIndex: this.state.title[7],
+        key: this.state.title[7],
         width: 100,
       },
       {
         title: this.state.title[8],
-        dataIndex: "Compressor outlet temp",
-        key: "Compressor outlet temp",
+        dataIndex: this.state.title[8],
+        key: this.state.title[8],
         width: 100,
       },
       {
         title: this.state.title[9],
-        dataIndex: "Combustor outlet temp",
-        key: "Combustor outlet temp",
+        dataIndex: this.state.title[9],
+        key: this.state.title[9],
         width: 100,
       },
       {
         title: this.state.title[10],
-        dataIndex: "Combustor Inlet Pr",
-        key: "Combustor Inlet Pr",
+        dataIndex: this.state.title[10],
+        key: this.state.title[10],
         width: 100,
       },
       {
         title: this.state.title[11],
-        dataIndex: "Turbine Inlet temp",
-        key: "Turbine Inlet temp",
+        dataIndex: this.state.title[11],
+        key: this.state.title[11],
         width: 100,
       },
       {
         title: this.state.title[12],
-        dataIndex: "Turbine outlet temp",
-        key: "Turbine outlet temp",
+        dataIndex: this.state.title[12],
+        key: this.state.title[12],
         width: 100,
       },
       {
         title: this.state.title[13],
-        dataIndex: "Turbine vibration",
-        key: "Turbine vibration",
+        dataIndex: this.state.title[13],
+        key: this.state.title[13],
         width: 100,
       },
       {
         title: this.state.title[14],
-        dataIndex: "Fuel flow",
-        key: "Fuel flow",
+        dataIndex: this.state.title[14],
+        key: this.state.title[14],
         width: 100,
       },
       {
         title: this.state.title[15],
-        dataIndex: "Fuel Pr",
-        key: "Fuel Pr",
+        dataIndex: this.state.title[15],
+        key: this.state.title[15],
         width: 100,
       },
       {
         title: this.state.title[16],
-        dataIndex: "Oil Pr",
-        key: "Oil Pr",
+        dataIndex: this.state.title[16],
+        key: this.state.title[16],
         width: 100,
       },
       {
         title: this.state.title[17],
-        dataIndex: "Oil flow Rate",
-        key: "Oil flow Rate",
+        dataIndex: this.state.title[17],
+        key: this.state.title[17],
         width: 100,
       },
       {
         title: this.state.title[18],
-        dataIndex: "Oil Brg Inlet Temp",
-        key: "Oil Brg Inlet Temp",
+        dataIndex: this.state.title[18],
+        key: this.state.title[18],
         width: 100,
       },
       {
         title: this.state.title[19],
-        dataIndex: "Oil Tank Temp",
-        key: "Oil Tank Temp",
+        dataIndex: this.state.title[19],
+        key: this.state.title[19],
         width: 100,
       },
       {

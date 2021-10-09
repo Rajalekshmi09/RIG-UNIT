@@ -693,7 +693,7 @@ class TestPageContainer extends Component {
     const resetTemp = this.props.app.resetTemp;
     const resetRPM = this.props.app.resetRPM;
     let turboStart = [];
-
+    console.log(this.props.app.turboStart);
     if (this.props.app.turboStart) {
       turboStart = this.props.app.turboStart;
     }
@@ -705,7 +705,7 @@ class TestPageContainer extends Component {
     const InitializedataArray = turboStart.filter((it) =>
       Initializedata.find((val) => val === it.name)
     );
-
+    console.log(InitializedataArray);
     const StartdataArray = turboStart.filter((it) =>
       Startdata.find((val) => val === it.name)
     );
@@ -736,7 +736,7 @@ class TestPageContainer extends Component {
         (word) => word.status === "installed"
       );
     }
-
+    console.log(this.props.app);
     return (
       <div style={{ paddingTop: "25px" }}>
         <Layout
