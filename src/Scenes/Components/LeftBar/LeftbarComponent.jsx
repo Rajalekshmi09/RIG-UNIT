@@ -131,6 +131,12 @@ class LeftbarComponent extends Component {
               Running Report{" "}
             </Menu.Item>
             <Menu.Item
+              key="runningReport2"
+              icon={<FiActivity style={{ color: "#42dbdc" }} />}
+            >
+              Running Report2
+            </Menu.Item>
+            <Menu.Item
               key="performanceReport"
               icon={<AiFillSignal style={{ color: "#42dbdc" }} />}
             >
@@ -154,6 +160,12 @@ class LeftbarComponent extends Component {
               icon={<BsCardChecklist style={{ color: "#42dbdc" }} />}
             >
               Acceptance Report
+            </Menu.Item>
+            <Menu.Item
+              key="acceptanceReport2"
+              icon={<BsCardChecklist style={{ color: "#42dbdc" }} />}
+            >
+              Acceptance Report2
             </Menu.Item>
             <Menu.Item
               key="exportData"

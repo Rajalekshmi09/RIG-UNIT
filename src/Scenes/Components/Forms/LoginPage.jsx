@@ -39,6 +39,7 @@ class LoginPage extends Component {
   //Form onfinish fn
   loginOnFinish = (values) => {
     let that = this;
+    // LOGIN_VALIDATION: 'login_validation.php',
     loginValidation(values, (data) => {
       if (data[0] == "success") {
         that.props.updateAppState("main");

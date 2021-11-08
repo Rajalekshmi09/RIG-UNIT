@@ -11,6 +11,7 @@ import TestPage from "./TestPage";
 import GraphView from "../Pages/DashboardPage/GraphView";
 import TableView from "./DashboardPage/TableView";
 import RunningReport from "./Reports/RunningReport";
+import RunningReport2 from "./Reports/RunningReport2";
 import TestConfig from "./ConfigurationPage/TestConfig";
 import ParamConfig from "./ConfigurationPage/ParamConfig";
 import ExportData from "./Reports/ExportData";
@@ -18,6 +19,7 @@ import PerformanceReport from "./Reports/PerformanceReport";
 import EndurenceReport from "./Reports/EndurenceReport";
 import PerformanceAfterEndurence from "./Reports/PerformanceAfterEndurence";
 import AcceptanceReport from "./Reports/AcceptanceReport";
+import AcceptanceReport2 from "./Reports/AcceptanceReport2";
 import axios from "axios";
 import {
   updateTurboConfig,
@@ -107,7 +109,6 @@ export class MainComponent extends Component {
 
     /*ADD bugid-(GOARIG_7017) */
     if (this.state.testDataInsert === false) {
-      // let status = "Statusblock loading";
       axios
         .post("http://localhost:7000/testdatainsert.php", {
           status: "Statusblock loading",
@@ -121,7 +122,9 @@ export class MainComponent extends Component {
           console.log(err);
         });
     }
-    // fetch livedata from DB
+
+    // fetch livedata from DB and store redux store
+    //it has 6 rows
     setInterval(() => {
       gettingChartData((data) => {
         this.props.updateChartData(data);
@@ -132,6 +135,7 @@ export class MainComponent extends Component {
     setInterval(() => {
       gettingChartData2((data) => {
         this.props.updateChartData2(data);
+        console.log(data);
       });
     }, this.props.app.delayValue);
 
@@ -167,6 +171,7 @@ export class MainComponent extends Component {
             {mainPage === "paramConfig" ? <ParamConfig /> : []}
             {mainPage === "testPage" ? <TestPage /> : []}
             {mainPage === "runningReport" ? <RunningReport /> : []}
+            {mainPage === "runningReport2" ? <RunningReport2 /> : []}
             {mainPage === "exportData" ? <ExportData /> : []}
             {mainPage === "performanceReport" ? <PerformanceReport /> : []}
             {mainPage === "endurenceReport" ? <EndurenceReport /> : []}
@@ -177,6 +182,7 @@ export class MainComponent extends Component {
             )}
             {/*ADD AcceptanceReport bugid-(GOARIG_7003) */}
             {mainPage === "acceptanceReport" ? <AcceptanceReport /> : []}
+            {mainPage === "acceptanceReport2" ? <AcceptanceReport2 /> : []}
           </Content>
         </Layout>
         <Footer>

@@ -51,7 +51,7 @@ const InitialState = {
   targetTemp: '',
   resetTemp: '',
   resetRPM: '',
-  startDbInserting: false,
+  // startDbInserting: false,
   /*ADD bugid-(GOARIG_7019) */
   startDisable: false,
 

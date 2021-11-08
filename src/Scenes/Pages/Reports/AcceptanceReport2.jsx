@@ -713,7 +713,7 @@ class AcceptanceReport extends Component {
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                        colSpan="5"
+                        colSpan="10"
                       >
                         RUNNING IN TEST
                       </th>
@@ -758,7 +758,7 @@ class AcceptanceReport extends Component {
                         <br />
                         Outlet Temp
                       </th>
-                      {/* <th
+                      <th
                         style={{
                           verticalAlign: "middle",
                           border: "1px solid #6a6a6b",
@@ -768,7 +768,7 @@ class AcceptanceReport extends Component {
                         Compressor
                         <br />
                         Outlet Pr
-                      </th> */}
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -779,7 +779,7 @@ class AcceptanceReport extends Component {
                         Turbine <br />
                         Inlet Temp
                       </th>
-                      {/* <th
+                      <th
                         style={{
                           verticalAlign: "middle",
                           border: "1px solid #6a6a6b",
@@ -817,7 +817,7 @@ class AcceptanceReport extends Component {
                         }}
                       >
                         Mass <br /> Flow Rate
-                      </th> */}
+                      </th>
                     </tr>
                     <tr>
                       <th
@@ -860,7 +860,7 @@ class AcceptanceReport extends Component {
                         <br />
                         (deg.C)
                       </th>
-                      {/* <th
+                      <th
                         style={{
                           verticalAlign: "middle",
                           border: "1px solid #6a6a6b",
@@ -868,7 +868,7 @@ class AcceptanceReport extends Component {
                         }}
                       >
                         kg/cm^2
-                      </th> */}
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -878,7 +878,7 @@ class AcceptanceReport extends Component {
                       >
                         deg.C
                       </th>
-                      {/* <th
+                      <th
                         style={{
                           verticalAlign: "middle",
                           border: "1px solid #6a6a6b",
@@ -913,7 +913,7 @@ class AcceptanceReport extends Component {
                         }}
                       >
                         %
-                      </th> */}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -931,13 +931,13 @@ class AcceptanceReport extends Component {
                         <td style={{ border: "1px solid #6a6a6b" }}>
                           {it.Turbine_Outlet}
                         </td>
-                        {/* <td style={{ border: "1px solid #6a6a6b" }}>
+                        <td style={{ border: "1px solid #6a6a6b" }}>
                           {it.Compr_Outlet_Pr}
-                        </td> */}
+                        </td>
                         <td style={{ border: "1px solid #6a6a6b" }}>
                           {it.Turbine_InletTemp}
                         </td>
-                        {/* <td style={{ border: "1px solid #6a6a6b" }}>
+                        <td style={{ border: "1px solid #6a6a6b" }}>
                           {it.Turbine_OutletTemp}
                         </td>
                         <td style={{ border: "1px solid #6a6a6b" }}>
@@ -949,7 +949,7 @@ class AcceptanceReport extends Component {
                         <td style={{ border: "1px solid #6a6a6b" }}>
                           {" "}
                           {it.Mass_Flow_Rate}
-                        </td> */}
+                        </td>
                       </tr>
                     ))}
                   </tbody>

@@ -46,7 +46,7 @@ import {
   getResetTemp,
   getResetRPM,
   stopDbInsert,
-  startDbInsert,
+  // startDbInsert,
   updateNotifyAction,
   gettingTestIdData,
 } from "../../../Redux/action";
@@ -309,9 +309,9 @@ class TestPageContainer extends Component {
 
     // {/*ADD BugID - GOARIG_7006 */}
     //getting testdata insert after shutdown
-    gettingTestdataAftershutdown((data) => {
-      console.log(data);
-    });
+    // gettingTestdataAftershutdown((data) => {
+    //   console.log(data);
+    // });
 
     shutdownClickEvent((data) => {
       //updating to the store called shutdownInitiated
@@ -348,6 +348,7 @@ class TestPageContainer extends Component {
   //getting communication value in request page
   communicationstatus() {
     /* ADD bugid-(GOARIG_7021)   */
+    //type 0 -> initialize clicked
     axios
       .post("http://localhost:5000/initialize.php", {
         testId: this.props.app.testIdData,
@@ -369,7 +370,8 @@ class TestPageContainer extends Component {
 
   //initialize event onclick
   initializeClick = () => {
-    this.props.startDbInsert();
+    // this.props.startDbInsert();
+
     this.props.updateDropDown(null);
     if (
       this.props.app.turboMode === "" ||
@@ -380,6 +382,7 @@ class TestPageContainer extends Component {
       });
       return;
     }
+
     if (
       this.props.app.testIdValue === "" ||
       this.props.app.testIdValue === undefined ||
@@ -390,6 +393,7 @@ class TestPageContainer extends Component {
       });
       return;
     }
+
     if (this.state.testerItems.length === 0) {
       this.setState({
         errormsg: warning_name,
@@ -415,16 +419,18 @@ class TestPageContainer extends Component {
         .then((res) => {
           /* ADD bugid-(GOARIG_7021)   */
           let data = res.data;
+
+          //updated testId in reduxc store - testIdData
           this.props.gettingTestIdData(data);
           this.communicationstatus();
 
           /*ADD bugid-(GOARIG_7026) */
           // insert the test no to the db for exportdata
-          axios
-            .post("http://localhost:7000/testdatainsertwithtestid.php", {
-              status: "Start initiated",
-            })
-            .then(function (response) {});
+          // axios
+          //   .post("http://localhost:7000/testdatainsertwithtestid.php", {
+          //     status: "Start initiated",
+          //   })
+          //   .then(function (response) {});
         })
         .catch((err) => {
           console.log(err);
@@ -566,6 +572,7 @@ class TestPageContainer extends Component {
       .post("http://localhost:5000/reset.php", {
         ResetRPM: this.props.app.resetRPM,
         ResetTemp: this.props.app.resetTemp,
+        testId: this.props.app.testIdData,
       })
       .then((res) => {})
       .catch((err) => {
@@ -606,6 +613,7 @@ class TestPageContainer extends Component {
           axios
             .post("http://localhost:5000/start.php", {
               //set target rpm & temp value to sent plc
+              testId: this.props.app.testIdData,
               targetRPM: this.props.app.targetRPM,
               targetTemp: this.props.app.targetTemp,
             })
@@ -632,8 +640,12 @@ class TestPageContainer extends Component {
     });
   };
 
-  //reSet action
+  //reSet all action in the store and state
   reloadAllEvents = () => {
+    //to disconnect the service in plc using logout function
+    /*ADD bugid-(GOARIG_7006) */
+    logoutEvent((data) => {});
+
     /*ADD bugid-(GOARIG_7021) */
     this.props.gettingTestIdData(0);
     this.props.stopDbInsert();
@@ -641,10 +653,9 @@ class TestPageContainer extends Component {
     this.props.updateTestIdValue("");
     this.props.updateTurboMode("");
     this.props.initiateTurboStart([]);
+
     /*ADD bugid-(GOARIG_7019) */
     this.props.startDisableEvent(false);
-    /*ADD bugid-(GOARIG_7006) */
-    logoutEvent((data) => {});
 
     this.setState({
       turboIdDefaultValue: "Select Turbo ID",
@@ -1543,7 +1554,7 @@ const mapDispatchToProps = {
   getResetRPM,
   updateChartData,
   stopDbInsert,
-  startDbInsert,
+  // startDbInsert,
   updateTestIdValue,
   updateTestIdCount,
   updateTurboMode,

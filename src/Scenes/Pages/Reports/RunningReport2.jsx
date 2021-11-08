@@ -37,7 +37,7 @@ class RunningReport extends Component {
   }
   componentDidMount() {
     this.props.updateTitleElements({
-      title: "Running Report",
+      title: "Running Report 2",
       type: "Report",
     });
   }
@@ -176,7 +176,6 @@ class RunningReport extends Component {
           testno: this.state.testNumberVal,
         })
         .then((res) => {
-          console.log(res.data);
           if (typeof res.data !== "string") {
             this.setState({
               reportOut1: res.data,
@@ -215,6 +214,7 @@ class RunningReport extends Component {
       .post("http://localhost:5000/exportData.php", { turboIdVal: value })
       .then((res) => {
         let data = res.data;
+
         if (typeof data === "string") {
           this.setState({
             testno: [],
@@ -244,7 +244,6 @@ class RunningReport extends Component {
     const testIdValue = this.props.app.turboConfig;
     const testno = this.state.testno;
     const reportOut = this.state.reportOut1;
-    console.log(this.state.reportOut1);
     return (
       <div>
         <Layout className="layout-container">
@@ -396,7 +395,7 @@ class RunningReport extends Component {
                           border: "1px solid #6a6a6b",
                           textAlign: "center",
                         }}
-                        colSpan="5"
+                        colSpan="10"
                       >
                         RUNNING IN TEST
                       </th>
@@ -427,7 +426,8 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Oil Presssure
+                        Compressor <br />
+                        Inlet Temp
                       </th>
                       <th
                         style={{
@@ -436,9 +436,21 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
-                        Oil Temprature
+                        Compressor
+                        <br />
+                        Outlet Temp
                       </th>
-
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        Compressor
+                        <br />
+                        Outlet Pr
+                      </th>
                       <th
                         style={{
                           verticalAlign: "middle",
@@ -448,6 +460,45 @@ class RunningReport extends Component {
                       >
                         Turbine <br />
                         Inlet Temp
+                      </th>
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        Turbine
+                        <br /> Outlet Temp
+                      </th>
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        Kerosine
+                        <br />
+                        Flow Rate
+                      </th>
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        Compressor <br /> Pr Ratio
+                      </th>
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        Mass <br /> Flow Rate
                       </th>
                     </tr>
                     <tr>
@@ -498,7 +549,52 @@ class RunningReport extends Component {
                           textAlign: "center",
                         }}
                       >
+                        kg/cm^2
+                      </th>
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
                         deg.C
+                      </th>
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        deg.C
+                      </th>
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        kg/Sec
+                      </th>
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        %
+                      </th>
+                      <th
+                        style={{
+                          verticalAlign: "middle",
+                          border: "1px solid #6a6a6b",
+                          textAlign: "center",
+                        }}
+                      >
+                        %
                       </th>
                     </tr>
                   </thead>
@@ -512,13 +608,29 @@ class RunningReport extends Component {
                           {it.Duration}
                         </td>
                         <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.Oil_Pressure}
+                          {it.Turbine_Inlet}
                         </td>
                         <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.Oil_TankTemp}
+                          {it.Turbine_Outlet}
+                        </td>
+                        <td style={{ border: "1px solid #6a6a6b" }}>
+                          {it.Compr_Outlet_Pr}
                         </td>
                         <td style={{ border: "1px solid #6a6a6b" }}>
                           {it.Turbine_InletTemp}
+                        </td>
+                        <td style={{ border: "1px solid #6a6a6b" }}>
+                          {it.Turbine_OutletTemp}
+                        </td>
+                        <td style={{ border: "1px solid #6a6a6b" }}>
+                          {it.flowrate}
+                        </td>
+                        <td style={{ border: "1px solid #6a6a6b" }}>
+                          {it.Turbine_Outlet}
+                        </td>
+                        <td style={{ border: "1px solid #6a6a6b" }}>
+                          {" "}
+                          {it.Mass_Flow_Rate}
                         </td>
                       </tr>
                     ))}
@@ -571,9 +683,9 @@ const mapDispatchToProps = {
   updateTitleElements,
 };
 
-const runningReport = connect(
+const runningReport2 = connect(
   mapStateToProps,
   mapDispatchToProps
 )(RunningReport);
 
-export default runningReport;
+export default runningReport2;

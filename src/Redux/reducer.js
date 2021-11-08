@@ -191,10 +191,10 @@ const appReducer = (state = InitialState, action) => {
       newState.shutdownInitiated = false
       return newState
 
-    //startDbInserting
-    case 'START_DB_INSERT':
-      newState.startDbInserting = false
-      return newState
+    // //startDbInserting
+    // case 'START_DB_INSERT':
+    //   newState.startDbInserting = false
+    //   return newState
 
     /*ADD bugid-(GOARIG_7019) */
     //startDisable

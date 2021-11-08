@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Progress } from "antd";
 import { connect } from "react-redux";
 import { dashboardSensor } from "../../../Services/constants";
 
@@ -7,6 +7,7 @@ const { sensorLabel_row2, targetKeysVal_row2 } = dashboardSensor;
 {
   /*ADD - GOARIG_7014 */
 }
+
 class StatusBlockRow2 extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,7 @@ class StatusBlockRow2 extends Component {
     let filteredData;
     let filteredData1;
     const dashboardDataNumArr = targetKeysVal_row2;
-
+    console.log(this.props.app.chartData2);
     {
       this.props.app.chartData2[0]
         ? (filteredData = Object.values(this.props.app.chartData2[0]).filter(
@@ -54,7 +55,7 @@ class StatusBlockRow2 extends Component {
       <div style={{ marginTop: "25px" }}>
         <Row>
           {persons.map((It, y) => (
-            <Col style={{ paddingRight: "10px", width: "213px" }}>
+            <Col style={{ paddingRight: "10px", width: "190px" }}>
               <div className="statistic-block block">
                 <Row className="progress-details d-flex align-items-end justify-content-between">
                   {/* up and down arrow column */}
@@ -87,7 +88,7 @@ class StatusBlockRow2 extends Component {
                   {/* value displaying column */}
                   <Col
                     className="number dashtext-1"
-                    style={{ paddingLeft: "20%", fontSize: "23px" }}
+                    style={{ paddingLeft: "20%", fontSize: "20px" }}
                   >
                     {/* getting the color from the color array */}
                     <span>{It}</span>
@@ -115,6 +116,41 @@ class StatusBlockRow2 extends Component {
               </div>
             </Col>
           ))}
+          <Col style={{ paddingRight: "10px" }}>
+            <div className="statistic-block block">
+              <Progress
+                strokeWidth={10}
+                strokeColor="#03fc28"
+                type="circle"
+                width={60}
+                style={{ marginLeft: "24px" }}
+                percent={this.props.app.chartData2[0].S8}
+              />
+              <div className="title">
+                <div style={{ fontSize: "10px" }}>
+                  <strong>Air fcv Valve</strong>
+                </div>
+              </div>
+            </div>
+          </Col>
+
+          <Col>
+            <div className="statistic-block block">
+              <Progress
+                strokeWidth={10}
+                strokeColor="#03fc28"
+                type="circle"
+                width={60}
+                style={{ marginLeft: "28px" }}
+                percent={this.props.app.chartData2[0].S9}
+              />
+              <div className="title">
+                <div style={{ fontSize: "10px" }}>
+                  <strong>Kerosene Valve</strong>
+                </div>
+              </div>
+            </div>
+          </Col>
         </Row>
       </div>
     );

@@ -89,7 +89,7 @@ const dashboardSensor = {
   
   //filter for statusblockRow2 
   //number should be 2 less than the actual index like c13 = 11  
-   targetKeysVal_row2 :  [11, 16, 21, 22,24,25],
+   targetKeysVal_row2 :  [11, 16, 21, 22, 24, 25],
 
   dummyData: 0,
   chartMax: 5,

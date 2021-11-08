@@ -121,6 +121,7 @@ export const updateTurboMode = data => ({
   type: 'UPDATE_TURBO_MODE',
   payload: data
 })
+
 export const updateDropDown = data => ({
   type: 'UPDATE_DROPDOWN',
   payload: data
@@ -223,11 +224,12 @@ export const stopDbInsert = bool => ({
   type: 'STOP_DB_INSERT',
   payload: bool
 })
-//startDbInserting
-export const startDbInsert = bool => ({
-  type: 'START_DB_INSERT',
-  payload: bool
-})
+
+// //startDbInserting
+// export const startDbInsert = bool => ({
+//   type: 'START_DB_INSERT',
+//   payload: bool
+// })
 
  /*ADD bugid-(GOARIG_7019) */
 //startDisable
