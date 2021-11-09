@@ -654,6 +654,8 @@ class TestPageContainer extends Component {
     this.props.updateTurboMode("");
     this.props.initiateTurboStart([]);
 
+    this.props.getResetTemp("");
+    this.props.getResetRPM("");
     /*ADD bugid-(GOARIG_7019) */
     this.props.startDisableEvent(false);
 

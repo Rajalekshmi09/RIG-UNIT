@@ -43,7 +43,7 @@ const CompanyDetails = {
 }
 
 //status block 1st row default value index
-const targetKeysVal = ["5", "8", "10", "13", "17","18"]
+const targetKeysVal = ["5", "8", "10", "13", "17","12"]
 
 const dashboardDataVal = [
   { "key": "0", "Name": "Ambient Pressure", "chosen": false },
@@ -58,13 +58,13 @@ const dashboardDataVal = [
   { "key": "9", "Name": "Combustor Pressure", "chosen": false },
   { "key": "10", "Name": "Turbine Inlet Temperature", "chosen": true },
   { "key": "11", "Name": "Turbine Outlet Temperature", "chosen": false },
-  { "key": "12", "Name": "Turbine Vibration", "chosen": false },
+  { "key": "12", "Name": "Turbine Vibration", "chosen": true },
   { "key": "13", "Name": "Fuel Flow", "chosen": true },
   { "key": "14", "Name": "Fuel Pressure", "chosen": false },
   { "key": "15", "Name": "Oil Pressure", "chosen": false },
   { "key": "16", "Name": "Oil Flow Rate", "chosen": false },
   { "key": "17", "Name": "Oil Brg Inlet Temperature", "chosen": true },
-  { "key": "18", "Name": "Oil Tank Temperature", "chosen": true },
+  { "key": "18", "Name": "Oil Tank Temperature", "chosen": false },
 ]
 
 const dashboardSensor = {
@@ -84,7 +84,7 @@ const dashboardSensor = {
     "Corrected RPM",
     "Surge Margin",
     "Air Fuel Flow",
-    "Turbine Vibration",
+    "Oil Tank Temprature",
   ],
   
   //filter for statusblockRow2 
