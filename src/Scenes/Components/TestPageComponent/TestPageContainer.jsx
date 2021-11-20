@@ -468,6 +468,7 @@ class TestPageContainer extends Component {
           valvestatus: response.data.valvestatus,
         });
         // {/* ADD -  GOARIG_7010 */}
+        //the order should be same ,because the order handled in php
         self.setState({
           ErrorCode: valveData[11],
         });
@@ -568,16 +569,25 @@ class TestPageContainer extends Component {
 
   //reset event onClick
   resetOnClick = () => {
-    axios
-      .post("http://localhost:5000/reset.php", {
-        ResetRPM: this.props.app.resetRPM,
-        ResetTemp: this.props.app.resetTemp,
-        testId: this.props.app.testIdData,
-      })
-      .then((res) => {})
-      .catch((err) => {
-        console.log(err);
-      });
+    if (
+      parseInt(this.props.app.resetTemp) >
+        parseInt(this.props.app.paramConfig[16].upperlimit) ||
+      parseInt(this.props.app.resetRPM) >
+        parseInt(this.props.app.paramConfig[15].upperlimit)
+    ) {
+      message.error("Temprature or RPM exceeded the limit");
+    } else {
+      axios
+        .post("http://localhost:5000/reset.php", {
+          ResetRPM: this.props.app.resetRPM,
+          ResetTemp: this.props.app.resetTemp,
+          testId: this.props.app.testIdData,
+        })
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   //start event onClick
