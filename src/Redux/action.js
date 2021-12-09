@@ -56,10 +56,6 @@ export const updateParamConfig = data => ({
   type: 'UPDATE_PARAM_CONFIG',
   payload: data
 })
-export const updateTransferElement = data => ({
-  type: 'UPDATE_TRANSFER_ELEMENT',
-  payload: data
-})
 // dashboardData
 export const updateDashboardData = data => ({
   type: 'UPDATE_DASHBOARD_DATA',
@@ -88,23 +84,8 @@ export const updateTableStatusData = data => ({
   payload: data
 })
 
-/* ---Form component --- */
-// loginEvent
-export const updateLoginEvent = bool => ({
-  type: 'UPDATE_LOGIN_EVENT',
-  payload: bool
-})
-export const updateForgotEvent = data => ({
-  type: 'UPDATE_FORGOT_EVENT',
-  payload: data
-})
-
 /* ---Test page/test details --- */
-//testingPage
-export const updateTestingPage = data => ({
-  type: 'UPDATE_TESTING_PAGE',
-  payload: data
-})
+
 // testIdValue
 export const updateTestIdValue = data => ({
   type: 'UPDATE_TESTID_VALUE',
@@ -133,11 +114,7 @@ export const initiateShutdown = bool => ({
   type: 'SHUTDOWN_INITIATED',
   payload: bool
 })
-// showReset
-export const initiateShowReset = bool => ({
-  type: 'SHOW_RESET_INITIATED',
-  payload: bool
-})
+
 // communicationfailed
 export const initiateCommunicationFailed = bool => ({
   type: 'COMMUNICATION_FAILED_INITIATED',
@@ -163,41 +140,13 @@ export const initiateTurboStart = data => ({
   type: 'TURBO_START_INITIATED',
   payload: data
 })
-// gasOpend
-export const initiateGasOpened = bool => ({
-  type: 'GAS_OPEN_INITIATED',
-  payload: bool
-})
-// stageOne
-export const initiateStageOne = bool => ({
-  type: 'STAGE_ONE_INITIATED',
-  payload: bool
-})
-// fuelOpened
-export const initiateFuelOpened = bool => ({
-  type: 'FUEL_OPENED_INITIATED',
-  payload: bool
-})
-// stageTwo
-export const initiateStageTwo = bool => ({
-  type: 'STAGE_TWO_INITIATED',
-  payload: bool
-})
-// gasClosed
-export const initiateGasClosed = bool => ({
-  type: 'GAS_CLOSED',
-  payload: bool
-})
+
 // stageThree
 export const initiateStageThree = bool => ({
   type: 'STAGE_THREE_INITIATED',
   payload: bool
 })
-// currentDateTime
-export const getCurrentDateTime = data => ({
-  type: 'CURRENT_DATE_TIME',
-  payload: data
-})
+
 // targetRPM
 export const getTargetRPM = data => ({
   type: 'TARGET_RPM',
@@ -224,12 +173,6 @@ export const stopDbInsert = bool => ({
   type: 'STOP_DB_INSERT',
   payload: bool
 })
-
-// //startDbInserting
-// export const startDbInsert = bool => ({
-//   type: 'START_DB_INSERT',
-//   payload: bool
-// })
 
  /*ADD bugid-(GOARIG_7019) */
 //startDisable

@@ -71,22 +71,7 @@ const appReducer = (state = InitialState, action) => {
       newState.statusData = action.payload ? action.payload : []
       return newState
 
-    /* ---Form component --- */
-    //IsLogin
-    case 'UPDATE_LOGIN_EVENT':
-      newState.IsLogin = action.payload ? action.payload : []
-      return newState
-    //IsUserName forgot
-    case 'UPDATE_FORGOT_EVENT':
-      newState.IsUserName = action.payload ? action.payload : []
-      return newState
-
-
-    /* ---Test page/test details --- */
-    //testingPage
-    case 'UPDATE_TESTING_PAGE':
-      newState.testingPage = action.payload ? action.payload : []
-      return newState
+    /* ---Test page/test details --- */    
     //testidvalue
     case 'UPDATE_TESTID_VALUE':
       newState.testIdValue = action.payload ? action.payload : []
@@ -111,10 +96,7 @@ const appReducer = (state = InitialState, action) => {
     case 'SHUTDOWN_INITIATED':
       newState.shutdownInitiated = true
       return newState
-    //showReset
-    case 'SHOW_RESET_INITIATED':
-      newState.showReset = true
-      return newState
+    
     //communicationFailed
     case 'COMMUNICATION_FAILED_INITIATED':
       newState.communicationFailed = true
@@ -135,35 +117,12 @@ const appReducer = (state = InitialState, action) => {
     case 'TURBO_START_INITIATED':
       newState.turboStart = action.payload ? action.payload : []
       return newState
-    //gasOpend
-    case 'GAS_OPEN_INITIATED':
-      newState.gasOpend = true
-      return newState
-    //stageOne
-    case 'STAGE_ONE_INITIATED':
-      newState.stageOne = true
-      return newState
-    //fuelOpened
-    case 'FUEL_OPENED_INITIATED':
-      newState.fuelOpened = true
-      return newState
-    //stageTwo
-    case 'STAGE_TWO_INITIATED':
-      newState.stageTwo = true
-      return newState
-    //gasClosed
-    case 'GAS_CLOSED':
-      newState.gasClosed = true
-      return newState
+    
     //stageThree
     case 'STAGE_THREE_INITIATED':
-      newState.stageThree = true
-      newState.showReset = true
+      newState.stageThree = true    
       return newState
-    //currentDateTime
-    case 'CURRENT_DATE_TIME':
-      newState.currentDateTime = action.payload
-      return newState
+   
     //targetRPM
     case 'TARGET_RPM':
       newState.targetRPM = action.payload
@@ -180,21 +139,15 @@ const appReducer = (state = InitialState, action) => {
     case 'RESET_RPM':
       newState.resetRPM = action.payload
       return newState
-    //fuelOpened
+    
     case 'STOP_DB_INSERT':
       newState.stageThree = false
       newState.communication = false
-      newState.showTarget = false
-      newState.showReset = false
+      newState.showTarget = false  
       newState.targetRPM = ''
       newState.targetTemp = ''
       newState.shutdownInitiated = false
       return newState
-
-    // //startDbInserting
-    // case 'START_DB_INSERT':
-    //   newState.startDbInserting = false
-    //   return newState
 
     /*ADD bugid-(GOARIG_7019) */
     //startDisable

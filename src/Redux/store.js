@@ -9,8 +9,6 @@ const InitialState = {
   collapsed: true,
   titleElements: titleElements,
   turboMode: '1',
-  IsLogin: false,
-  IsUserName: [],
 
   // -- config page -- //
   testConfigPage: [],
@@ -22,7 +20,6 @@ const InitialState = {
   notifyStatus: 'false',
 
   // -- test details -- //
-  testingPage: [],
   testIdValue: '',
   turboIdTestCount: '',
   testDropdown: 'sub1',
@@ -40,18 +37,17 @@ const InitialState = {
   showReset: false,
   showTarget: false,
   turboStart: [],
-  gasOpend: false,
-  stageOne: false,
-  fuelOpened: false,
-  stageTwo: false,
-  gasClosed: false,
+
+ 
+
+
   stageThree: false,
-  currentDateTime: '',
+
   targetRPM: '',
   targetTemp: '',
   resetTemp: '',
   resetRPM: '',
-  // startDbInserting: false,
+  
   /*ADD bugid-(GOARIG_7019) */
   startDisable: false,
 

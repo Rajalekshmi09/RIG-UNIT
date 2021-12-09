@@ -7,7 +7,7 @@ import {
   EyeTwoTone,
 } from "@ant-design/icons";
 import { connect } from "react-redux";
-import { updateAppState, updateForgotEvent } from "../../../Redux/action";
+import { updateAppState } from "../../../Redux/action";
 import { forgotValidation } from "../../../Services/requests";
 import { CompanyDetails, FormDetails } from "../../../Services/constants";
 const {
@@ -201,7 +201,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   updateAppState,
-  updateForgotEvent,
 };
 
 const forgotPasswordPage = connect(

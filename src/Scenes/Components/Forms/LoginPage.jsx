@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import {
   updateUserParameter,
   updateAppState,
-  updateLoginEvent,
   updateUserName,
 } from "../../../Redux/action";
 import { CompanyDetails, FormDetails } from "../../../Services/constants";
@@ -175,7 +174,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   updateUserParameter,
-  updateLoginEvent,
   updateUserName,
   updateAppState,
 };

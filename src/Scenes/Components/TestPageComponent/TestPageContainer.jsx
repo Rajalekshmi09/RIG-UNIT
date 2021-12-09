@@ -29,24 +29,17 @@ import {
 } from "@ant-design/icons";
 import {
   initiateShutdown,
-  initiateShowReset,
   initiateCommunicationFailed,
   initiateCommunication,
   initiateTargetState,
   initiateShowTarget,
   initiateTurboStart,
-  initiateGasOpened,
-  initiateStageOne,
-  initiateFuelOpened,
-  initiateStageTwo,
-  initiateGasClosed,
   initiateStageThree,
   getTargetRPM,
   getTargetTemp,
   getResetTemp,
   getResetRPM,
   stopDbInsert,
-  // startDbInsert,
   updateNotifyAction,
   gettingTestIdData,
 } from "../../../Redux/action";
@@ -370,8 +363,6 @@ class TestPageContainer extends Component {
 
   //initialize event onclick
   initializeClick = () => {
-    // this.props.startDbInsert();
-
     this.props.updateDropDown(null);
     if (
       this.props.app.turboMode === "" ||
@@ -652,10 +643,6 @@ class TestPageContainer extends Component {
 
   //reSet all action in the store and state
   reloadAllEvents = () => {
-    //to disconnect the service in plc using logout function
-    /*ADD bugid-(GOARIG_7006) */
-    logoutEvent((data) => {});
-
     /*ADD bugid-(GOARIG_7021) */
     this.props.gettingTestIdData(0);
     this.props.stopDbInsert();
@@ -1548,17 +1535,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   navigateMainPage,
   initiateShutdown,
-  initiateShowReset,
   initiateCommunicationFailed,
   initiateCommunication,
   initiateTargetState,
   initiateShowTarget,
   initiateTurboStart,
-  initiateGasOpened,
-  initiateStageOne,
-  initiateFuelOpened,
-  initiateStageTwo,
-  initiateGasClosed,
+
   initiateStageThree,
   getTargetRPM,
   getTargetTemp,
@@ -1566,7 +1548,6 @@ const mapDispatchToProps = {
   getResetRPM,
   updateChartData,
   stopDbInsert,
-  // startDbInsert,
   updateTestIdValue,
   updateTestIdCount,
   updateTurboMode,
