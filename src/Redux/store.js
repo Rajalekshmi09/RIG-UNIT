@@ -53,7 +53,9 @@ const InitialState = {
 
   /* ADD bugid-(GOARIG_7021)   */
   testIdData: 0,
+  
   //grapgView
   delayValue: 1000,
+  cvStageValue:[],
 }
 export default InitialState

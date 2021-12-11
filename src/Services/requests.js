@@ -18,12 +18,13 @@ const sensorDataUrl = `http://localhost:8002/getdata.php`
 const turboIdValueUrl = `${BASE_URL}${URL.TURBOID_VALUE}`
 const tableStatusDataUrl = `${BASE_URL}${URL.TABLE_STATUSDATA}`
 const graphDataUrl = `http://localhost:8001/graph.php`
-const delayDataUrl = `${BASE_URL}${URL.DELAY_DATA}`
+const configurationDataUrl = `${BASE_URL}${URL.CONFIGURATION_DATA}`
 // {/*ADD bugid-(GOARIG_7006) */}
 const logoutEventUrl = `${BASE_URL}${URL.LOGOUT_EVENT}`
 const testdataAfterShutdownUrl = `http://localhost:7000/testdatainsertaftershutdown.php`
 // {/*ADD bugid-(GOARIG_7014) */}
 const ststusBlockRow2Url = `http://localhost:8003/statusblock2.php`
+const fcvStageUrl = `${BASE_URL}${URL.FCV_STAGE}`
 
 // Form requests
 const loginValidation = (values, callBack) => {
@@ -173,8 +174,8 @@ const getHandleChangetestID = (body, callBack) => {
     })
 };
 
-const gettingDelayValue = (callBack) => {
-  axios.post(delayDataUrl)
+const gettingConfigurationValue = (callBack) => {
+  axios.post(configurationDataUrl)
     .then(res => {
       callBack(res.data)
     })
@@ -214,6 +215,16 @@ const gettingChartData2 = (callBack) => {
     })
 }
 
+const fcvTransferEvent = (body,callBack) => {
+  axios.post(fcvStageUrl, body)
+    .then(res => {
+      callBack(res.data)
+    })
+    .catch(err => {
+      console.log(err.res)
+    })
+};
+
 export {
   getTurboConfigData, turbineConfigSubmit,
   getTestConfigData, getParamConfigData,
@@ -222,6 +233,7 @@ export {
   forgotValidation, registerPageValidation,
   getTableView, getSensorData,
   getHandleChangetestID, requestStatusData,
-  gettingChartData,  gettingDelayValue,
-  logoutEvent,gettingTestdataAftershutdown,gettingChartData2
+  gettingChartData,  gettingConfigurationValue,
+  logoutEvent,gettingTestdataAftershutdown,
+  gettingChartData2,fcvTransferEvent
 }

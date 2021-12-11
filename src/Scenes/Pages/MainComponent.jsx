@@ -42,7 +42,6 @@ import {
   requestStatusData,
   getHandleChangetestID,
   getTableView,
-  gettingDelayValue,
   gettingChartData,
   gettingChartData2,
   getSensorData,
@@ -90,11 +89,6 @@ export class MainComponent extends Component {
     getHandleChangetestID((data) => {
       this.props.updateTestIdCount(data);
     });
-
-    // // fetch DelayValue on application load
-    // gettingDelayValue((data) => {
-    //   this.props.fetchingDelayValue(data);
-    // });
 
     // fetch graphvalue on application load
     getTableView((data) => {

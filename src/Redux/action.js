@@ -193,3 +193,8 @@ export const fetchingDelayValue = data => ({
   type: 'FETCHING_DELAY_VALUE',
   payload: data
 })
+//cvStageValue
+export const fetchingCvstageValue = data => ({
+  type: 'FETCHING_CVSTAGE_VALUE',
+  payload: data
+})

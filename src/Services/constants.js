@@ -15,9 +15,10 @@ const url = {
   TURBOID_VALUE: 'turboIdValue.php',
   TABLE_STATUSDATA: 'statusValue.php',
   GRAPH_DATA: 'graph.php',
-  DELAY_DATA: 'delay.php',
+  CONFIGURATION_DATA: 'Configuration.php',
     // {/*ADD bugid-(GOARIG_7006) */}
   LOGOUT_EVENT: 'logout.php',
+  FCV_STAGE: 'fcvStage.php',
 }
 
 const FormDetails = {
@@ -109,7 +110,7 @@ const titleElements = [
 
 const testParamHash = {
   Initializedata: ['Communication', 'Initialize Started', 'Initialize Completed'],
-  Startdata: ['Start Completed', 'Ignite', 'Gas Opened', 'Stage1', 'Ruel Opened', 'Stage2', 'Fuel Opened', 'Stage2', 'Gas Closed', 'Stage3'],
+  Startdata: ['Start Completed', 'Ignite', 'Gas Opened', 'Stage 1','Fuel Opened', 'Stage 2', 'Gas Closed', 'Stage 3'],
   nShutdowndata: ['N.Shutdown Initiated', 'N.Shutdown Completed'],
    // {/*ADD bugid-(GOARIG_7015) */}
   eShutdowndata: ['E.Shutdown Initiated', 'E.Shutdown Completed'],

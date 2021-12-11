@@ -166,6 +166,11 @@ const appReducer = (state = InitialState, action) => {
       newState.delayValue = action.payload
       return newState
 
+    //cvStageValue
+    case 'FETCHING_CVSTAGE_VALUE':
+      newState.cvStageValue = action.payload
+      return newState
+
     default:
       return newState
   }

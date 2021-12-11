@@ -486,10 +486,30 @@ div#allreport h1 {
   border-radius: 5px;
   box-shadow: 0 0 10px #42dbdc, 0 0 10px #42dbdc, 0 0 0px #42dbdc;
 }
-/* radio-btn */
-.ant-radio-disabled + span {
-  color: rgba(187, 184, 184, 0.25);
-  cursor: not-allowed;
+/* progress bar */
+
+.arrow-btn {
+  color: rgb(72, 212, 72);
+}
+.arrow-btn:hover {
+  color: #42dbdc;
+  padding: 4%;
+  border: 1px;
+  cursor: pointer;
+}
+.arrow-btn:active {
+  color: lime;
+}
+.arrow-btn-disable {
+  color: #5f6363;
+}
+.ant-progress-text {
+  color: white !important;
+}
+.progress_box {
+  padding: 10px;
+  border: 1px solid green;
+  border-radius: 7px;
 }
 /*
 * =============================

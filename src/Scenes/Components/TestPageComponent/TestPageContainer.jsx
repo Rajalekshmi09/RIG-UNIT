@@ -53,6 +53,7 @@ import {
   startDisableEvent,
 } from "../../../Redux/action";
 import ListItems from "../subComponents/ListItems";
+import CVStageComponent from "./CVStageComponent";
 import {
   shutdownClickEvent,
   getSensorData,
@@ -617,6 +618,8 @@ class TestPageContainer extends Component {
               testId: this.props.app.testIdData,
               targetRPM: this.props.app.targetRPM,
               targetTemp: this.props.app.targetTemp,
+              initialAirSv: this.props.app.cvStageValue.AirSVInitValve,
+              initialkerosene: this.props.app.cvStageValue.KeroseneSVInitValve,
             })
             .then((res) => {
               //read the response from plc for trget temp & rpm
@@ -1207,13 +1210,13 @@ class TestPageContainer extends Component {
             <Col span={3}>
               <Card
                 style={
-                  StartdataArray.find((it) => it.name === "Stage3") &&
+                  StartdataArray.find((it) => it.name === "Stage 3") &&
                   communication
                     ? { width: 185, cursor: "pointer", borderColor: "green" }
                     : { width: 185, borderColor: "gray" }
                 }
               >
-                {StartdataArray.find((it) => it.name === "Stage3") &&
+                {StartdataArray.find((it) => it.name === "Stage 3") &&
                 communication ? (
                   <SyncOutlined
                     style={{ color: "green" }}
@@ -1223,7 +1226,7 @@ class TestPageContainer extends Component {
                   <SyncOutlined className="iconbutton1-basic" />
                 )}
 
-                {StartdataArray.find((it) => it.name === "Stage3") &&
+                {StartdataArray.find((it) => it.name === "Stage 3") &&
                 communication ? (
                   <p
                     style={{
@@ -1248,7 +1251,7 @@ class TestPageContainer extends Component {
 
                 {communication ? (
                   <p>
-                    {StartdataArray.find((it) => it.name === "Stage3") ? (
+                    {StartdataArray.find((it) => it.name === "Stage 3") ? (
                       <p>
                         <Row>
                           <p>Reset Temp,</p>
@@ -1286,7 +1289,7 @@ class TestPageContainer extends Component {
                             <CheckOutlined style={{ color: "green" }} />
                             {item.testcommandsTime} - {item.name} - {item.value}
                             {(() => {
-                              if (item.name === "stage3" && count === 1) {
+                              if (item.name === "stage 3" && count === 1) {
                                 this.props.initiateStageThree();
                                 count++;
                               }
@@ -1437,6 +1440,9 @@ class TestPageContainer extends Component {
                   <p style={{ color: "gray", fontSize: "20px" }}>Reset</p>
                 )}
               </Card>
+              <Row style={{ paddingTop: "40%" }}>
+                <CVStageComponent />
+              </Row>
             </Col>
 
             <Col span={2}>
