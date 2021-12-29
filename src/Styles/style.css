@@ -365,6 +365,29 @@ div#allreport h1 {
   background-color: none !important;
 }
 
+.report-btn {
+  background-color: #42dbdc;
+  color: black;
+  font-weight: bold !important;
+  border: 2px solid #1e7272;
+  border-radius: 0.35rem;
+  width: 150px;
+  height: 42px;
+  font-weight: 400;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.5;
+  padding: -0.55rem 0.75rem;
+  text-align: center;
+  display: inline-block;
+}
+.report-btn:hover,
+.report-btn:focus {
+  color: black;
+  background-color: #d13c4f;
+  border-color: #cf3145;
+  box-shadow: 0px 0px 0px 3px #d13c4f;
+}
 /* ===================================
          testpage card + btn
 =================================== */
@@ -383,9 +406,9 @@ div#allreport h1 {
   border-radius: 5px;
   box-shadow: 0 0 10px #42dbdc, 0 0 10px #42dbdc, 0 0 0px #42dbdc;
 }
-.add-btn[disabled] {
+/* .add-btn[disabled] {
   cursor: not-allowed;
-}
+} */
 .site-button-ghost-wrapper {
   padding: 8px 8px 0 8px;
   background-color: #42dbdc;
@@ -507,9 +530,15 @@ div#allreport h1 {
   color: white !important;
 }
 .progress_box {
-  padding: 10px;
   border: 1px solid green;
   border-radius: 7px;
+  background: #131633;
+  padding: 11px 7px 8px 7px;
+}
+.progress_title {
+  font-size: 13px;
+  color: white;
+  text-transform: uppercase;
 }
 /*
 * =============================
@@ -854,7 +883,7 @@ div#allreport h1 {
 /* ----graph---- */
 .ant-card-body {
   color: #fff;
-  padding: 15px;
+  padding: 10px;
   width: 400px;
 }
 
@@ -906,4 +935,7 @@ div#allreport h1 {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+/* excel table  */
+#table-to-xls {
 }

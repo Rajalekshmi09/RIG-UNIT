@@ -19,6 +19,8 @@ import { reportAlert } from "../../../Services/constants";
 import "jspdf-autotable";
 import logoRig from "../../../Images/logoRig.png";
 import logo from "../../../Images/logo.png";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
+
 const { turboID_alert, testNo_alert, testno_check } = reportAlert;
 const { Option } = Select;
 
@@ -319,356 +321,382 @@ class RunningReport extends Component {
             </Row>
           </Form>
         </Layout>
-        <Button
-          onClick={this.getReportPDF}
+        <Row
           style={{
-            marginLeft: "1270px",
+            marginLeft: "1050px",
             marginBottom: "10px",
             marginTop: "10px",
-            width: "158px",
           }}
         >
-          Download Report
-        </Button>
+          <Col span={12}>
+            <Button onClick={this.getReportPDF} className="report-btn">
+              Export to PDF
+            </Button>
+          </Col>
+          <Col span={12}>
+            <ReactHTMLTableToExcel
+              id="test-table-xls-button"
+              className="report-btn"
+              table="table-to-xls"
+              filename="RunningReport2"
+              sheet="RunningReport2"
+              buttonText=" Export to Excel"
+            />
+          </Col>
+        </Row>
         <Spin tip="Loading..." size="large" spinning={this.state.loading}>
           <Layout
             className="bottom-container"
+            id="report-layout"
             style={{
               paddingTop: "10px",
               paddingBottom: "10px",
               border: "solid white",
             }}
           >
-            <div id="allreport">
-              <div className="mx-auto" style={{ marginTop: "2%" }}>
-                <div
-                  className="sparkline12-hd"
-                  style={{ paddingBottom: "5px" }}
-                >
+            <table id="table-to-xls" style={{ marginTop: "2%" }}>
+              <div id="allreport">
+                <div className="mx-auto" style={{ marginTop: "2%" }}>
                   <div
-                    className="main-sparkline12-hd"
-                    style={{ textAlign: "center" }}
+                    className="sparkline12-hd"
+                    style={{ paddingBottom: "5px" }}
                   >
-                    <h1>Running Report</h1>
+                    <div
+                      className="main-sparkline12-hd"
+                      style={{ textAlign: "center" }}
+                    >
+                      <h1>Running Report</h1>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="table-responsive">
-                <img alt="logo" style={{ width: "25%" }} src={logo} />
-                <table id="report-constants" style={{ marginTop: "10px" }}>
-                  <tr>
-                    <th>ATR REF. NO </th>
-                    <th>TC/0/01</th>
-                  </tr>
-                  <tr>
-                    <td>ATP REF. NO </td>
-                    <td>2002 TRS/86</td>
-                  </tr>
-                  <tr>
-                    <td>PART NUMBER</td>
-                    <td>sb3336-00-011/sb337-100SB</td>
-                  </tr>
-                  <tr>
-                    <td>PART NAME</td>
-                    <td>Turbocharger</td>
-                  </tr>
-                  <tr>
-                    <td>SERIAL NUMBER</td>
-                    <td>{this.state.turboIdVal}</td>
-                  </tr>
-                  {/* <tr>
+                <div className="table-responsive">
+                  {/* <img alt="logo" style={{ width: "25%" }} src={logo} /> */}
+
+                  <table id="report-constants" style={{ marginTop: "10px" }}>
+                    <tr>
+                      <td style={{ width: "60%" }}>
+                        <img
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROkQnZ6A9cXv3obIsAJYeTsdTsCoPw9I3qJg&usqp=CAU"
+                          style={{ width: "50%", marginBottom: "30px" }}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>ATR REF. NO </th>
+                      <th>TC/0/01</th>
+                    </tr>
+                    <tr>
+                      <td>ATP REF. NO </td>
+                      <td>2002 TRS/86</td>
+                    </tr>
+                    <tr>
+                      <td>PART NUMBER</td>
+                      <td>sb3336-00-011/sb337-100SB</td>
+                    </tr>
+                    <tr>
+                      <td>PART NAME</td>
+                      <td>Turbocharger</td>
+                    </tr>
+                    <tr>
+                      <td>SERIAL NUMBER</td>
+                      <td>{this.state.turboIdVal}</td>
+                    </tr>
+                    {/* <tr>
                     <td>TEST ID</td>
                     <td>{this.state.testNumberVal}</td>
                   </tr> */}
-                </table>
+                  </table>
 
-                <table
-                  className="table table-striped table-sm export-table"
-                  id="example1"
-                >
-                  <thead>
-                    <tr>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                        colSpan="10"
-                      >
-                        RUNNING IN TEST
-                      </th>
-                    </tr>
-                    <tr>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Speed
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Duration
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Compressor <br />
-                        Inlet Temp
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Compressor
-                        <br />
-                        Outlet Temp
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Compressor
-                        <br />
-                        Outlet Pr
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Turbine <br />
-                        Inlet Temp
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Turbine
-                        <br /> Outlet Temp
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Kerosine
-                        <br />
-                        Flow Rate
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Compressor <br /> Pr Ratio
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Mass <br /> Flow Rate
-                      </th>
-                    </tr>
-                    <tr>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        RPM
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        minutes
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Pressure
-                        <br />
-                        (kg/cm^2)
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        Tempr.
-                        <br />
-                        (deg.C)
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        kg/cm^2
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        deg.C
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        deg.C
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        kg/Sec
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        %
-                      </th>
-                      <th
-                        style={{
-                          verticalAlign: "middle",
-                          border: "1px solid #6a6a6b",
-                          textAlign: "center",
-                        }}
-                      >
-                        %
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {reportOut.map((it) => (
+                  <table
+                    className="table table-striped table-sm export-table"
+                    id="example1"
+                  >
+                    <thead>
                       <tr>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.speed}
-                        </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.Duration}
-                        </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.Turbine_Inlet}
-                        </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.Turbine_Outlet}
-                        </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.Compr_Outlet_Pr}
-                        </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.Turbine_InletTemp}
-                        </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.Turbine_OutletTemp}
-                        </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.flowrate}
-                        </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {it.Turbine_Outlet}
-                        </td>
-                        <td style={{ border: "1px solid #6a6a6b" }}>
-                          {" "}
-                          {it.Mass_Flow_Rate}
-                        </td>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                          colSpan="10"
+                        >
+                          RUNNING IN TEST
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="row" style={{ marginTop: "10px" }}>
-                <div className="col-lg-1"></div>
-                <div className="col-lg-4">
-                  <label>
-                    <b>
-                      <u>Tested By: {this.state.tester}</u>
-                    </b>
-                  </label>
-                  <br />
-                  <table>
-                    <tr ng-repeat="tb in TestedBy">
-                      <td></td>
-                    </tr>
+                      <tr>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Speed
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Duration
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Compressor <br />
+                          Inlet Temp
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Compressor
+                          <br />
+                          Outlet Temp
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Compressor
+                          <br />
+                          Outlet Pr
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Turbine <br />
+                          Inlet Temp
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Turbine
+                          <br /> Outlet Temp
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Kerosine
+                          <br />
+                          Flow Rate
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Compressor <br /> Pr Ratio
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Mass <br /> Flow Rate
+                        </th>
+                      </tr>
+                      <tr>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          RPM
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          minutes
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Pressure
+                          <br />
+                          (kg/cm^2)
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          Tempr.
+                          <br />
+                          (deg.C)
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          kg/cm^2
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          deg.C
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          deg.C
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          kg/Sec
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          %
+                        </th>
+                        <th
+                          style={{
+                            verticalAlign: "middle",
+                            border: "1px solid #6a6a6b",
+                            textAlign: "center",
+                          }}
+                        >
+                          %
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {reportOut.map((it) => (
+                        <tr>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {it.speed}
+                          </td>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {it.Duration}
+                          </td>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {it.Turbine_Inlet}
+                          </td>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {it.Turbine_Outlet}
+                          </td>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {it.Compr_Outlet_Pr}
+                          </td>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {it.Turbine_InletTemp}
+                          </td>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {it.Turbine_OutletTemp}
+                          </td>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {it.flowrate}
+                          </td>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {it.Turbine_Outlet}
+                          </td>
+                          <td style={{ border: "1px solid #6a6a6b" }}>
+                            {" "}
+                            {it.Mass_Flow_Rate}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
                   </table>
                 </div>
-                <div className="col-lg-2"></div>
-                <div className="col-lg-4">
-                  <label>
-                    <b>
-                      <u>Witnessed By: {this.state.witness}</u>
-                    </b>
-                  </label>
-                  <br />
-                  <table>
-                    <tr ng-repeat="wn in WitnessName">
-                      <td></td>
-                    </tr>
-                  </table>
+                <div className="row" style={{ marginTop: "10px" }}>
+                  <div className="col-lg-1"></div>
+                  <div className="col-lg-4">
+                    <label>
+                      <b>
+                        <u>Tested By:</u>
+                        {this.state.tester}
+                      </b>
+                    </label>
+                    <br />
+                    <table>
+                      <tr ng-repeat="tb in TestedBy">
+                        <td></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div className="col-lg-2"></div>
+                  <div className="col-lg-4">
+                    <label>
+                      <b>
+                        <u>Witnessed By :</u>
+                        {this.state.witness}
+                      </b>
+                    </label>
+                    <br />
+                    <table>
+                      <tr ng-repeat="wn in WitnessName">
+                        <td></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div className="col-lg-1"></div>
                 </div>
-                <div className="col-lg-1"></div>
               </div>
-            </div>
+            </table>
           </Layout>
         </Spin>
         ,

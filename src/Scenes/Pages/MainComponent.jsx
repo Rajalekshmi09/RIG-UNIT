@@ -129,7 +129,6 @@ export class MainComponent extends Component {
     setInterval(() => {
       gettingChartData2((data) => {
         this.props.updateChartData2(data);
-        console.log(data);
       });
     }, this.props.app.delayValue);
 

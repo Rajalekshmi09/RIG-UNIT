@@ -499,7 +499,7 @@ class ExportData extends Component {
         width: 100,
       },
     ];
-
+    console.log(this.state.reportDetails);
     return (
       <div style={{ paddingTop: "1px" }}>
         <Layout className="layout-container">

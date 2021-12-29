@@ -68,8 +68,12 @@ class StatusBlock extends Component {
     const arrStr = this.props.app.targetKeys;
     const dashboardDataNumArr = arrStr.map((i) => Number(i));
 
-    if (this.props.app.turboStart.length >= 0) {
-      this.props.app.turboStart.map((they) => {
+    let turboStart = [];
+    if (this.props.app.turboStart) {
+      turboStart = this.props.app.turboStart;
+    }
+    if (turboStart.length >= 0) {
+      turboStart.map((they) => {
         if (they.name === "N.Shutdown Completed") {
           nShutdown = true;
         } else if (they.name === "E.Shutdown Completed") {

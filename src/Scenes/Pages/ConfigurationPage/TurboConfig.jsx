@@ -73,10 +73,11 @@ class TurboConfig extends Component {
 
   componentDidMount() {
     let data = this.props.appData.statusData;
+
     if (typeof data !== "string" && data.length > installed_turbine) {
       this.props.updateNotifyAction("true");
       this.openNotification();
-    } else if (typeof data !== "string" && data.length <= installed_turbine) {
+    } else if (typeof data !== "string" && data.length < installed_turbine) {
       this.props.updateNotifyAction("false");
     }
 
@@ -97,6 +98,7 @@ class TurboConfig extends Component {
     };
     message.success(added_turbo_msg);
     turbineConfigSubmit(body, (data) => {
+      console.log(data);
       this.props.updateTurboConfig(data);
     });
 
@@ -154,7 +156,7 @@ class TurboConfig extends Component {
     if (this.props.appData.notifyStatus === "true") {
       this.openNotification("bottomRight");
     }
-
+    console.log(this.props.appData);
     return (
       <div>
         <Layout className="layout-container">

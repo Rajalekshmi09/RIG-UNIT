@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import {
   Card,
-  Col,
-  Row,
   Layout,
+  Row,
+  Col,
   Divider,
   Input,
   Select,
   Alert,
   Button,
-  Radio,
   Popover,
   Space,
   Typography,
   message,
   Menu,
 } from "antd";
+
 import {
   DownloadOutlined,
   PlaySquareOutlined,
@@ -59,10 +59,7 @@ import {
   getSensorData,
   getHandleChangetestID,
   requestStatusData,
-
-  //{/*ADD - GOARIG_7006 */}
-  gettingTestdataAftershutdown,
-  logoutEvent,
+  fcvTransferEvent,
 } from "../../../Services/requests";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -71,7 +68,6 @@ import {
   turboConfigValue,
   helpPopup,
 } from "../../../Services/constants";
-
 var { Option } = Select;
 const { Text } = Typography;
 const { SubMenu } = Menu;
@@ -304,7 +300,7 @@ class TestPageContainer extends Component {
     // {/*ADD BugID - GOARIG_7006 */}
     //getting testdata insert after shutdown
     // gettingTestdataAftershutdown((data) => {
-    //   console.log(data);
+
     // });
 
     shutdownClickEvent((data) => {
@@ -561,25 +557,25 @@ class TestPageContainer extends Component {
 
   //reset event onClick
   resetOnClick = () => {
-    if (
-      parseInt(this.props.app.resetTemp) >
-        parseInt(this.props.app.paramConfig[16].upperlimit) ||
-      parseInt(this.props.app.resetRPM) >
-        parseInt(this.props.app.paramConfig[15].upperlimit)
-    ) {
-      message.error("Temprature or RPM exceeded the limit");
-    } else {
-      axios
-        .post("http://localhost:5000/reset.php", {
-          ResetRPM: this.props.app.resetRPM,
-          ResetTemp: this.props.app.resetTemp,
-          testId: this.props.app.testIdData,
-        })
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    axios
+      .post("http://localhost:5000/reset.php", {
+        ResetRPM: this.props.app.resetRPM,
+        ResetTemp: this.props.app.resetTemp,
+        testId: this.props.app.testIdData,
+      })
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+    // if (
+    //   parseInt(this.props.app.resetTemp) >
+    //     parseInt(this.props.app.paramConfig[16].upperlimit) ||
+    //   parseInt(this.props.app.resetRPM) >
+    //     parseInt(this.props.app.paramConfig[15].upperlimit)
+    // ) {
+    //   message.error("Temprature or RPM exceeded the limit");
+    // } else {
+    // }
   };
 
   //start event onClick
@@ -706,11 +702,11 @@ class TestPageContainer extends Component {
     const resetTemp = this.props.app.resetTemp;
     const resetRPM = this.props.app.resetRPM;
     let turboStart = [];
-    console.log(this.props.app.turboStart);
+
     if (this.props.app.turboStart) {
       turboStart = this.props.app.turboStart;
     }
-
+    console.log(this.props.app);
     /*DEL bugid-(GOARIG_7015) */
     // const { Initializedata, Startdata, Shutdowndata, Resetdata } =
     // testParamHash;
@@ -718,7 +714,7 @@ class TestPageContainer extends Component {
     const InitializedataArray = turboStart.filter((it) =>
       Initializedata.find((val) => val === it.name)
     );
-    console.log(InitializedataArray);
+
     const StartdataArray = turboStart.filter((it) =>
       Startdata.find((val) => val === it.name)
     );
@@ -749,7 +745,7 @@ class TestPageContainer extends Component {
         (word) => word.status === "installed"
       );
     }
-    console.log(this.props.app);
+
     return (
       <div style={{ paddingTop: "25px" }}>
         <Layout
@@ -784,46 +780,6 @@ class TestPageContainer extends Component {
                     paddingLeft: "20px",
                   }}
                 >
-                  <Row style={{ paddingLeft: "20px" }} className="test-mode">
-                    <Col xs={8}>
-                      {/* <form>
-                        <Row>
-                          <Col xs={5} style={{ marginTop: '20px' }}>
-                            <label htmlFor="text" className="label" >Mode</label>
-                          </Col>
-                          {
-                            communication ?
-                              <Radio.Group name="radiogroup"
-                                disabled
-                                style={{
-                                  border: '1px solid #3e434d',
-                                  width: "300px",
-                                  height: "40px",
-                                  paddingTop: '4px',
-                                  paddingLeft: '25px'
-                                }}>
-                                <Radio value={1} style={{ color: 'rgb(151, 150, 151)', fontSize: "18px" }}>Turbo 1</Radio>
-                                <Radio value={2} style={{ color: 'rgb(151, 150, 151)', fontSize: "18px" }}>Turbo 2</Radio>
-                              </Radio.Group>
-                              :
-                              <Radio.Group name="radiogroup"
-                                defaultValue={this.props.app.turboMode}
-                                onChange={this.onChangeRadio}
-                                style={{
-                                  border: '1px solid #3e434d',
-                                  width: "300px",
-                                  height: "40px",
-                                  paddingTop: '4px',
-                                  paddingLeft: '25px'
-                                }}>
-                                <Radio value={1} style={{ color: 'rgb(151, 150, 151)', fontSize: "18px" }}>Turbo 1</Radio>
-                                <Radio value={2} style={{ color: 'rgb(151, 150, 151)', fontSize: "18px" }}>Turbo 2</Radio>
-                              </Radio.Group>
-                          }
-                        </Row>
-                      </form> */}
-                    </Col>
-                  </Row>
                   <Row style={{ paddingTop: "2%", paddingLeft: "20px" }}>
                     <Col span={8}>
                       <form>
@@ -906,21 +862,21 @@ class TestPageContainer extends Component {
                         <Row>
                           <Col span={4} style={{ marginTop: "20px" }}>
                             <label htmlFor="text" className="label">
-                              Tester
+                              Test Engg
                             </label>
                           </Col>
                           <Col span={15}>
                             {communication ? (
                               <Input
                                 disabled
-                                placeholder="Tester"
-                                name="Tester"
+                                placeholder="Test Engg"
+                                name="Test Engg"
                                 style={{ width: "300px" }}
                               />
                             ) : (
                               <Input
-                                placeholder="Tester"
-                                name="Tester"
+                                placeholder="Test Engg"
+                                name="Test Engg"
                                 style={{ width: "300px" }}
                                 value={this.state.currentTesterItem}
                                 onChange={this.handleTesterInput}
@@ -1258,24 +1214,32 @@ class TestPageContainer extends Component {
                           <p> &nbsp; RPM</p>
                         </Row>
                         <Row>
-                          <Input
-                            value={resetTemp}
-                            onChange={this.onChangeResettempvalue}
-                            name="ResetTemp"
-                            style={{ width: "75px" }}
-                          />
-                          <Input
-                            value={resetRPM}
-                            onChange={this.onChangeResetRPMvalue}
-                            name="ResetRPM"
-                            style={{ width: "75px" }}
-                          />
-                          <button
-                            className="add-btn"
-                            onClick={() => this.resetOnClick()}
-                          >
-                            +
-                          </button>
+                          <Col>
+                            {" "}
+                            <Input
+                              value={resetTemp}
+                              onChange={this.onChangeResettempvalue}
+                              name="ResetTemp"
+                              style={{ width: "60px" }}
+                            />
+                          </Col>
+                          <Col>
+                            <Input
+                              value={resetRPM}
+                              onChange={this.onChangeResetRPMvalue}
+                              name="ResetRPM"
+                              style={{ width: "60px" }}
+                            />
+                          </Col>
+
+                          <Col>
+                            <button
+                              className="add-btn"
+                              onClick={() => this.resetOnClick()}
+                            >
+                              +
+                            </button>
+                          </Col>
                         </Row>
                       </p>
                     ) : (
@@ -1395,7 +1359,7 @@ class TestPageContainer extends Component {
               )}
             </Col>
 
-            <Col span={3}>
+            <Col span={3} style={{ height: "30" }}>
               <Card
                 style={
                   //  ADD bugid-(GOARIG_7020)
@@ -1440,9 +1404,6 @@ class TestPageContainer extends Component {
                   <p style={{ color: "gray", fontSize: "20px" }}>Reset</p>
                 )}
               </Card>
-              <Row style={{ paddingTop: "40%" }}>
-                <CVStageComponent />
-              </Row>
             </Col>
 
             <Col span={2}>
@@ -1505,13 +1466,13 @@ class TestPageContainer extends Component {
               >
                 <Card
                   style={
-                    showTarget
+                    showTarget === true
                       ? { width: 100, cursor: "pointer", borderColor: "green" }
                       : { width: 100, borderColor: "gray" }
                   }
                 >
                   <div>
-                    {showTarget ? (
+                    {showTarget === true ? (
                       <QuestionOutlined
                         className="icon-button4"
                         onClick={this.onClickhelp}
@@ -1520,7 +1481,7 @@ class TestPageContainer extends Component {
                       <QuestionOutlined className="iconbutton4-basic" />
                     )}
                   </div>
-                  {showTarget ? (
+                  {showTarget === true ? (
                     <p style={{ color: "#42dad6", fontSize: "20px" }}>Help</p>
                   ) : (
                     <p style={{ color: "gray", fontSize: "20px" }}>Help</p>
@@ -1529,6 +1490,16 @@ class TestPageContainer extends Component {
               </Popover>
             </Col>
           </Row>
+
+          {/* <Row
+            style={{
+              paddingTop: "7%",
+            }}
+          >
+            <Col flex="auto" offset={17}>
+              <CVStageComponent />
+            </Col>
+          </Row> */}
         </Layout>
       </div>
     );

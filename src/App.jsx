@@ -18,7 +18,6 @@ class App extends Component {
 
   componentDidMount() {
     gettingConfigurationValue((data) => {
-      console.log(data);
       this.props.fetchingDelayValue(data[0].Delay * 1000);
       this.props.fetchingCvstageValue(data[0]);
     });
