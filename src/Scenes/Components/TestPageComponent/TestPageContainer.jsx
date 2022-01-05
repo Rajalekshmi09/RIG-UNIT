@@ -68,6 +68,7 @@ import {
   turboConfigValue,
   helpPopup,
 } from "../../../Services/constants";
+import { logoutEvent } from "../../../Services/requests";
 var { Option } = Select;
 const { Text } = Typography;
 const { SubMenu } = Menu;
@@ -307,6 +308,14 @@ class TestPageContainer extends Component {
       //updating to the store called shutdownInitiated
       this.props.initiateShutdown(data);
     });
+
+    if (this.props.app.testIdData === 0) {
+      setInterval(() => {
+        window.location.reload(false);
+
+        logoutEvent((data) => {});
+      }, 5000);
+    }
   };
 
   // {/*DEL bugid-(GOARIG_7005) */}
@@ -706,6 +715,7 @@ class TestPageContainer extends Component {
     if (this.props.app.turboStart) {
       turboStart = this.props.app.turboStart;
     }
+
     console.log(this.props.app);
     /*DEL bugid-(GOARIG_7015) */
     // const { Initializedata, Startdata, Shutdowndata, Resetdata } =

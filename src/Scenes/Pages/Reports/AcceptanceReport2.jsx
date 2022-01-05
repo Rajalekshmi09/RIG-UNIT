@@ -699,6 +699,10 @@ class AcceptanceReport extends Component {
 
                 <div className="table-responsive">
                   {/* <img alt="logo" style={{ width: "25%" }} src={logo} /> */}
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROkQnZ6A9cXv3obIsAJYeTsdTsCoPw9I3qJg&usqp=CAU"
+                    style={{ width: "20%", marginBottom: "30px" }}
+                  />
                   <table>
                     <tr>
                       <td>
@@ -706,14 +710,6 @@ class AcceptanceReport extends Component {
                           id="report-constants"
                           style={{ marginTop: "10px" }}
                         >
-                          <tr>
-                            <td style={{ width: "60%" }}>
-                              <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROkQnZ6A9cXv3obIsAJYeTsdTsCoPw9I3qJg&usqp=CAU"
-                                style={{ width: "50%", marginBottom: "30px" }}
-                              />
-                            </td>
-                          </tr>
                           <tr>
                             <th>ATR REF. NO </th>
                             <th>TC/0/01</th>

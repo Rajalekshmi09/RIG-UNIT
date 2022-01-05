@@ -4,9 +4,8 @@ import { connect } from "react-redux";
 import { dashboardSensor } from "../../../Services/constants";
 import CVStageComponent from "./CVStageComponent";
 const { sensorLabel_row2, targetKeysVal_row2 } = dashboardSensor;
-{
-  /*ADD - GOARIG_7014 */
-}
+
+/*ADD - GOARIG_7014 */
 
 class StatusBlockRow2 extends Component {
   constructor(props) {

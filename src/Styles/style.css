@@ -936,6 +936,8 @@ div#allreport h1 {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-/* excel table  */
-#table-to-xls {
-}
+/* ----graph---- */
+/* .ant-card-body {
+  color: #fff;
+  padding: 6px;
+} */

@@ -47,8 +47,10 @@ import {
   getSensorData,
 } from "../../Services/requests";
 import accpetanceReport from "./Reports/AcceptanceReport";
+import { testParamHash } from "../../Services/constants";
 
 const { Content, Header, Footer } = Layout;
+const { nShutdowndata, eShutdowndata } = testParamHash;
 
 export class MainComponent extends Component {
   /*ADD bugid-(GOARIG_7017) */
@@ -119,28 +121,46 @@ export class MainComponent extends Component {
 
     // fetch livedata from DB and store redux store
     //it has 6 rows
+    //it is used for graph and live data status block
+    //graph.php(live data)
     setInterval(() => {
       gettingChartData((data) => {
         this.props.updateChartData(data);
       });
-    }, this.props.app.delayValue);
+    }, 1000);
 
     /*ADD bugid-(GOARIG_7014) */
+    //statusblock2.php(this for 2nd row display from view table)
     setInterval(() => {
       gettingChartData2((data) => {
         this.props.updateChartData2(data);
       });
-    }, this.props.app.delayValue);
+    }, 5000);
 
     // {/*ADD bugid-(GOARIG_7022) */}
+    //getdata.php(command status)
     setInterval(() => {
-      getSensorData((data) => {
-        let val = data;
-        if (this.props.app.communication === true && val.length >= 1) {
-          this.props.initiateTurboStart(val);
-        }
-      });
-    }, 1000);
+      const nShutdowndataArray = this.props.app.turboStart.filter((it) =>
+        nShutdowndata.find((val) => val === it.name)
+      );
+
+      const eShutdowndataArray = this.props.app.turboStart.filter((it) =>
+        eShutdowndata.find((val) => val === it.name)
+      );
+
+      if (
+        this.props.app.testIdData !== 0 &&
+        nShutdowndataArray.length < 2 &&
+        eShutdowndataArray.length < 2
+      ) {
+        getSensorData((data) => {
+          let val = data;
+          if (this.props.app.communication === true && val.length >= 1) {
+            this.props.initiateTurboStart(val);
+          }
+        });
+      }
+    }, 3000);
   }
 
   render() {
