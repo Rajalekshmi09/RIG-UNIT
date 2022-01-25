@@ -48,18 +48,14 @@ import {
   navigateMainPage,
   updateTestIdValue,
   updateTestIdCount,
-  updateTurboMode,
   updateDropDown,
   startDisableEvent,
 } from "../../../Redux/action";
 import ListItems from "../subComponents/ListItems";
-import CVStageComponent from "./CVStageComponent";
 import {
   shutdownClickEvent,
-  getSensorData,
   getHandleChangetestID,
   requestStatusData,
-  fcvTransferEvent,
 } from "../../../Services/requests";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -114,7 +110,6 @@ class TestPageContainer extends Component {
       turboIdDefaultValue: "Select Turbo ID",
       // turboIdValue: "Select Turbo ID",
       truboIDnum: true,
-      turboMode: "",
       testingData: null,
       value: null,
       testerItems: [],
@@ -255,15 +250,6 @@ class TestPageContainer extends Component {
     });
   }
 
-  //onchange for radio
-  onChangeRadio = (e) => {
-    this.setState({
-      turboMode: e.target.value,
-    });
-    let data = e.target.value;
-    this.props.updateTurboMode(data);
-  };
-
   //select the TestId
   handleChangetestID = (value) => {
     this.setState({
@@ -296,12 +282,6 @@ class TestPageContainer extends Component {
     /*DEL bugid-(GOARIG_7019) */
     // this.setState({
     //   shutdownEnable: false,
-    // });
-
-    // {/*ADD BugID - GOARIG_7006 */}
-    //getting testdata insert after shutdown
-    // gettingTestdataAftershutdown((data) => {
-
     // });
 
     shutdownClickEvent((data) => {
@@ -371,16 +351,6 @@ class TestPageContainer extends Component {
   initializeClick = () => {
     this.props.updateDropDown(null);
     if (
-      this.props.app.turboMode === "" ||
-      this.props.app.turboMode === undefined
-    ) {
-      this.setState({
-        errormsg: warning_mode,
-      });
-      return;
-    }
-
-    if (
       this.props.app.testIdValue === "" ||
       this.props.app.testIdValue === undefined ||
       this.props.app.testIdValue.length === 0
@@ -401,7 +371,6 @@ class TestPageContainer extends Component {
     if (
       this.props.app.testIdValue !== undefined &&
       this.props.app.testIdValue !== "" &&
-      this.props.app.turboMode !== "" &&
       this.state.testerItems.length !== 0 &&
       this.props.app.communication === false &&
       this.props.app.testIdValue.length !== 0
@@ -411,7 +380,6 @@ class TestPageContainer extends Component {
           turboIdVal: this.props.app.testIdValue,
           testerItems: this.state.testerItems,
           witnessItems: this.state.witnessItems,
-          turboMode: this.props.app.turboMode,
         })
         .then((res) => {
           /* ADD bugid-(GOARIG_7021)   */
@@ -420,14 +388,6 @@ class TestPageContainer extends Component {
           //updated testId in reduxc store - testIdData
           this.props.gettingTestIdData(data);
           this.communicationstatus();
-
-          /*ADD bugid-(GOARIG_7026) */
-          // insert the test no to the db for exportdata
-          // axios
-          //   .post("http://localhost:7000/testdatainsertwithtestid.php", {
-          //     status: "Start initiated",
-          //   })
-          //   .then(function (response) {});
         })
         .catch((err) => {
           console.log(err);
@@ -567,7 +527,7 @@ class TestPageContainer extends Component {
   //reset event onClick
   resetOnClick = () => {
     axios
-      .post("http://localhost:5000/reset.php", {
+      .post("http://localhost:5000/reset_targetVal.php", {
         ResetRPM: this.props.app.resetRPM,
         ResetTemp: this.props.app.resetTemp,
         testId: this.props.app.testIdData,
@@ -626,12 +586,7 @@ class TestPageContainer extends Component {
               initialAirSv: this.props.app.cvStageValue.AirSVInitValve,
               initialkerosene: this.props.app.cvStageValue.KeroseneSVInitValve,
             })
-            .then((res) => {
-              //read the response from plc for trget temp & rpm
-              let startData = res.data;
-
-              //read status from plc after start click => stage1,stage2 etc...
-            })
+            .then((res) => {})
             .catch((err) => {
               console.log(err);
             });
@@ -656,11 +611,11 @@ class TestPageContainer extends Component {
     this.props.stopDbInsert();
     this.props.updateTestIdCount("");
     this.props.updateTestIdValue("");
-    this.props.updateTurboMode("");
     this.props.initiateTurboStart([]);
 
     this.props.getResetTemp("");
     this.props.getResetRPM("");
+
     /*ADD bugid-(GOARIG_7019) */
     this.props.startDisableEvent(false);
 
@@ -668,7 +623,6 @@ class TestPageContainer extends Component {
       turboIdDefaultValue: "Select Turbo ID",
       turboIdValue: "Select Turbo ID",
       truboIDnum: false,
-      turboMode: "",
       testingData: null,
       value: null,
       testerItems: [],
@@ -1027,7 +981,9 @@ class TestPageContainer extends Component {
                     {InitializedataArray.map((item) => {
                       return (
                         <div>
-                          <CheckOutlined style={{ color: "green" }} />
+                          <CheckOutlined
+                            style={{ color: "green", marginTop: "1%" }}
+                          />
                           {item.testcommandsTime} - {item.name}
                         </div>
                       );
@@ -1149,7 +1105,9 @@ class TestPageContainer extends Component {
                       {StartdataArray.map((item) => {
                         return (
                           <div>
-                            <CheckOutlined style={{ color: "green" }} />
+                            <CheckOutlined
+                              style={{ color: "green", marginTop: "1%" }}
+                            />
                             {item.testcommandsTime} - {item.name}
                           </div>
                         );
@@ -1260,7 +1218,9 @@ class TestPageContainer extends Component {
                       {ResetdataArray.map((item) => {
                         return (
                           <div>
-                            <CheckOutlined style={{ color: "green" }} />
+                            <CheckOutlined
+                              style={{ color: "green", marginTop: "1%" }}
+                            />
                             {item.testcommandsTime} - {item.name} - {item.value}
                             {(() => {
                               if (item.name === "stage 3" && count === 1) {
@@ -1339,7 +1299,9 @@ class TestPageContainer extends Component {
                     {nShutdowndataArray.map((item) => {
                       return (
                         <div>
-                          <CheckOutlined style={{ color: "green" }} />
+                          <CheckOutlined
+                            style={{ color: "green", marginTop: "3%" }}
+                          />
                           {item.testcommandsTime} - {item.name}
                         </div>
                       );
@@ -1357,7 +1319,9 @@ class TestPageContainer extends Component {
                     {eShutdowndataArray.map((item) => {
                       return (
                         <div>
-                          <CheckOutlined style={{ color: "green" }} />
+                          <CheckOutlined
+                            style={{ color: "green", marginTop: "3%" }}
+                          />
                           {item.testcommandsTime} - {item.name}
                         </div>
                       );
@@ -1500,16 +1464,6 @@ class TestPageContainer extends Component {
               </Popover>
             </Col>
           </Row>
-
-          {/* <Row
-            style={{
-              paddingTop: "7%",
-            }}
-          >
-            <Col flex="auto" offset={17}>
-              <CVStageComponent />
-            </Col>
-          </Row> */}
         </Layout>
       </div>
     );
@@ -1527,7 +1481,6 @@ const mapDispatchToProps = {
   initiateTargetState,
   initiateShowTarget,
   initiateTurboStart,
-
   initiateStageThree,
   getTargetRPM,
   getTargetTemp,
@@ -1537,7 +1490,6 @@ const mapDispatchToProps = {
   stopDbInsert,
   updateTestIdValue,
   updateTestIdCount,
-  updateTurboMode,
   updateDropDown,
   updateNotifyAction,
   startDisableEvent,

@@ -106,9 +106,7 @@ export class MainComponent extends Component {
     /*ADD bugid-(GOARIG_7017) */
     if (this.state.testDataInsert === false) {
       axios
-        .post("http://localhost:7000/testdatainsert.php", {
-          status: "Statusblock loading",
-        })
+        .post("http://localhost:7000/testdatainsert.php")
         .then(function (response) {
           this.setState({
             testDataInsert: true,
@@ -125,17 +123,18 @@ export class MainComponent extends Component {
     //graph.php(live data)
     setInterval(() => {
       gettingChartData((data) => {
+        console.log(data);
         this.props.updateChartData(data);
       });
     }, 1000);
 
     /*ADD bugid-(GOARIG_7014) */
     //statusblock2.php(this for 2nd row display from view table)
-    setInterval(() => {
-      gettingChartData2((data) => {
-        this.props.updateChartData2(data);
-      });
-    }, 5000);
+    // setInterval(() => {
+    //   gettingChartData2((data) => {
+    //     this.props.updateChartData2(data);
+    //   });
+    // }, 5000);
 
     // {/*ADD bugid-(GOARIG_7022) */}
     //getdata.php(command status)

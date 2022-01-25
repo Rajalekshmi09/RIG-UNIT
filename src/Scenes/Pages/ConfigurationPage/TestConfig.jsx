@@ -6,6 +6,7 @@ import {
 } from "../../../Redux/action";
 import { Col, Row, Layout } from "antd";
 import TableElement from "../../Components/subComponents/TableElement";
+
 class TestConfig extends Component {
   constructor(props) {
     super(props);

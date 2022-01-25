@@ -51,7 +51,7 @@ const InitialState = {
   /*ADD bugid-(GOARIG_7019) */
   startDisable: false,
 
-  /* ADD bugid-(GOARIG_7021)   */
+  /* ADD bugid-(GOARIG_7021) */
   testIdData: 0,
   
   //grapgView

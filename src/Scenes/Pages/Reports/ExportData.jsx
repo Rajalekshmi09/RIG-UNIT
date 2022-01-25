@@ -31,6 +31,7 @@ class ExportData extends Component {
       emptyTestno: false,
       loading: false,
       title: [],
+      testno1: "",
       formulaUnit: {
         "Turbine Nozzle Area": "m2",
         "Total Mass Flow Rate": "kg/sec",
@@ -70,6 +71,7 @@ class ExportData extends Component {
       title: "ExportData",
       type: "Report",
     });
+
     let paramValue = this.props.app.paramConfig
       ? this.props.app.paramConfig
       : [];
@@ -86,6 +88,7 @@ class ExportData extends Component {
     let createParam = this.props.app.paramConfig
       ? createdData.map((It) => It.Paramname)
       : [];
+
     let createUnit = this.props.app.paramConfig
       ? createdData.map((It) => It.unitname)
       : [];
@@ -585,6 +588,7 @@ class ExportData extends Component {
         >
           Export in Excel
         </Button>
+
         <Spin tip="Loading..." size="large" spinning={this.state.loading}>
           <Layout
             style={{
@@ -605,6 +609,7 @@ class ExportData extends Component {
                 </div>
               </div>
             </div>
+
             {this.state.title.length > 0 ? (
               <Table
                 id="someRandomID"

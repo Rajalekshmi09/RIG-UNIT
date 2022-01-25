@@ -9,8 +9,7 @@ const url = {
   PARAM_CONFIG: 'param_config.php',
   UPDATE_CONFIG_DATA: 'testconfigedit.php',
   TABLE_VIEW: 'tableview.php',
-  SHUTDOWN_CLICK: 'shutdown.php',
-  RESET_CLICK: 'reset.php',
+  SHUTDOWN_CLICK: 'shutdown.php', 
   SENSOR_DATA: 'getdata.php',
   TURBOID_VALUE: 'turboIdValue.php',
   TABLE_STATUSDATA: 'statusValue.php',
@@ -18,7 +17,6 @@ const url = {
   CONFIGURATION_DATA: 'Configuration.php',
     // {/*ADD bugid-(GOARIG_7006) */}
   LOGOUT_EVENT: 'logout.php',
-  FCV_STAGE: 'fcvStage.php',
 }
 
 const FormDetails = {
@@ -89,8 +87,9 @@ const dashboardSensor = {
   ],
   
   //filter for statusblockRow2 
-  //number should be 2 less than the actual index like c13 = 11  
-   targetKeysVal_row2 :  [11, 16, 21, 22, 24, 25],
+  //in react the array automaticall sorting the indexes low to high value because of thet 
+  //in the db query repeated the P27 value at the end
+   targetKeysVal_row2 :  [ 20, 21, 22, 23, 24, 25],
 
   dummyData: 0,
   chartMax: 5,
@@ -110,7 +109,7 @@ const titleElements = [
 
 const testParamHash = {
   Initializedata: ['Communication', 'Initialize Started', 'Initialize Completed'],
-  Startdata: ['Start Completed', 'Ignite', 'Gas Opened', 'Stage 1','Fuel Opened', 'Stage 2', 'Gas Closed', 'Stage 3'],
+  Startdata: [ 'Start Completed', 'Ignite', 'Gas Opened', 'Stage 1','Fuel Opened', 'Stage 2', 'Gas Closed', 'Stage 3'],
   nShutdowndata: ['N.Shutdown Initiated', 'N.Shutdown Completed'],
    // {/*ADD bugid-(GOARIG_7015) */}
   eShutdowndata: ['E.Shutdown Initiated', 'E.Shutdown Completed'],

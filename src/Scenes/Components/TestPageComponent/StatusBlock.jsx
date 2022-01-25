@@ -72,6 +72,7 @@ class StatusBlock extends Component {
     if (this.props.app.turboStart) {
       turboStart = this.props.app.turboStart;
     }
+
     if (turboStart.length >= 0) {
       turboStart.map((they) => {
         if (they.name === "N.Shutdown Completed") {

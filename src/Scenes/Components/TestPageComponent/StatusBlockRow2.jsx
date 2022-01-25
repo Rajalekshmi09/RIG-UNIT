@@ -23,32 +23,36 @@ class StatusBlockRow2 extends Component {
     const dashboardDataNumArr = targetKeysVal_row2;
 
     {
-      this.props.app.chartData2[0]
-        ? (filteredData = Object.values(this.props.app.chartData2[0]).filter(
+      this.props.app.chartData[0]
+        ? (filteredData = Object.values(this.props.app.chartData[0]).filter(
             (_, index) => dashboardDataNumArr.includes(index)
           ))
         : (filteredData = []);
     }
 
     {
-      this.props.app.chartData2[1]
-        ? (filteredData1 = Object.values(this.props.app.chartData2[1]).filter(
+      this.props.app.chartData[1]
+        ? (filteredData1 = Object.values(this.props.app.chartData[1]).filter(
             (_, index) => dashboardDataNumArr.includes(index)
           ))
         : (filteredData1 = []);
     }
 
     {
-      this.props.app.chartData2[0]
+      this.props.app.chartData[0]
         ? (persons = filteredData)
         : (persons = [0, 0, 0, 0, 0, 0]);
     }
 
     {
-      this.props.app.chartData2[1]
+      this.props.app.chartData[1]
         ? (persons1 = filteredData1)
         : (persons1 = [0, 0, 0, 0, 0, 0]);
     }
+
+    console.log(persons);
+    console.log(persons1);
+    console.log(filteredData1);
 
     return (
       <div style={{ marginTop: "25px" }}>

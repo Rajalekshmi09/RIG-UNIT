@@ -21,10 +21,9 @@ const graphDataUrl = `http://localhost:8001/graph.php`
 const configurationDataUrl = `${BASE_URL}${URL.CONFIGURATION_DATA}`
 // {/*ADD bugid-(GOARIG_7006) */}
 const logoutEventUrl = `${BASE_URL}${URL.LOGOUT_EVENT}`
-const testdataAfterShutdownUrl = `http://localhost:7000/testdatainsertaftershutdown.php`
 // {/*ADD bugid-(GOARIG_7014) */}
-const ststusBlockRow2Url = `http://localhost:8003/statusblock2.php`
-const fcvStageUrl = `${BASE_URL}${URL.FCV_STAGE}`
+// const ststusBlockRow2Url = `http://localhost:8003/statusblock2.php`
+const fcvStageUrl =`http://localhost:8003/fcvStage.php`
 
 // Form requests
 const loginValidation = (values, callBack) => {
@@ -193,27 +192,18 @@ const logoutEvent = (callBack) => {
       console.log(err.res)
     })
 };
-// {/*ADD bugid-(GOARIG_7006) */}
-const gettingTestdataAftershutdown = (callBack) => {
-  axios.post(testdataAfterShutdownUrl)
-    .then(res => {
-      callBack(res.data)
-    })
-    .catch(err => {
-      console.log(err.res)
-    })
-};
-// {/*ADD bugid-(GOARIG_7014) */}
-const gettingChartData2 = (callBack) => {
-  axios.get(ststusBlockRow2Url)
-    .then(res => {
-      let chartdata = res.data;
-      callBack(chartdata)
 
-    }).catch(err => {
-      console.log(err);
-    })
-}
+// // {/*ADD bugid-(GOARIG_7014) */}
+// const gettingChartData2 = (callBack) => {
+//   axios.get(ststusBlockRow2Url)
+//     .then(res => {
+//       let chartdata = res.data;
+//       callBack(chartdata)
+
+//     }).catch(err => {
+//       console.log(err);
+//     })
+// }
 
 const fcvTransferEvent = (body,callBack) => {
   axios.post(fcvStageUrl, body)
@@ -234,6 +224,7 @@ export {
   getTableView, getSensorData,
   getHandleChangetestID, requestStatusData,
   gettingChartData,  gettingConfigurationValue,
-  logoutEvent,gettingTestdataAftershutdown,
-  gettingChartData2,fcvTransferEvent
+  logoutEvent,
+  // gettingChartData2,
+  fcvTransferEvent
 }

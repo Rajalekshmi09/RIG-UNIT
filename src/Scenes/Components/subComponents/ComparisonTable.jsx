@@ -25,14 +25,20 @@ class ComparisonTable extends Component {
   }
 
   render() {
+    //live data from store
     const compareLiveVal = this.props.app.chartData[0];
+
+    //comparison table value from DB
     const comparedVal = this.state.compareValue;
+
+    //live data from store esch field / column
     const liveRPM = compareLiveVal.P6;
     const liveCompressorInletPressure = compareLiveVal.P3;
     const liveOilPr = compareLiveVal.P23;
     const liveOilTemp = compareLiveVal.P25;
     const liveturbine_inlet_gas = compareLiveVal.P16;
     const livecompr_outlet_pr = compareLiveVal.P4;
+
     let displayValueRPM2;
     let displayValueComprPr2;
     let displayValueOilPr2;
@@ -45,6 +51,7 @@ class ComparisonTable extends Component {
     let displayValueturbine_inletgastemp2;
     let displayValuecomproutletpressure2;
     let displayValuecomproutletpressure1;
+
     comparedVal.map((It) => {
       if (
         parseInt(It.rpm1) <= parseInt(liveRPM) &&
@@ -126,7 +133,7 @@ class ComparisonTable extends Component {
     // const liveTotalMassFlow = compareLiveVal.C2;
     // const liveCompressorPrRatio = compareLiveVal.C13;
     // const liveCompressorMassFlowRate = compareLiveVal.C18;
-
+    console.log(comparedVal);
     return (
       <div style={{ paddingTop: "25px" }}>
         <table class="content-table">
