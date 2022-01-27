@@ -10,10 +10,8 @@ const url = {
   UPDATE_CONFIG_DATA: 'testconfigedit.php',
   TABLE_VIEW: 'tableview.php',
   SHUTDOWN_CLICK: 'shutdown.php', 
-  SENSOR_DATA: 'getdata.php',
   TURBOID_VALUE: 'turboIdValue.php',
-  TABLE_STATUSDATA: 'statusValue.php',
-  GRAPH_DATA: 'graph.php',
+  TABLE_STATUSDATA: 'statusValue.php',  
   CONFIGURATION_DATA: 'Configuration.php',
     // {/*ADD bugid-(GOARIG_7006) */}
   LOGOUT_EVENT: 'logout.php',

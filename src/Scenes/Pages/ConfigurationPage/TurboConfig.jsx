@@ -156,7 +156,6 @@ class TurboConfig extends Component {
     if (this.props.appData.notifyStatus === "true") {
       this.openNotification("bottomRight");
     }
-    console.log(this.props.appData);
     return (
       <div>
         <Layout className="layout-container">

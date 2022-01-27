@@ -92,8 +92,8 @@ class StatusBlockRow2 extends Component {
                   <Col
                     className="number dashtext-1"
                     style={{
-                      paddingLeft: "20%",
-                      fontSize: "17px",
+                      paddingLeft: "9%",
+                      fontSize: "16px",
                       color: "lime",
                     }}
                   >

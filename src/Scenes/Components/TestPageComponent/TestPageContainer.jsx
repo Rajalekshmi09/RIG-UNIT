@@ -288,14 +288,6 @@ class TestPageContainer extends Component {
       //updating to the store called shutdownInitiated
       this.props.initiateShutdown(data);
     });
-
-    if (this.props.app.testIdData === 0) {
-      setInterval(() => {
-        window.location.reload(false);
-
-        logoutEvent((data) => {});
-      }, 5000);
-    }
   };
 
   // {/*DEL bugid-(GOARIG_7005) */}
@@ -331,6 +323,7 @@ class TestPageContainer extends Component {
     axios
       .post("http://localhost:5000/initialize.php", {
         testId: this.props.app.testIdData,
+        nozzleArea: this.props.app.statusData[0].nozzlearea,
       })
       .then((res) => {
         let CommunicationData = res.data;
@@ -403,12 +396,12 @@ class TestPageContainer extends Component {
     this.setState({
       currentDateTime: time,
     });
-    axios
-      .get("http://localhost:8000/testdata.php")
-      .then(function (response) {})
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get("http://localhost:8000/testdata.php")
+    //   .then(function (response) {})
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   //help event onClick
@@ -664,11 +657,7 @@ class TestPageContainer extends Component {
     const targetRPM = this.props.app.targetRPM;
     const resetTemp = this.props.app.resetTemp;
     const resetRPM = this.props.app.resetRPM;
-    let turboStart = [];
-
-    if (this.props.app.turboStart) {
-      turboStart = this.props.app.turboStart;
-    }
+    let turboStart = this.props.app.turboStart;
 
     console.log(this.props.app);
     /*DEL bugid-(GOARIG_7015) */

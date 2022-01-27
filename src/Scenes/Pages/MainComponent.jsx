@@ -43,10 +43,8 @@ import {
   getHandleChangetestID,
   getTableView,
   gettingChartData,
-  gettingChartData2,
   getSensorData,
 } from "../../Services/requests";
-import accpetanceReport from "./Reports/AcceptanceReport";
 import { testParamHash } from "../../Services/constants";
 
 const { Content, Header, Footer } = Layout;
@@ -122,9 +120,15 @@ export class MainComponent extends Component {
     //it is used for graph and live data status block
     //graph.php(live data)
     setInterval(() => {
-      gettingChartData((data) => {
-        console.log(data);
-        this.props.updateChartData(data);
+      const Body = {
+        testId: this.props.app.testIdData,
+      };
+      gettingChartData(Body, (data) => {
+        let ChartValue = data.slice(0, 7);
+        this.props.updateChartData(ChartValue);
+
+        let CommandValue = data.slice(7);
+        this.props.initiateTurboStart(CommandValue);
       });
     }, 1000);
 
@@ -138,28 +142,29 @@ export class MainComponent extends Component {
 
     // {/*ADD bugid-(GOARIG_7022) */}
     //getdata.php(command status)
-    setInterval(() => {
-      const nShutdowndataArray = this.props.app.turboStart.filter((it) =>
-        nShutdowndata.find((val) => val === it.name)
-      );
 
-      const eShutdowndataArray = this.props.app.turboStart.filter((it) =>
-        eShutdowndata.find((val) => val === it.name)
-      );
+    // setInterval(() => {
+    //   const nShutdowndataArray = this.props.app.turboStart.filter((it) =>
+    //     nShutdowndata.find((val) => val === it.name)
+    //   );
 
-      if (
-        this.props.app.testIdData !== 0 &&
-        nShutdowndataArray.length < 2 &&
-        eShutdowndataArray.length < 2
-      ) {
-        getSensorData((data) => {
-          let val = data;
-          if (this.props.app.communication === true && val.length >= 1) {
-            this.props.initiateTurboStart(val);
-          }
-        });
-      }
-    }, 3000);
+    //   const eShutdowndataArray = this.props.app.turboStart.filter((it) =>
+    //     eShutdowndata.find((val) => val === it.name)
+    //   );
+
+    //   if (
+    //     this.props.app.testIdData !== 0 &&
+    //     nShutdowndataArray.length < 2 &&
+    //     eShutdowndataArray.length < 2
+    //   ) {
+    //     getSensorData((data) => {
+    //       let val = data;
+    //       if (this.props.app.communication === true && val.length >= 1) {
+    //         this.props.initiateTurboStart(val);
+    //       }
+    //     });
+    //   }
+    // }, 3000);
   }
 
   render() {

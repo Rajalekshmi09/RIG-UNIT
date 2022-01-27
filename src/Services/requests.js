@@ -14,15 +14,16 @@ const shutdownClickEventUrl = `${BASE_URL}${URL.SHUTDOWN_CLICK}`
 const resetClickEventUrl = `${BASE_URL}${URL.RESET_CLICK}`
 const updateConfigDataUrl = `${BASE_URL}${URL.UPDATE_CONFIG_DATA}`
 const tableViewUrl = `${BASE_URL}${URL.TABLE_VIEW}`
-const sensorDataUrl = `http://localhost:8002/getdata.php`
 const turboIdValueUrl = `${BASE_URL}${URL.TURBOID_VALUE}`
 const tableStatusDataUrl = `${BASE_URL}${URL.TABLE_STATUSDATA}`
-const graphDataUrl = `http://localhost:8001/graph.php`
 const configurationDataUrl = `${BASE_URL}${URL.CONFIGURATION_DATA}`
 // {/*ADD bugid-(GOARIG_7006) */}
 const logoutEventUrl = `${BASE_URL}${URL.LOGOUT_EVENT}`
 // {/*ADD bugid-(GOARIG_7014) */}
 // const ststusBlockRow2Url = `http://localhost:8003/statusblock2.php`
+
+const sensorDataUrl = `http://localhost:8002/getdata.php`
+const graphDataUrl = `http://localhost:8001/graph.php`
 const fcvStageUrl =`http://localhost:8003/fcvStage.php`
 
 // Form requests
@@ -132,8 +133,8 @@ const requestStatusData = (callBack) => {
       console.log(err);
     })
 }
-const gettingChartData = (callBack) => {
-  axios.get(graphDataUrl)
+const gettingChartData = (Body, callBack) => {
+  axios.post(graphDataUrl, Body)
     .then(res => {
       let chartdata = res.data;
       callBack(chartdata)

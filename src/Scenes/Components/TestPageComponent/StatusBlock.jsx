@@ -67,11 +67,7 @@ class StatusBlock extends Component {
     //covertion string to number
     const arrStr = this.props.app.targetKeys;
     const dashboardDataNumArr = arrStr.map((i) => Number(i));
-
-    let turboStart = [];
-    if (this.props.app.turboStart) {
-      turboStart = this.props.app.turboStart;
-    }
+    let turboStart = this.props.app.turboStart;
 
     if (turboStart.length >= 0) {
       turboStart.map((they) => {
@@ -202,7 +198,7 @@ class StatusBlock extends Component {
                   {/* value displaying column */}
                   <Col
                     className="number dashtext-1"
-                    style={{ paddingLeft: "20%", fontSize: "23px" }}
+                    style={{ paddingLeft: "15%", fontSize: "23px" }}
                   >
                     {/* getting the color from the color array */}
                     <span style={{ color: colors[y] }}>{It}</span>

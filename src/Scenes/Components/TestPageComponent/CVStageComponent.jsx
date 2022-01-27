@@ -67,10 +67,7 @@ class CVStageComponent extends Component {
   render() {
     let fine_FCV = this.props.app.chartData[0].S8;
     let fuel_FCV = this.props.app.chartData[0].S9;
-    let turboStart = [];
-    if (this.props.app.turboStart) {
-      turboStart = this.props.app.turboStart;
-    }
+    let turboStart = this.props.app.turboStart;
 
     const StartdataArray = turboStart.filter((it) =>
       Startdata.find((val) => val === it.name)
