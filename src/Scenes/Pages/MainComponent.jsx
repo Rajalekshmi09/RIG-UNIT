@@ -124,6 +124,8 @@ export class MainComponent extends Component {
         testId: this.props.app.testIdData,
       };
       gettingChartData(Body, (data) => {
+        //first 7th row is for live data using for graph display
+        //getting data from 8 rows of graph.php response ,it has get testcommands
         let ChartValue = data.slice(0, 7);
         this.props.updateChartData(ChartValue);
 
