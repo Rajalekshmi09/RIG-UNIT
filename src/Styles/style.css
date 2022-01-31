@@ -521,7 +521,7 @@ div#allreport h1 {
   cursor: pointer;
 }
 .arrow-btn:active {
-  color: lime;
+  color: red;
 }
 .arrow-btn-disable {
   color: #5f6363;
