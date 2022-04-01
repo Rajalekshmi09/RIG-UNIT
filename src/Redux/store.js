@@ -57,5 +57,11 @@ const InitialState = {
   //grapgView
   delayValue: 1000,
   cvStageValue:[],
+  resetButtonClick: 1,
+  preTestingSensor: [],
+  preTestKey:"Select Sensor",
+  preTestValue:0,
+  preTestStatus:false,
+
 }
 export default InitialState

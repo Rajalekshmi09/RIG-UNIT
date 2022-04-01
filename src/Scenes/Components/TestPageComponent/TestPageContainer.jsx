@@ -14,6 +14,7 @@ import {
   Typography,
   message,
   Menu,
+  Form,
 } from "antd";
 
 import {
@@ -42,6 +43,7 @@ import {
   stopDbInsert,
   updateNotifyAction,
   gettingTestIdData,
+  updateResetButtonClick,
 } from "../../../Redux/action";
 import {
   updateChartData,
@@ -64,7 +66,6 @@ import {
   turboConfigValue,
   helpPopup,
 } from "../../../Services/constants";
-import { logoutEvent } from "../../../Services/requests";
 var { Option } = Select;
 const { Text } = Typography;
 const { SubMenu } = Menu;
@@ -320,6 +321,7 @@ class TestPageContainer extends Component {
   communicationstatus() {
     /* ADD bugid-(GOARIG_7021)   */
     //type 0 -> initialize clicked
+    this.props.updateResetButtonClick(0);
     axios
       .post("http://localhost:5000/initialize.php", {
         testId: this.props.app.testIdData,
@@ -605,7 +607,7 @@ class TestPageContainer extends Component {
     this.props.updateTestIdCount("");
     this.props.updateTestIdValue("");
     this.props.initiateTurboStart([]);
-
+    this.props.updateResetButtonClick(1);
     this.props.getResetTemp("");
     this.props.getResetRPM("");
 
@@ -701,13 +703,7 @@ class TestPageContainer extends Component {
 
     return (
       <div style={{ paddingTop: "25px" }}>
-        <Layout
-          style={{
-            backgroundColor: "#131633",
-            paddingLeft: "20px",
-            minHeight: "768px",
-          }}
-        >
+        <Layout className="test-layout">
           <div>
             <Menu
               style={{
@@ -733,57 +729,42 @@ class TestPageContainer extends Component {
                     paddingLeft: "20px",
                   }}
                 >
-                  <Row style={{ paddingTop: "2%", paddingLeft: "20px" }}>
-                    <Col span={8}>
-                      <form>
-                        <Row>
-                          <Col span={5} style={{ marginTop: "20px" }}>
-                            <label htmlFor="text" className="label">
-                              Turbo ID
-                            </label>
-                          </Col>
-                          <Col span={6}>
-                            {communication ? (
-                              <Input.Group compact>
-                                <Select
-                                  disabled
-                                  defaultValue={this.state.turboIdDefaultValue}
-                                  style={{ width: "300px" }}
-                                ></Select>
-                              </Input.Group>
-                            ) : (
-                              <Input.Group compact>
-                                {testIdValue && testIdValue.length > 0 ? (
-                                  <Select
-                                    defaultValue={
-                                      this.state.turboIdDefaultValue
-                                    }
-                                    style={{ width: "300px" }}
-                                    onChange={this.handleChangetestID}
-                                    value={this.state.turboIdValue}
-                                  >
-                                    {this.props.app.statusData.map((it) => (
-                                      <Option
-                                        key={it.turboname}
-                                        value={it.turboname}
-                                      >
-                                        {it.turboname}
-                                      </Option>
-                                    ))}
-                                  </Select>
-                                ) : (
-                                  <Space
-                                    type="warning"
-                                    style={{ color: "red" }}
-                                  >
-                                    No active turbines
-                                  </Space>
-                                )}
-                              </Input.Group>
-                            )}
-                          </Col>
-                        </Row>
-                      </form>
+                  <Row
+                    gutter={[16, 8]}
+                    style={{ paddingTop: "2%", paddingLeft: "20px" }}
+                  >
+                    <Form.Item label="Turbo ID">
+                      {communication ? (
+                        <Input.Group compact>
+                          <Select
+                            disabled
+                            defaultValue={this.state.turboIdDefaultValue}
+                            style={{ width: "300px" }}
+                          ></Select>
+                        </Input.Group>
+                      ) : (
+                        <Input.Group compact>
+                          {testIdValue && testIdValue.length > 0 ? (
+                            <Select
+                              defaultValue={this.state.turboIdDefaultValue}
+                              style={{ width: "300px" }}
+                              onChange={this.handleChangetestID}
+                              value={this.state.turboIdValue}
+                            >
+                              {this.props.app.statusData.map((it) => (
+                                <Option key={it.turboname} value={it.turboname}>
+                                  {it.turboname}
+                                </Option>
+                              ))}
+                            </Select>
+                          ) : (
+                            <Space type="warning" style={{ color: "red" }}>
+                              No active turbines
+                            </Space>
+                          )}
+                        </Input.Group>
+                      )}
+
                       {this.props.app.statusData ? (
                         <Row style={{ paddingLeft: "5rem" }}>
                           {this.state.truboIDnum ? (
@@ -809,89 +790,82 @@ class TestPageContainer extends Component {
                       ) : (
                         []
                       )}
-                    </Col>
-                    <Col span={8}>
-                      <form onSubmit={(e) => this.addTesterItem(e, "tester")}>
-                        <Row>
-                          <Col span={4} style={{ marginTop: "20px" }}>
-                            <label htmlFor="text" className="label">
-                              Test Engg
-                            </label>
-                          </Col>
-                          <Col span={15}>
-                            {communication ? (
-                              <Input
-                                disabled
-                                placeholder="Test Engg"
-                                name="Test Engg"
-                                style={{ width: "300px" }}
-                              />
-                            ) : (
-                              <Input
-                                placeholder="Test Engg"
-                                name="Test Engg"
-                                style={{ width: "300px" }}
-                                value={this.state.currentTesterItem}
-                                onChange={this.handleTesterInput}
-                              />
-                            )}
-                          </Col>
-                          <Col>
-                            <button className="add-btn" type="submit">
-                              +
-                            </button>
-                          </Col>
-                        </Row>
-                      </form>
-                      <Row style={{ paddingLeft: "5rem" }}>
-                        <ListItems
-                          items={this.state.testerItems}
-                          deleteItem={this.deleteTesterItem}
-                        />
-                      </Row>
-                    </Col>
+                    </Form.Item>
 
-                    <Col span={8}>
-                      <form onSubmit={(e) => this.addWitnessItem(e, "witness")}>
+                    <form
+                      onSubmit={(e) => this.addTesterItem(e, "tester")}
+                      style={{
+                        marginLeft:
+                          this.props.app.statusData.length == 0 ? "20%" : "5%",
+                      }}
+                    >
+                      <Form.Item label="Tester">
+                        {communication ? (
+                          <Input
+                            disabled
+                            placeholder="Test Engg"
+                            name="Test Engg"
+                            style={{ width: "300px" }}
+                          />
+                        ) : (
+                          <Input
+                            placeholder="Test Engg"
+                            name="Test Engg"
+                            style={{ width: "300px" }}
+                            value={this.state.currentTesterItem}
+                            onChange={this.handleTesterInput}
+                          />
+                        )}
+                        <button className="add-btn" type="submit">
+                          +
+                        </button>
                         <Row>
-                          <Col span={4} style={{ marginTop: "20px" }}>
-                            <label htmlFor="text" className="label">
-                              Witness
-                            </label>
-                          </Col>
-                          <Col span={15}>
-                            {communication ? (
-                              <Input
-                                disabled
-                                placeholder="Witness"
-                                name="Witness"
-                                style={{ width: "300px" }}
-                              />
-                            ) : (
-                              <Input
-                                placeholder="Witness"
-                                name="Witness"
-                                style={{ width: "300px" }}
-                                value={this.state.currentWitnessItem}
-                                onChange={this.handleWitnessInput}
-                              />
-                            )}
-                          </Col>
-                          <Col>
-                            <button className="add-btn" type="submit">
-                              +
-                            </button>
-                          </Col>
+                          <ListItems
+                            items={this.state.testerItems}
+                            deleteItem={this.deleteTesterItem}
+                          />
                         </Row>
-                      </form>
-                      <Row style={{ paddingLeft: "5rem" }}>
-                        <ListItems
-                          items={this.state.witnessItems}
-                          deleteItem={this.deleteWitnessItem}
-                        />
-                      </Row>
-                    </Col>
+                      </Form.Item>
+                    </form>
+
+                    <form
+                      onSubmit={(e) => this.addWitnessItem(e, "witness")}
+                      style={{
+                        marginLeft:
+                          this.props.app.statusData.length == 0 ? "20%" : "5%",
+                      }}
+                    >
+                      <Form.Item label="Witness">
+                        {communication ? (
+                          <Input
+                            disabled
+                            placeholder="Witness"
+                            name="Witness"
+                            style={{ width: "300px" }}
+                          />
+                        ) : (
+                          <Input
+                            placeholder="Witness"
+                            name="Witness"
+                            style={{ width: "300px" }}
+                            value={this.state.currentWitnessItem}
+                            onChange={this.handleWitnessInput}
+                          />
+                        )}
+                        <button className="add-btn" type="submit">
+                          +
+                        </button>
+
+                        <Row>
+                          <ListItems
+                            items={this.state.witnessItems}
+                            deleteItem={this.deleteWitnessItem}
+                          />
+                        </Row>
+                      </Form.Item>
+                    </form>
                   </Row>
+
                   <Row>
                     {this.state.errormsg ? (
                       <Alert
@@ -918,10 +892,8 @@ class TestPageContainer extends Component {
             </Menu>
           </div>
 
-          <Row style={{ backgroundColor: "#131633", paddingRight: "20px" }}>
-            <Divider
-              style={{ borderColor: "#42dad6", backgroundColor: "#131633" }}
-            />
+          <Row style={{ paddingRight: "20px" }}>
+            <Divider style={{ borderColor: "#42dad6" }} />
 
             <Col span={3}>
               <Card
@@ -1483,6 +1455,7 @@ const mapDispatchToProps = {
   updateNotifyAction,
   startDisableEvent,
   gettingTestIdData,
+  updateResetButtonClick,
 };
 
 const TestContainer = connect(

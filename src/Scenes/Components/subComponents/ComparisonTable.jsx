@@ -133,7 +133,7 @@ class ComparisonTable extends Component {
     // const liveTotalMassFlow = compareLiveVal.C2;
     // const liveCompressorPrRatio = compareLiveVal.C13;
     // const liveCompressorMassFlowRate = compareLiveVal.C18;
-    console.log(comparedVal);
+
     return (
       <div style={{ paddingTop: "25px" }}>
         <table class="content-table">

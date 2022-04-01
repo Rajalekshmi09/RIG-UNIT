@@ -21,7 +21,9 @@ class StatusBlockRow2 extends Component {
     let filteredData;
     let filteredData1;
     const dashboardDataNumArr = targetKeysVal_row2;
+    console.log(this.state.persons);
 
+    console.log(filteredData);
     {
       this.props.app.chartData[0]
         ? (filteredData = Object.values(this.props.app.chartData[0]).filter(
@@ -49,10 +51,6 @@ class StatusBlockRow2 extends Component {
         ? (persons1 = filteredData1)
         : (persons1 = [0, 0, 0, 0, 0, 0]);
     }
-
-    console.log(persons);
-    console.log(persons1);
-    console.log(filteredData1);
 
     return (
       <div style={{ marginTop: "25px" }}>

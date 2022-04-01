@@ -15,6 +15,8 @@ const url = {
   CONFIGURATION_DATA: 'Configuration.php',
     // {/*ADD bugid-(GOARIG_7006) */}
   LOGOUT_EVENT: 'logout.php',
+  PRETEST_DATA: 'preTestingSensor.php', 
+  PRETEST_CHECK: 'preTesting.php', 
 }
 
 const FormDetails = {

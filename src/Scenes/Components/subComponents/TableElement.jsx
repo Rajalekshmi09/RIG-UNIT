@@ -315,7 +315,7 @@ class TableComponent extends Component {
           dataSource={tableData}
           size="middle"
           style={{
-            backgroundColor: "#131633",
+            backgroundColor: "transparent",
             paddingBottom: "10px",
             marginTop: "10px",
           }}

@@ -42,11 +42,11 @@ class ExportData extends Component {
         "Combustor Input Fuel Energy": "KJ",
         "Combustor Ideal Efficiency": "η",
         "Turbine Expansion Ratio": "",
-        "Turbine Differential Temperature": "Deg C",
+        "Turbine Differential Temperature": "°C",
         "Turbine Power": "KW",
         "Turbine Isentropic Efficiency": "ηT",
         "Compressor Pressure Ratio": "",
-        "Compressor Differential Temperature": "Degree C",
+        "Compressor Differential Temperature": "°C",
         "Ventury meter differential Pressure": "mm water",
         "Actual Differential Pressure": "pascal",
         "Ventury Volume Flow Rate": "m3",
@@ -506,60 +506,60 @@ class ExportData extends Component {
     return (
       <div style={{ paddingTop: "1px" }}>
         <Layout className="layout-container">
-          <h2 className="h2"> Export Report</h2>
-          <Row style={{ paddingTop: "10px" }}>
-            <Col sm={2}>
-              <label className="label">
-                Turbo ID<i style={{ color: "red", fontSize: "15px" }}> *</i>
-              </label>
-              <span> &nbsp; &nbsp; &nbsp;</span>
-            </Col>
-            <Col sm={10}>
-              <Col sm={10}>
-                <Form.Item name="option">
-                  <Input.Group compact>
-                    <Input.Group compact>
-                      <Select
-                        defaultValue="Select Turbo ID"
-                        style={{ width: "300px" }}
-                        onChange={this.handleChangeTestID}
-                      >
-                        {testIdValue.map((it) => (
-                          <Option key={it.turboname} value={it.turboname}>
-                            {it.turboname}
-                          </Option>
-                        ))}
-                      </Select>
-                    </Input.Group>
-                  </Input.Group>
-                </Form.Item>
-              </Col>
-            </Col>
-            <Col sm={2}>
-              <label className="label">
-                Test No <i style={{ color: "red", fontSize: "15px" }}> *</i>
-              </label>
-              <span> &nbsp; &nbsp; &nbsp;</span>
-            </Col>
-            <Col sm={10}>
-              <Form.Item name="options">
+          <h2 className="component-heading"> Export Report</h2>
+          <Row style={{ paddingTop: "10px", paddingLeft: "1%" }}>
+            <Form.Item
+              name="option"
+              label="Turbo ID"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input.Group compact>
                 <Input.Group compact>
                   <Select
-                    defaultValue="Select Test No"
+                    defaultValue="Select Turbo ID"
                     style={{ width: "300px" }}
-                    onChange={this.handleChangetestNO}
+                    onChange={this.handleChangeTestID}
                   >
-                    testno ?
-                    {testno.map((it) => (
-                      <Option key={it.testno} value={it.testno}>
-                        {it.testno}
+                    {testIdValue.map((it) => (
+                      <Option key={it.turboname} value={it.turboname}>
+                        {it.turboname}
                       </Option>
-                    ))}{" "}
-                    : []
+                    ))}
                   </Select>
                 </Input.Group>
-              </Form.Item>
-            </Col>
+              </Input.Group>
+            </Form.Item>
+
+            <Form.Item
+              name="options"
+              label="Test No"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              style={{ marginLeft: "5%" }}
+            >
+              <Input.Group compact>
+                <Select
+                  defaultValue="Select Test No"
+                  style={{ width: "300px" }}
+                  onChange={this.handleChangetestNO}
+                >
+                  testno ?
+                  {testno.map((it) => (
+                    <Option key={it.testno} value={it.testno}>
+                      {it.testno}
+                    </Option>
+                  ))}{" "}
+                  : []
+                </Select>
+              </Input.Group>
+            </Form.Item>
           </Row>
           <Row
             style={{
@@ -574,31 +574,22 @@ class ExportData extends Component {
             </Col>
           </Row>
         </Layout>
-        <Button
-          style={{
-            marginLeft: "1270px",
-            marginBottom: "10px",
-            marginTop: "10px",
-            width: "140px",
-          }}
-          variant="warning"
-          onClick={(e) =>
-            this.exportToCSV(this.state.reportDetails, "Export Report")
-          }
-        >
-          Export in Excel
-        </Button>
+        <Row justify="end" className="report-btn-block">
+          <Button
+            style={{
+              width: "140px",
+            }}
+            variant="warning"
+            onClick={(e) =>
+              this.exportToCSV(this.state.reportDetails, "Export Report")
+            }
+          >
+            Export in Excel
+          </Button>
+        </Row>
 
         <Spin tip="Loading..." size="large" spinning={this.state.loading}>
-          <Layout
-            style={{
-              backgroundColor: "#131633",
-              paddingLeft: "20px",
-              width: "auto",
-              paddingTop: "10px",
-              border: "solid white",
-            }}
-          >
+          <Layout className="export-layout">
             <div id="allreport">
               <div className="mx-auto" style={{ marginTop: "2%" }}>
                 <div

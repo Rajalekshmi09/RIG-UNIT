@@ -89,7 +89,7 @@ class LoginPage extends Component {
                         rules={[{ required: true, message: enter_email }]}
                       >
                         <Input
-                          style={{ backgroundColor: "#131633" }}
+                          style={{ backgroundColor: "transparent" }}
                           prefix={
                             <UserOutlined className="site-form-item-icon" />
                           }
@@ -101,7 +101,7 @@ class LoginPage extends Component {
                         rules={[{ required: true, message: enter_password }]}
                       >
                         <Input.Password
-                          style={{ backgroundColor: "#131633" }}
+                          style={{ backgroundColor: "transparent" }}
                           prefix={
                             <LockOutlined className="site-form-item-icon" />
                           }

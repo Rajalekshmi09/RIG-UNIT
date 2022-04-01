@@ -19,6 +19,8 @@ const tableStatusDataUrl = `${BASE_URL}${URL.TABLE_STATUSDATA}`
 const configurationDataUrl = `${BASE_URL}${URL.CONFIGURATION_DATA}`
 // {/*ADD bugid-(GOARIG_7006) */}
 const logoutEventUrl = `${BASE_URL}${URL.LOGOUT_EVENT}`
+const preTestingDataUrl = `${BASE_URL}${URL.PRETEST_DATA}`
+const preTestingUrl = `${BASE_URL}${URL.PRETEST_CHECK}`
 // {/*ADD bugid-(GOARIG_7014) */}
 // const ststusBlockRow2Url = `http://localhost:8003/statusblock2.php`
 
@@ -133,8 +135,8 @@ const requestStatusData = (callBack) => {
       console.log(err);
     })
 }
-const gettingChartData = (Body, callBack) => {
-  axios.post(graphDataUrl, Body)
+const gettingChartData = (callBack) => {
+  axios.get(graphDataUrl)
     .then(res => {
       let chartdata = res.data;
       callBack(chartdata)
@@ -216,6 +218,22 @@ const fcvTransferEvent = (body,callBack) => {
     })
 };
 
+const getPreTestingDetails = (callBack) => {
+  axios.get(preTestingDataUrl).then(res => {  
+    callBack(res.data)
+  }).catch((err) => {
+    console.log(err);
+  })
+}
+
+const checkPreTesting = (body,callBack) => {
+  axios.post(preTestingUrl ,body).then(res => {  
+    callBack(res.data)
+  }).catch((err) => {
+    console.log(err);
+  })
+}
+
 export {
   getTurboConfigData, turbineConfigSubmit,
   getTestConfigData, getParamConfigData,
@@ -227,5 +245,5 @@ export {
   gettingChartData,  gettingConfigurationValue,
   logoutEvent,
   // gettingChartData2,
-  fcvTransferEvent
+  fcvTransferEvent,getPreTestingDetails,checkPreTesting
 }

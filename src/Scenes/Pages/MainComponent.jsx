@@ -10,6 +10,8 @@ import LeftbarComponent from "../Components/LeftBar/LeftbarComponent";
 import TestPage from "./TestPage";
 import GraphView from "../Pages/DashboardPage/GraphView";
 import TableView from "./DashboardPage/TableView";
+import PreTesting from "./DashboardPage/PreTesting";
+import SensorPage from "./DashboardPage/SensorPage";
 import RunningReport from "./Reports/RunningReport";
 import RunningReport2 from "./Reports/RunningReport2";
 import TestConfig from "./ConfigurationPage/TestConfig";
@@ -33,6 +35,7 @@ import {
   updateChartData,
   updateChartData2,
   initiateTurboStart,
+  gettingPreTestingSensor,
 } from "../../Redux/action";
 import {
   getTurboConfigData,
@@ -43,7 +46,7 @@ import {
   getHandleChangetestID,
   getTableView,
   gettingChartData,
-  getSensorData,
+  getPreTestingDetails,
 } from "../../Services/requests";
 import { testParamHash } from "../../Services/constants";
 
@@ -90,6 +93,10 @@ export class MainComponent extends Component {
       this.props.updateTestIdCount(data);
     });
 
+    getPreTestingDetails((data) => {
+      this.props.gettingPreTestingSensor(data);
+    });
+
     // fetch graphvalue on application load
     getTableView((data) => {
       //getting this function(data) from request page
@@ -98,6 +105,7 @@ export class MainComponent extends Component {
       let filteredTableData = data.filter((_, index) =>
         dashboardDataNumArr.includes(index)
       );
+      console.log(filteredTableData);
       this.props.updateTableViewData(filteredTableData);
     });
 
@@ -120,19 +128,21 @@ export class MainComponent extends Component {
     //it is used for graph and live data status block
     //graph.php(live data)
     setInterval(() => {
-      const Body = {
-        testId: this.props.app.testIdData,
-      };
-      gettingChartData(Body, (data) => {
-        //first 7th row is for live data using for graph display
-        //getting data from 8 rows of graph.php response ,it has get testcommands
-        let ChartValue = data.slice(0, 7);
-        this.props.updateChartData(ChartValue);
+      if (this.props.app.resetButtonClick !== 1) {
+        gettingChartData((data) => {
+          //first 7th row is for live data using for graph display
+          //getting data from 8 rows of graph.php response ,it has get testcommands
+          let ChartValue = data.slice(0, 7);
+          this.props.updateChartData(ChartValue);
 
-        let CommandValue = data.slice(7);
-        this.props.initiateTurboStart(CommandValue);
-      });
-    }, 1000);
+          let CommandValue = data.slice(7);
+          this.props.initiateTurboStart(CommandValue);
+        });
+      } else {
+        let chartArray = [0, 0, 0, 0, 0, 0, 0];
+        this.props.updateChartData(chartArray);
+      }
+    }, 2000);
 
     /*ADD bugid-(GOARIG_7014) */
     //statusblock2.php(this for 2nd row display from view table)
@@ -172,7 +182,7 @@ export class MainComponent extends Component {
   render() {
     const appData = this.props.app;
     const { mainPage } = appData;
-
+    console.log(this.props.app);
     return (
       <Layout>
         <Header style={{ paddingLeft: "10px", paddingRight: "0" }}>
@@ -184,11 +194,13 @@ export class MainComponent extends Component {
             <TitleElement />
             {mainPage === "graphView" ? <GraphView /> : []}
             {mainPage === "tableView" ? <TableView /> : []}
+            {mainPage === "preTest" ? <PreTesting /> : []}
+            {mainPage === "sensorPage" ? <SensorPage /> : []}
+            {mainPage === "testPage" ? <TestPage /> : []}
             {mainPage === "turboConfig" ? <TurboConfig /> : []}
             {mainPage === "dashboardConfig" ? <DashboardConfig /> : []}
             {mainPage === "testConfig" ? <TestConfig /> : []}
             {mainPage === "paramConfig" ? <ParamConfig /> : []}
-            {mainPage === "testPage" ? <TestPage /> : []}
             {mainPage === "runningReport" ? <RunningReport /> : []}
             {mainPage === "runningReport2" ? <RunningReport2 /> : []}
             {mainPage === "exportData" ? <ExportData /> : []}
@@ -227,6 +239,7 @@ const mapDispatchToProps = {
   updateChartData,
   updateChartData2,
   initiateTurboStart,
+  gettingPreTestingSensor,
 };
 
 const MainContainer = connect(

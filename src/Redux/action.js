@@ -198,3 +198,28 @@ export const fetchingCvstageValue = data => ({
   type: 'FETCHING_CVSTAGE_VALUE',
   payload: data
 })
+//resetButtonClick
+export const updateResetButtonClick = data => ({
+  type: 'UPDATE_RESET_BUTTONCLICK',
+  payload: data
+})
+//preTestingSensor
+export const gettingPreTestingSensor = data => ({
+  type: 'GETTING_PRETESTING',
+  payload: data
+})
+//preTestKey
+export const updatePreTestKey = data => ({
+  type: 'UPDATE_PRETEST_KEY',
+  payload: data
+})
+//preTestValue
+export const updatePreTestValue = data => ({
+  type: 'UPDATE_PRETEST_VALUE',
+  payload: data
+})
+//preTestStatus
+export const updatePreTestStatus = data => ({
+  type: 'UPDATE_PRETEST_STATUS',
+  payload: data
+})

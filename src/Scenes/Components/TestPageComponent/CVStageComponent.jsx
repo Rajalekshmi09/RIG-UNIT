@@ -82,11 +82,7 @@ class CVStageComponent extends Component {
 
     return (
       <div>
-        <Layout
-          style={{
-            backgroundColor: "transparent",
-          }}
-        >
+        <Layout className="cv-component">
           <Row>
             <Row className="progress_box">
               <div>
