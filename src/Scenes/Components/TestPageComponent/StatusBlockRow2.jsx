@@ -50,10 +50,6 @@ class StatusBlockRow2 extends Component {
         : (persons1 = [0, 0, 0, 0, 0, 0]);
     }
 
-    console.log(persons);
-    console.log(persons1);
-    console.log(filteredData1);
-
     return (
       <div style={{ marginTop: "25px" }}>
         <Row>

@@ -4,7 +4,7 @@ import StatusBlock from "../Components/TestPageComponent/StatusBlock";
 import StatusBlockRow2 from "../Components/TestPageComponent/StatusBlockRow2";
 import { updateTitleElements } from "../../Redux/action";
 import { connect } from "react-redux";
-
+import SensorPage from "./DashboardPage/SensorPage";
 class TestPage extends Component {
   componentDidMount() {
     this.props.updateTitleElements({
@@ -17,8 +17,10 @@ class TestPage extends Component {
     return (
       <div>
         <StatusBlock />
+
         {/*ADD bugid-(GOARIG_7014) */}
         <StatusBlockRow2 />
+        <SensorPage />
         <TestPageContainer />
       </div>
     );

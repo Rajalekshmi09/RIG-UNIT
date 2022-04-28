@@ -318,15 +318,7 @@ class CardComponent extends Component {
                   return (
                     <Col span={8}>
                       <Row style={{ paddingTop: "30px" }}>
-                        <Card
-                          style={{
-                            backgroundColor: "#131633",
-                            height: "250px",
-                            border: "none",
-                            borderRadius: "0px",
-                            width: "450px",
-                          }}
-                        >
+                        <Card className="graph-card">
                           {it.title}
                           <GraphComponent
                             data={

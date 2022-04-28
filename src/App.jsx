@@ -8,13 +8,19 @@ import "antd/dist/antd.css";
 import "../src/Styles/style.css";
 import Cookies from "universal-cookie";
 import { gettingConfigurationValue } from "./Services/requests";
-import { fetchingDelayValue, fetchingCvstageValue } from "./Redux/action";
+import { fetchingDelayValue, fetchingCvstageValue,updateAirServoInput,updateKeroseneInput } from "./Redux/action";
 
 class App extends Component {
-  componentDidMount() {
+  componentDidMount() {   
+      window.addEventListener("beforeunload", function (e) {
+        e.preventDefault();
+        e.returnValue = "";
+      });
     gettingConfigurationValue((data) => {
       this.props.fetchingDelayValue(data[0].Delay * 1000);
       this.props.fetchingCvstageValue(data[0]);
+      this.props.updateAirServoInput(data[0].AirServoValve);
+      this.props.updateKeroseneInput(data[0].KeroseneValve)
     });
   }
 
@@ -39,7 +45,7 @@ const mapStateToProps = (state) => ({
   appState: state.app.appState,
 });
 
-const mapDispatchToProps = { fetchingDelayValue, fetchingCvstageValue };
+const mapDispatchToProps = { fetchingDelayValue, fetchingCvstageValue,updateAirServoInput,updateKeroseneInput  };
 
 const appPage = connect(mapStateToProps, mapDispatchToProps)(App);
 export default appPage;

@@ -16,14 +16,7 @@ export class DashboardConfig extends Component {
   render() {
     return (
       <div>
-        <Layout
-          style={{
-            backgroundColor: "#131633",
-            paddingTop: "10px",
-            paddingLeft: "20px",
-            paddingRight: "20px",
-          }}
-        >
+        <Layout className="transfer-layout">
           <div style={{ paddingLeft: "80px" }}>
             <TransferElement />
           </div>

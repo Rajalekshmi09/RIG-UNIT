@@ -3,27 +3,8 @@ import { Col, Row, Progress } from "antd";
 import { connect } from "react-redux";
 import { dashboardSensor } from "../../../Services/constants";
 import { getTableView } from "../../../Services/requests";
-
-const { sensorLabel, n_shutdown, e_shutdown, live, offline } = dashboardSensor;
-
-const styles = {
-  online: {
-    color: "#03fc28",
-    position: "absolute",
-    right: 20,
-    top: 120,
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  offline: {
-    color: "red",
-    position: "absolute",
-    right: 20,
-    top: 120,
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-};
+import LiveStateBlock from "./LiveStateBlock";
+const { sensorLabel } = dashboardSensor;
 
 class StatusBlock extends Component {
   constructor(props) {
@@ -55,29 +36,15 @@ class StatusBlock extends Component {
   }
 
   render() {
-    let nShutdown = false;
-    let eShutdown = false;
     let persons;
     let persons1;
     let filteredData;
     let filteredData1;
     let receivedDate;
     let colors = [];
-
     //covertion string to number
     const arrStr = this.props.app.targetKeys;
     const dashboardDataNumArr = arrStr.map((i) => Number(i));
-    let turboStart = this.props.app.turboStart;
-
-    if (turboStart.length >= 0) {
-      turboStart.map((they) => {
-        if (they.name === "N.Shutdown Completed") {
-          nShutdown = true;
-        } else if (they.name === "E.Shutdown Completed") {
-          eShutdown = true;
-        }
-      });
-    }
 
     //filltering the status block label
     let filteredDataLabel = sensorLabel.filter((_, index) =>
@@ -133,42 +100,17 @@ class StatusBlock extends Component {
 
     const date = new Date();
     const db_date = new Date(receivedDate);
-    let isActive = false;
-
-    if (this.props.app.showTarget === true) {
-      isActive = true;
-    }
 
     return (
       <div>
         <div>
-          {/* ADD -  GOARIG_7008  */}
-          {/* ADD bugid-(GOARIG_7014)*/}
-          <Row>
-            {eShutdown ? (
-              <p style={styles.offline}>{e_shutdown}</p>
-            ) : (
-              <Row>
-                {nShutdown ? (
-                  <p style={styles.offline}>{n_shutdown}</p>
-                ) : (
-                  <Row>
-                    {isActive ? (
-                      <p style={styles.online}>{live}</p>
-                    ) : (
-                      <p style={styles.offline}>{offline}</p>
-                    )}
-                  </Row>
-                )}
-              </Row>
-            )}
-          </Row>
+          <LiveStateBlock />
         </div>
         <Row>
           {persons.map((It, y) => (
-            <Col style={{ paddingRight: "10px", width: "213px" }}>
+            <Col className="statusblock-col">
               <div className="statistic-block block">
-                <Row className="progress-details d-flex align-items-end justify-content-between">
+                <Row>
                   {/* up and down arrow column */}
                   <Col>
                     {persons1[y] < It ? (

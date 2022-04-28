@@ -9,12 +9,14 @@ const url = {
   PARAM_CONFIG: 'param_config.php',
   UPDATE_CONFIG_DATA: 'testconfigedit.php',
   TABLE_VIEW: 'tableview.php',
-  SHUTDOWN_CLICK: 'shutdown.php', 
+  SHUTDOWN_CLICK: 'shutdown.php',
   TURBOID_VALUE: 'turboIdValue.php',
-  TABLE_STATUSDATA: 'statusValue.php',  
+  TABLE_STATUSDATA: 'statusValue.php',
   CONFIGURATION_DATA: 'Configuration.php',
-    // {/*ADD bugid-(GOARIG_7006) */}
+  // {/*ADD bugid-(GOARIG_7006) */}
   LOGOUT_EVENT: 'logout.php',
+  PRETEST_DATA: 'preTestingSensor.php',
+  PRETEST_CHECK: 'preTesting.php',
 }
 
 const FormDetails = {
@@ -40,7 +42,7 @@ const CompanyDetails = {
 }
 
 //status block 1st row default value index
-const targetKeysVal = ["5", "8", "10", "13", "17","12"]
+const targetKeysVal = ["5", "8", "10", "13", "17", "12"]
 
 const dashboardDataVal = [
   { "key": "0", "Name": "Ambient Pressure", "chosen": false },
@@ -74,8 +76,8 @@ const dashboardSensor = {
     "Fuel Flow", "Fuel Pressure", "Oil Pressure", "Oil Flow Rate",
     "Oil Brg Inlet Temperature", "Oil Tank Temperature"
   ],
-   // {/*ADD bugid-(GOARIG_7014) */}
-  sensorLabel_row2 : [
+  // {/*ADD bugid-(GOARIG_7014) */}
+  sensorLabel_row2: [
     "Compression Ratio",
     "Mass Flow",
     "Corrected RPM",
@@ -83,15 +85,15 @@ const dashboardSensor = {
     "Air Fuel Flow",
     "Oil Tank Temprature",
   ],
-  
+
   //filter for statusblockRow2 
   //in react the array automaticall sorting the indexes low to high value because of thet 
   //in the db query repeated the P27 value at the end
-   targetKeysVal_row2 :  [ 20, 21, 22, 23, 24, 25],
+  targetKeysVal_row2: [20, 21, 22, 23, 24, 25],
 
   dummyData: 0,
   chartMax: 5,
-   // {/*ADD bugid-(GOARIG_7015) */}
+  // {/*ADD bugid-(GOARIG_7015) */}
   n_shutdown: 'N.Shutdown',
   e_shutdown: 'E.Shutdown',
   live: 'LIVE',
@@ -107,9 +109,9 @@ const titleElements = [
 
 const testParamHash = {
   Initializedata: ['Communication', 'Initialize Started', 'Initialize Completed'],
-  Startdata: [ 'Start Completed', 'Ignite', 'Gas Opened', 'Stage 1','Fuel Opened', 'Stage 2', 'Gas Closed', 'Stage 3'],
+  Startdata: ['Start Initiated', 'Start Completed', 'Ignite', 'Gas Opened', 'Stage 1', 'Fuel Opened', 'Stage 2', 'Gas Closed', 'Stage 3'],
   nShutdowndata: ['N.Shutdown Initiated', 'N.Shutdown Completed'],
-   // {/*ADD bugid-(GOARIG_7015) */}
+  // {/*ADD bugid-(GOARIG_7015) */}
   eShutdowndata: ['E.Shutdown Initiated', 'E.Shutdown Completed'],
   Resetdata: ['Reset Values'],
   Tester_warning: 'Already exists',
@@ -118,7 +120,9 @@ const testParamHash = {
   warning_Id: "Please select the turbo ID",
   warning_mode: "Please select turbo mode",
   warning_name: "Please enter tester name",
-  alert_targetval: "Please enter target values",  
+  alert_targetval: "Please enter target values",
+  airValue_warning: "Please enter between 0.1 to 2",
+  fuelValue_warning: "Please enter between 0.1 to 0.5",
 }
 const helpPopup = {
   value: 'VALVE STATUS AT :',
@@ -134,7 +138,7 @@ const helpPopup = {
   AirInjectorSolenoidValve: 'Air Injector Solenoid Valve : ',
   PilotFlameAirSolenoidValve: ' Pilot Flame Air Solenoid Valve   : ',
   Acetelenegas: 'Acetelene gas : ',
-   // {/*ADD bugid-(GOARIG_7010) */}
+  // {/*ADD bugid-(GOARIG_7010) */}
   ErrorCode: 'ERROR CODE : ',
 }
 

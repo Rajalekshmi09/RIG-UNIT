@@ -8,10 +8,11 @@ function ListItems(props) {
     return (
       <div className="list" key={index}>
         <p>
-          <input type="text" id={item} value={item} />
+          <input type="text" id={item} style={{color:'lime'}} value={item} />
           <span>
             <DeleteOutlined
               className="faicons"
+              style={{color:'red'}}
               onClick={() => {
                 props.deleteItem(item);
               }}

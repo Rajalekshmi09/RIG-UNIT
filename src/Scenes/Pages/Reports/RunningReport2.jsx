@@ -249,61 +249,62 @@ class RunningReport extends Component {
     return (
       <div>
         <Layout className="layout-container">
-          <h2 className="h2">Running Report</h2>
+          <h2 className="component-heading">Running Report</h2>
           <Form onFinish={this.onFinish}>
-            <Row style={{ paddingTop: "10px" }}>
-              <Col sm={2}>
-                <label className="label">
-                  Turbo ID<i style={{ color: "red", fontSize: "15px" }}> *</i>
-                </label>
-              </Col>
-              <Col sm={10}>
-                <Col sm={10}>
-                  <Form.Item name="option">
-                    <Input.Group compact>
-                      <Input.Group compact>
-                        <Select
-                          defaultValue="Select Turbo ID"
-                          style={{ width: "300px" }}
-                          onChange={this.handleChangeTestID}
-                        >
-                          {testIdValue.map((it) => (
-                            <Option key={it.turboname} value={it.turboname}>
-                              {it.turboname}
-                            </Option>
-                          ))}
-                        </Select>
-                      </Input.Group>
-                    </Input.Group>
-                  </Form.Item>
-                </Col>
-              </Col>
-
-              <Col sm={2}>
-                <label className="label">
-                  Test No<i style={{ color: "red", fontSize: "15px" }}> *</i>
-                </label>
-                <span> &nbsp; &nbsp; &nbsp;</span>
-              </Col>
-              <Col sm={10}>
-                <Form.Item name="options">
+            <Row style={{ paddingTop: "10px", paddingLeft: "1%" }}>
+              <Form.Item
+                name="option"
+                label="Turbo ID"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                {" "}
+                <Input.Group compact>
                   <Input.Group compact>
                     <Select
-                      defaultValue="Select Test No"
+                      defaultValue="Select Turbo ID"
                       style={{ width: "300px" }}
-                      onChange={this.handleChangeTestNO}
+                      onChange={this.handleChangeTestID}
                     >
-                      testno ?
-                      {testno.map((it) => (
-                        <Option key={it.testno} value={it.testno}>
-                          {it.testno}
+                      {testIdValue.map((it) => (
+                        <Option key={it.turboname} value={it.turboname}>
+                          {it.turboname}
                         </Option>
-                      ))}{" "}
-                      : []
+                      ))}
                     </Select>
                   </Input.Group>
-                </Form.Item>
-              </Col>
+                </Input.Group>
+              </Form.Item>
+
+              <Form.Item
+                name="options"
+                label="Test No"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                style={{ marginLeft: "5%" }}
+              >
+                <Input.Group compact>
+                  <Select
+                    defaultValue="Select Test No"
+                    style={{ width: "300px" }}
+                    onChange={this.handleChangeTestNO}
+                  >
+                    testno ?
+                    {testno.map((it) => (
+                      <Option key={it.testno} value={it.testno}>
+                        {it.testno}
+                      </Option>
+                    ))}{" "}
+                    : []
+                  </Select>
+                </Input.Group>
+              </Form.Item>
             </Row>
 
             <Row
@@ -321,19 +322,13 @@ class RunningReport extends Component {
             </Row>
           </Form>
         </Layout>
-        <Row
-          style={{
-            marginLeft: "1050px",
-            marginBottom: "10px",
-            marginTop: "10px",
-          }}
-        >
-          <Col span={12}>
+        <Row justify="end" className="report-btn-block">
+          <Col>
             <Button onClick={this.getReportPDF} className="report-btn">
               Export to PDF
             </Button>
           </Col>
-          <Col span={12}>
+          <Col>
             <ReactHTMLTableToExcel
               id="test-table-xls-button"
               className="report-btn"

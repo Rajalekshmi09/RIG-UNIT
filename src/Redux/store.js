@@ -38,7 +38,7 @@ const InitialState = {
   showTarget: false,
   turboStart: [],
 
- 
+
 
 
   stageThree: false,
@@ -47,15 +47,22 @@ const InitialState = {
   targetTemp: '',
   resetTemp: '',
   resetRPM: '',
-  
+
   /*ADD bugid-(GOARIG_7019) */
   startDisable: false,
 
   /* ADD bugid-(GOARIG_7021) */
   testIdData: 0,
-  
+
   //grapgView
   delayValue: 1000,
-  cvStageValue:[],
+  cvStageValue: [],
+  resetButtonClick: 1,
+  preTestingSensor: [],
+  preTestKey: "Select Sensor",
+  preTestValue: 0,
+  preTestStatus: false,
+  airServoInput: 0,
+  keroseneInput: 0,
 }
 export default InitialState

@@ -1,67 +1,123 @@
 import React, { Component } from "react";
-import { Row, Layout, Progress, Col } from "antd";
+import { Row, Layout, Progress, Col, Input } from "antd";
 import { connect } from "react-redux";
 import { ImArrowUp, ImArrowDown } from "react-icons/im";
 import { fcvTransferEvent } from "../../../Services/requests";
 import { testParamHash } from "../../../Services/constants";
-
-const { Startdata, nShutdowndata, eShutdowndata } = testParamHash;
+import {
+  updateAirServoInput,
+  updateKeroseneInput,
+} from "../../../Redux/action";
+const {
+  Startdata,
+  nShutdowndata,
+  eShutdowndata,
+  airValue_warning,
+  fuelValue_warning,
+} = testParamHash;
 class CVStageComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      errormsg: "",
+    };
   }
 
   //FCV value increasing and decreasing
   fineCVIncreseClick = () => {
-    let fineCVIncreseVal =
-      parseFloat(this.props.app.chartData[0].S8) +
-      parseFloat(this.props.app.cvStageValue.AirServoValve);
-
+    if (
+      this.props.app.airServoInput === 0 ||
+      this.props.app.airServoInput === undefined ||
+      this.props.app.airServoInput < 0.01 ||
+      this.props.app.airServoInput > 2
+    ) {
+      this.setState({
+        errormsg: airValue_warning,
+      });
+      return;
+    }
     const body = {
       state: 1,
-      fcvValue: fineCVIncreseVal,
+      fcvValue: this.props.app.chartData[0].S8,
       testId: this.props.app.testIdData,
+      decimalNum: this.props.app.airServoInput,
+      operationType: 1,
     };
     fcvTransferEvent(body, (data) => {});
   };
 
   fineCVDecreseClick = () => {
-    let fineCVDecreseVal =
-      parseFloat(this.props.app.chartData[0].S8) -
-      parseFloat(this.props.app.cvStageValue.AirServoValve);
-
+    if (
+      this.props.app.airServoInput === 0 ||
+      this.props.app.airServoInput === undefined ||
+      this.props.app.airServoInput < 0.01 ||
+      this.props.app.airServoInput > 2
+    ) {
+      this.setState({
+        errormsg: airValue_warning,
+      });
+      return;
+    }
     const body = {
       state: 1,
-      fcvValue: fineCVDecreseVal,
+      fcvValue: this.props.app.chartData[0].S8,
       testId: this.props.app.testIdData,
+      decimalNum: this.props.app.airServoInput,
+      operationType: 2,
     };
     fcvTransferEvent(body, (data) => {});
   };
 
   fuelCVIncreseClick = () => {
-    let fuelCVIncreseVal =
-      parseFloat(this.props.app.chartData[0].S9) +
-      parseFloat(this.props.app.cvStageValue.KeroseneValve);
+    if (
+      this.props.app.keroseneInput === 0 ||
+      this.props.app.keroseneInput === undefined ||
+      this.props.app.keroseneInput < 0.01 ||
+      this.props.app.keroseneInput > 2
+    ) {
+      this.setState({
+        errormsg: fuelValue_warning,
+      });
+      return;
+    }
 
     const body = {
       state: 2,
-      fcvValue: fuelCVIncreseVal,
+      fcvValue: this.props.app.chartData[0].S9,
       testId: this.props.app.testIdData,
+      decimalNum: this.props.app.keroseneInput,
+      operationType: 1,
     };
     fcvTransferEvent(body, (data) => {});
   };
 
   fuelCVDecreseClick = () => {
-    let fuelCVDecreseVal =
-      parseFloat(this.props.app.chartData[0].S9) -
-      parseFloat(this.props.app.cvStageValue.KeroseneValve);
+    if (
+      this.props.app.keroseneInput === 0 ||
+      this.props.app.keroseneInput === undefined ||
+      this.props.app.keroseneInput < 0.01 ||
+      this.props.app.keroseneInput > 2
+    ) {
+      this.setState({
+        errormsg: fuelValue_warning,
+      });
+      return;
+    }
 
     const body = {
       state: 2,
-      fcvValue: fuelCVDecreseVal,
+      fcvValue: this.props.app.chartData[0].S9,
       testId: this.props.app.testIdData,
+      decimalNum: this.props.app.keroseneInput,
+      operationType: 2,
     };
     fcvTransferEvent(body, (data) => {});
+  };
+  onChangeAirservoValve = (event) => {
+    this.props.updateAirServoInput(event.target.value);
+  };
+  onChangeKeroseneValve = (event) => {
+    this.props.updateKeroseneInput(event.target.value);
   };
 
   render() {
@@ -82,17 +138,13 @@ class CVStageComponent extends Component {
 
     return (
       <div>
-        <Layout
-          style={{
-            backgroundColor: "transparent",
-          }}
-        >
+        <Layout className="cv-component">
           <Row>
             <Row className="progress_box">
               <div>
                 <Row gutter={8}>
                   <Col span={12}>
-                    <div style={{ marginTop: "17%" }}>
+                    <div style={{ marginTop: "3%" }}>
                       <Progress
                         strokeWidth={10}
                         strokeColor="#03fc28"
@@ -104,8 +156,10 @@ class CVStageComponent extends Component {
                     </div>
                   </Col>
 
-                  <Col span={6} style={{ marginTop: "17%" }}>
-                    {StartdataArray.find((it) => it.name === "Stage 3") &&
+                  <Col span={6} style={{ marginTop: "10%" }}>
+                    {StartdataArray.find(
+                      (it) => it.name === "Start Initiated"
+                    ) &&
                     nShutdowndataArray.length === 0 &&
                     eShutdowndataArray.length === 0 ? (
                       <div>
@@ -126,8 +180,10 @@ class CVStageComponent extends Component {
                     )}
                   </Col>
 
-                  <Col span={6} style={{ marginTop: "18%" }}>
-                    {StartdataArray.find((it) => it.name === "Stage 3") &&
+                  <Col span={6} style={{ marginTop: "10%" }}>
+                    {StartdataArray.find(
+                      (it) => it.name === "Start Initiated"
+                    ) &&
                     nShutdowndataArray.length === 0 &&
                     eShutdowndataArray.length === 0 ? (
                       <div>
@@ -151,11 +207,17 @@ class CVStageComponent extends Component {
                     )}
                   </Col>
                 </Row>
-
+                <Row style={{ marginLeft: "30px", marginTop: "5%" }}>
+                  <Input
+                    value={this.props.app.airServoInput}
+                    onChange={this.onChangeAirservoValve}
+                    style={{ width: "80px" }}
+                  ></Input>
+                </Row>
                 <Row>
                   <div
                     className="progress_title"
-                    style={{ marginLeft: "25px" }}
+                    style={{ marginLeft: "25px", marginTop: "2%" }}
                   >
                     <strong>Air Servo Valve</strong>
                   </div>
@@ -166,7 +228,7 @@ class CVStageComponent extends Component {
               <div>
                 <Row gutter={8}>
                   <Col span={12}>
-                    <div style={{ marginTop: "17%" }}>
+                    <div style={{ marginTop: "3%" }}>
                       <Progress
                         strokeWidth={10}
                         strokeColor="#03fc28"
@@ -177,8 +239,10 @@ class CVStageComponent extends Component {
                       />
                     </div>
                   </Col>
-                  <Col span={6} style={{ marginTop: "17%" }}>
-                    {StartdataArray.find((it) => it.name === "Stage 3") &&
+                  <Col span={6} style={{ marginTop: "10%" }}>
+                    {StartdataArray.find(
+                      (it) => it.name === "Start Initiated"
+                    ) &&
                     nShutdowndataArray.length === 0 &&
                     eShutdowndataArray.length === 0 ? (
                       <div>
@@ -199,8 +263,10 @@ class CVStageComponent extends Component {
                     )}
                   </Col>
 
-                  <Col span={6} style={{ marginTop: "18%" }}>
-                    {StartdataArray.find((it) => it.name === "Stage 3") &&
+                  <Col span={6} style={{ marginTop: "10%" }}>
+                    {StartdataArray.find(
+                      (it) => it.name === "Start Initiated"
+                    ) &&
                     nShutdowndataArray.length === 0 &&
                     eShutdowndataArray.length === 0 ? (
                       <div>
@@ -224,10 +290,17 @@ class CVStageComponent extends Component {
                     )}
                   </Col>
                 </Row>
+                <Row style={{ marginLeft: "30px", marginTop: "5%" }}>
+                  <Input
+                    value={this.props.app.keroseneInput}
+                    onChange={this.onChangeKeroseneValve}
+                    style={{ width: "80px" }}
+                  ></Input>
+                </Row>
                 <Row>
                   <div
                     className="progress_title"
-                    style={{ marginLeft: "20px" }}
+                    style={{ marginLeft: "20px", marginTop: "2%" }}
                   >
                     <strong>Kerosene Valve</strong>
                   </div>
@@ -244,7 +317,7 @@ const mapStateToProps = (state) => ({
   app: state.app,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { updateAirServoInput, updateKeroseneInput };
 
 const CVStage = connect(mapStateToProps, mapDispatchToProps)(CVStageComponent);
 export default CVStage;
