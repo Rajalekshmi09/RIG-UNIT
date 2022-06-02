@@ -1,32 +1,16 @@
+:root {
+  --first-color: #131633;
+  --second-color: #fff;
+  --third-color: #212840;
+  --font2-color: rgb(151, 150, 151);
+  --button-color: #42dbdc;
+}
 .site-layout-background {
   width: 100%;
   margin-left: 200;
 }
 .ant-progress-circle .ant-progress-text {
-  color: white;
-}
-
-/*
-* ================================
-*    report table
-* ================================
-*/
-/* //ADD AcceptanceReport bugid-(GOARIG_7003) */
-table#example1,
-#example2,
-#example3,
-#example4 {
-  margin-top: 25px;
-  height: 250px;
-  width: 100%;
-  font-size: 14px;
-}
-div#allreport {
-  color: white;
-}
-div#allreport h1 {
-  font-size: 32px;
-  color: white;
+  color: var(--second-color);
 }
 
 /*
@@ -44,11 +28,11 @@ div#allreport h1 {
   padding-left: 30px;
 }
 .trigger:hover {
-  color: #fff;
+  color: var(--second-color);
 }
 /* ---header--- */
 .ant-layout-header {
-  background-color: #131633;
+  background-color: var(--first-color);
   height: 75px;
 }
 .testlogo {
@@ -63,24 +47,24 @@ div#allreport h1 {
 .ant-layout-content {
   -ms-flex: auto;
   flex: auto;
-  background-color: #212840;
+  background-color: var(--third-color);
   min-height: 0;
   padding: 10px 25px 25px 25px;
 }
 /*  Navbar  */
 .logout-content {
-  color: rgb(151, 150, 151);
+  color: var(--font2-color);
   margin-top: -60px;
   float: right;
   margin-right: 40px;
   font-size: 20px;
 }
 .logout-content :hover {
-  color: #42dbdc !important;
+  color: var(--button-color) !important;
   cursor: pointer;
 }
 .welcome-message {
-  color: rgb(151, 150, 151);
+  color: var(--font2-color);
   margin-top: -60px;
   float: right;
   margin-right: 40px;
@@ -88,24 +72,24 @@ div#allreport h1 {
 }
 /* body */
 .site-layout {
-  background: #212840;
+  background: var(--third-color);
   height: 80px;
 }
-.h2 {
-  color: rgb(151, 150, 151);
-}
 .layout-container {
-  background-color: #131633;
+  background-color: var(--first-color);
   padding-top: 20px;
   padding-left: 20px;
 }
 .bottom-container {
-  background-color: #131633;
+  background-color: var(--first-color);
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
 }
-
+.component-heading {
+  color: var(--font2-color);
+  font-size: calc(7px + 0.8vw);
+}
 /*=======================================
               sider
  ========================================*/
@@ -127,7 +111,7 @@ div#allreport h1 {
   width: 80px !important;
 }
 .ant-layout-sider {
-  background: #131633;
+  background: var(--first-color);
 }
 .ant-layout-sider-children {
   height: 100%;
@@ -141,41 +125,41 @@ div#allreport h1 {
 .ant-menu-dark .ant-menu-sub,
 .ant-menu.ant-menu-dark .ant-menu-sub {
   color: rgba(255, 255, 255, 0.65);
-  background: #131633 !important;
+  background: var(--first-color) !important;
 }
 
 /* -- sidebar dropdown-- */
 .ant-menu-dark .ant-menu-inline.ant-menu-sub {
-  background: #131633;
+  background: var(--first-color);
 }
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: #188fff67;
   height: 40px;
 }
 .ant-menu-item-selected {
-  color: #fff !important;
+  color: var(--second-color) !important;
   border-right: 0;
 }
 .ant-menu-dark .ant-menu-item:hover,
 .ant-menu-dark .ant-menu-submenu-title:hover {
-  color: #42dbdc;
+  color: var(--button-color);
   background-color: #19244a;
   height: 40px;
 }
 
 .ant-menu-item a:hover {
-  color: #42dbdc !important;
+  color: var(--button-color) !important;
 }
-
+/* 
 .ant-menu-inline .ant-menu-submenu {
   padding-bottom: 7.02px;
-}
+} */
 
 /* ===================================
             grid element
  =================================== */
 .ant-card-head {
-  color: white;
+  color: var(--second-color);
 }
 .ant-card-head::after {
   color: "red";
@@ -185,11 +169,11 @@ div#allreport h1 {
   border: 1px solid gray;
   border-radius: 10px;
   height: 90px;
-  background-color: #131633;
+  background-color: var(--first-color);
 }
 /* -----------dropdown----------- */
 .ant-menu-submenu-arrow {
-  color: #fff;
+  color: var(--second-color);
 }
 .test-dropdown {
   color: rgba(255, 255, 255, 0.65);
@@ -198,8 +182,8 @@ div#allreport h1 {
 
 /* list */
 .list {
-  color: #fff;
-  background-color: #131633;
+  color: var(--second-color);
+  background-color: var(--first-color);
 }
 .list p {
   position: relative;
@@ -209,7 +193,7 @@ div#allreport h1 {
 .list p input {
   background-color: transparent;
   border: 0;
-  color: #fff;
+  color: var(--second-color);
   font-size: 18px;
 }
 .list p input:focus {
@@ -236,17 +220,17 @@ div#allreport h1 {
 */
 /* form input */
 .ant-form-item-label > label {
-  color: white;
+  color: var(--second-color);
 }
 .label {
-  color: rgb(151, 150, 151);
+  color: var(--font2-color);
   font-size: 17px;
 }
 .input {
   width: 100px;
   font-size: 1rem;
   border: 1px solid gray !important;
-  color: #fff;
+  color: var(--second-color);
   background-color: transparent !important;
 }
 .ant-input {
@@ -255,7 +239,7 @@ div#allreport h1 {
   font-size: 15px;
   background-color: transparent !important;
   border: 1px solid gray;
-  color: #fff;
+  color: var(--second-color);
 }
 .ant-input-affix-wrapper > input.ant-input {
   background-color: transparent !important;
@@ -266,7 +250,7 @@ div#allreport h1 {
 }
 .ant-select:focus,
 .ant-select-focused {
-  border-color: #42dbdc;
+  border-color: var(--button-color);
   border-right-width: 1px !important;
   outline: 0;
   -webkit-box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
@@ -282,7 +266,7 @@ div#allreport h1 {
   font-size: 15px;
   background-color: transparent !important;
   border: 1px solid gray;
-  color: #fff;
+  color: var(--second-color);
 }
 .ant-input-number-input-wrap {
   padding-top: 5px;
@@ -300,11 +284,11 @@ div#allreport h1 {
   border-radius: 2px;
 }
 .ant-picker-suffix {
-  color: rgb(151, 150, 151);
+  color: var(--font2-color);
   font-size: 18px;
 }
 .ant-picker-input > input {
-  color: rgb(151, 150, 151);
+  color: var(--font2-color);
   font-size: 18px;
 }
 /* ===================================
@@ -314,7 +298,7 @@ div#allreport h1 {
   > .ant-select:last-child
   > .ant-select-selector {
   background-color: transparent;
-  color: #fff;
+  color: var(--second-color);
   /* width:450px; */
   height: 40px;
   font-size: 1rem;
@@ -322,13 +306,13 @@ div#allreport h1 {
   padding-top: 4px;
 }
 .ant-select-arrow {
-  color: white;
+  color: var(--second-color);
 }
 /* -------tooltip------- */
 .ant-tooltip-inner {
   min-width: 50px;
   min-height: 20px;
-  color: #fff;
+  color: var(--second-color);
   word-wrap: break-word;
   background-color: #282b2f;
   border-radius: 8px;
@@ -339,7 +323,7 @@ div#allreport h1 {
 * ===================================*/
 
 .ant-btn {
-  background-color: #42dbdc;
+  background-color: var(--button-color);
   color: black;
   font-weight: bold !important;
   border: 2px solid #1e7272;
@@ -366,7 +350,7 @@ div#allreport h1 {
 }
 
 .report-btn {
-  background-color: #42dbdc;
+  background-color: var(--button-color);
   color: black;
   font-weight: bold !important;
   border: 2px solid #1e7272;
@@ -391,29 +375,42 @@ div#allreport h1 {
 /* ===================================
          testpage card + btn
 =================================== */
+.test-layout {
+  background-color: var(--first-color);
+  padding-left: 20px;
+  height: 768px;
+}
 .add-btn {
   width: 2em;
   height: 3em;
-  background-color: #42dbdc;
-  border: 2px solid #42dbdc;
+  background-color: var(--button-color);
+  border: 2px solid var(--button-color);
   border-radius: 5px;
 }
 .add-btn:hover {
   cursor: pointer;
   color: #255784;
-  background: #42dbdc;
-  border: 2px solid #42dbdc;
+  background: var(--button-color);
+  border: 2px solid var(--button-color);
   border-radius: 5px;
-  box-shadow: 0 0 10px #42dbdc, 0 0 10px #42dbdc, 0 0 0px #42dbdc;
+  box-shadow: 0 0 10px var(--button-color), 0 0 10px var(--button-color),
+    0 0 0px var(--button-color);
 }
 /* .add-btn[disabled] {
   cursor: not-allowed;
 } */
 .site-button-ghost-wrapper {
   padding: 8px 8px 0 8px;
-  background-color: #42dbdc;
+  background-color: var(--button-color);
 }
-
+.commands {
+  font-size: 18px;
+}
+@media only screen and (max-width: 1600px) {
+  .commands {
+    font-size: 15px;
+  }
+}
 /* icon-btn */
 .icon-button1 {
   margin-left: 40px;
@@ -424,10 +421,11 @@ div#allreport h1 {
 }
 .icon-button1:hover {
   color: #255784;
-  background: #42dbdc;
-  border: 2px solid #42dbdc;
+  background: var(--button-color);
+  border: 2px solid var(--button-color);
   border-radius: 5px;
-  box-shadow: 0 0 10px #42dbdc, 0 0 10px #42dbdc, 0 0 0px #42dbdc;
+  box-shadow: 0 0 10px var(--button-color), 0 0 10px var(--button-color),
+    0 0 0px var(--button-color);
 }
 .iconbutton1-basic {
   margin-left: 40px;
@@ -507,7 +505,8 @@ div#allreport h1 {
   padding: 5%;
   border: 1px;
   border-radius: 5px;
-  box-shadow: 0 0 10px #42dbdc, 0 0 10px #42dbdc, 0 0 0px #42dbdc;
+  box-shadow: 0 0 10px var(--button-color), 0 0 10px var(--button-color),
+    0 0 0px var(--button-color);
 }
 
 /* progress bar */
@@ -515,7 +514,7 @@ div#allreport h1 {
   color: rgb(72, 212, 72);
 }
 .arrow-btn:hover {
-  color: #42dbdc;
+  color: var(--button-color);
   padding: 4%;
   border: 1px;
   cursor: pointer;
@@ -527,17 +526,17 @@ div#allreport h1 {
   color: #5f6363;
 }
 .ant-progress-text {
-  color: white !important;
+  color: var(--second-color) !important;
 }
 .progress_box {
   border: 1px solid green;
   border-radius: 7px;
-  background: #131633;
+  background: var(--first-color);
   padding: 11px 7px 8px 7px;
 }
 .progress_title {
   font-size: 13px;
-  color: white;
+  color: var(--second-color);
   text-transform: uppercase;
 }
 /*
@@ -546,12 +545,12 @@ div#allreport h1 {
 * =============================
 */
 .ant-table-thead > tr > th {
-  color: rgb(151, 150, 151);
+  color: var(--font2-color);
   text-transform: capitalize;
   font-weight: 400;
   font-weight: bold !important;
   text-align: left;
-  background: #131633;
+  background: var(--first-color);
   border-bottom: 1px solid rgb(82, 79, 79);
   -webkit-transition: background 0.3s ease;
   transition: background 0.3s ease;
@@ -559,11 +558,11 @@ div#allreport h1 {
 
 .ant-table-tbody > tr.ant-table-row:hover > td {
   background: #39393a;
-  color: #fff;
+  color: var(--second-color);
 }
 .ant-table-tbody > tr > td {
   color: rgb(192, 196, 201);
-  background: #131633;
+  background: var(--first-color);
   border-bottom: none;
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
@@ -586,23 +585,50 @@ div#allreport h1 {
       --pagination--
  ===================================*/
 .ant-pagination-item-active a {
-  color: #fff;
-  background-color: #131633;
+  color: var(--second-color);
+  background-color: var(--first-color);
   /* border-color:rgb(146, 143, 143); */
 }
 .ant-pagination-item a {
-  color: #fff;
+  color: var(--second-color);
 }
 .ant-pagination-item-active {
   font-weight: 500;
-  background: #131633;
+  background: var(--first-color);
   border-color: rgb(146, 143, 143);
 }
 .ant-pagination-item-link {
-  color: #fff !important;
-  background-color: #131633 !important;
+  color: var(--second-color) !important;
+  background-color: var(--first-color) !important;
   border-color: rgb(146, 143, 143);
 }
+/*
+* ================================
+*    report table
+* ================================
+*/
+/* //ADD AcceptanceReport bugid-(GOARIG_7003) */
+table#example1,
+#example2,
+#example3,
+#example4 {
+  margin-top: 25px;
+  height: 120px;
+  width: 100%;
+  font-size: 14px;
+}
+div#allreport {
+  color: var(--second-color);
+}
+div#allreport h1 {
+  font-size: 32px;
+  color: var(--second-color);
+}
+.report-btn-block {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 /* ===================================
       --testpage Line--
 ===================================*/
@@ -624,23 +650,29 @@ div#allreport h1 {
 ===================================*/
 .ant-popover-inner-content p {
   margin-bottom: 8px !important;
-  color: white;
+  color: var(--second-color);
 }
 .ant-popover-title,
 .ant-popover-message-title {
-  color: white;
+  color: var(--second-color);
 }
 
 .ant-popover-inner {
   border: 60px;
-  background: #212840;
-  color: white;
-  border-color: white;
+  background: var(--third-color);
+  color: var(--second-color);
+  border-color: var(--second-color);
 }
 
 /* =================================== 
       --dashboard transfer--
  ===================================*/
+.transfer-layout {
+  background-color: var(--first-color);
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 .ant-transfer {
   border: none;
   padding-top: 20px;
@@ -648,13 +680,13 @@ div#allreport h1 {
 .ant-transfer-list-header {
   height: 40px;
   padding: 8px 12px 9px;
-  color: white;
+  color: var(--second-color);
   background: gray;
   border-bottom: 1px solid #f0f0f0;
   border-radius: 2px 2px 0 0;
 }
 .ant-transfer-list-content-item {
-  color: White;
+  color: var(--second-color);
 }
 .ant-transfer-list-content-item-checked {
   background-color: #1c7da9;
@@ -670,7 +702,7 @@ div#allreport h1 {
 }
 .ant-transfer-list-content {
   color: #6a6c70;
-  background-color: #212840;
+  background-color: var(--third-color);
   border: none;
 }
 .ant-transfer-operation {
@@ -728,14 +760,13 @@ div#allreport h1 {
   padding: 0 20px;
 }
 .form-holder {
-  max-width: 1200px;
+  max-width: 975px;
   margin: 0 auto;
   padding: 30px;
   border-radius: 5px;
 }
 .form-holder .info {
   height: 100%;
-  min-height: 70vh;
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -746,38 +777,41 @@ div#allreport h1 {
 
 .form-holder .info {
   background: rgba(219, 101, 116, 0.95);
-  color: #fff;
+  color: var(--second-color);
 }
 @media screen and (min-width: 601px) {
   .form-holder .info h1 {
-    font-size: 3.5em;
+    font-size: calc(12px + 1.8vw);
     font-weight: 500;
   }
-}
-@media screen and (min-width: 601px) {
   .form-holder .info p {
     font-weight: 300;
     font-size: 18px;
   }
 }
+@media screen and (max-width: 1400px) {
+  .form-holder .info h1 {
+    font-size: calc(14px + 1.8vw);
+    font-weight: 500;
+  }
+}
 .form-holder .content {
   height: 100%;
-  min-height: 70vh;
   padding: 40px;
   display: flex;
   flex-direction: column;
 }
 .form-holder .content {
-  background: #131633;
+  background: var(--first-color);
 }
 .form-holder .form a.forgot-pass,
 .form-holder .form a.signup,
 .form a.login {
   font-size: 0.9rem;
-  color: #42dbdc;
+  color: var(--button-color);
 }
 .forgot-pass {
-  color: #42dbdc;
+  color: var(--button-color);
 }
 
 .copyrights {
@@ -786,13 +820,13 @@ div#allreport h1 {
   position: absolute;
   bottom: 0;
   left: 0;
-  color: #fff;
+  color: var(--second-color);
 }
 .anticon-user,
 .anticon-mail,
 .anticon-lock,
 .anticon-eye-invisible {
-  color: #fff;
+  color: var(--second-color);
 }
 .ant-input-password-icon:hover {
   color: rgb(185, 173, 173);
@@ -817,22 +851,29 @@ div#allreport h1 {
 .ant-layout-footer {
   padding: 8px 50px;
   font-size: 18px;
-  background-color: #131633;
+  background-color: var(--first-color);
   height: "30px";
   width: "100%";
   font-family: "muli";
 }
 
-/* --Statistic Block-- */
+/* ===================================
+         --Statistic Block-- 
+ ===================================*/
+
+.statusblock-col {
+  padding-right: 10px;
+  width: 213px;
+}
 .statistic-block {
   height: 125px;
   padding-top: 20px;
   padding-bottom: 25px;
   padding-left: 10px;
   padding-right: 10px;
-  background: #131633;
+  background: var(--first-color);
   /* ADD bugid-(GOARIG_7013)   */
-  color: #fff;
+  color: var(--second-color);
 }
 .statistic-block .title {
   text-align: center;
@@ -846,7 +887,7 @@ div#allreport h1 {
   letter-spacing: 0.1em;
   font-size: 12px !important;
   /* ADD bugid-(GOARIG_7013)   */
-  color: #fff;
+  color: var(--second-color);
   margin-bottom: -5px !important;
 }
 .statistic-block .number {
@@ -862,7 +903,7 @@ div#allreport h1 {
   height: 2px;
   border-radius: 30px;
   overflow: hidden;
-  background: #42dbdc;
+  background: var(--button-color);
   margin-top: 5px;
 }
 .progress.progress-template.progress-small {
@@ -877,37 +918,46 @@ div#allreport h1 {
 }
 .site-card-wrapper {
   margin-top: 1.15%;
-  background-color: "#212840";
+  background-color: var(--third-color);
 }
-
+/* CV stage component */
+.cv-component {
+  background-color: transparent;
+}
 /* ----graph---- */
 .ant-card-body {
-  color: #fff;
+  color: var(--second-color);
   padding: 10px;
-  width: 400px;
+  /* width: 400px; */
+}
+.graph-card {
+  background-color: var(--first-color);
+  height: 310px;
+  border: none;
+  border-radius: 0px;
+  width: 600px;
 }
 
 /* ---alert error--- */
 .ant-alert-error {
-  background-color: #fff2f0;
+  background-color: var(--second-color);
   border: 1px solid #ffccc7;
 }
 
 /* graphpage comparison table */
 .content-table {
   border-collapse: collapse;
-  margin: 25px 0;
   font-size: 16px;
   width: 100%;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   color: rgb(192, 196, 201);
-  background-color: #131633;
+  background-color: var(--first-color);
 }
 
 .content-table thead tr {
-  background-color: #131633;
+  background-color: var(--first-color);
   text-align: left;
   font-weight: bold;
   border-bottom: 1px solid rgb(82, 79, 79);
@@ -927,7 +977,7 @@ div#allreport h1 {
 }
 
 .content-table tbody tr:last-of-type {
-  border-bottom: 2px solid#131633;
+  border-bottom: 2px solidvar(--first-color);
 }
 .content-tableres {
   display: block;
@@ -936,8 +986,76 @@ div#allreport h1 {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-/* ----graph---- */
-/* .ant-card-body {
-  color: #fff;
-  padding: 6px;
-} */
+/* export report */
+.export-layout {
+  background-color: var(--first-color);
+  padding-left: 20px;
+  width: auto;
+  padding-top: 10px;
+  border: solid var(--second-color);
+}
+/* pretest */
+.ant-switch {
+  background-color: red;
+  min-width: 52px;
+  height: 30px;
+}
+.ant-switch-checked {
+  background-color: lime;
+}
+.ant-switch-handle {
+  top: 6px;
+}
+/* ---Sensor Page--- */
+.sensor-component {
+  background-color: var(--first-color);
+  /* padding: 0% 2% 2% 2%; */
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.sensor-component h1 {
+  color: var(--second-color);
+  text-align: center;
+  padding: 2% 0% 2% 0%;
+  background-color: #424294;
+  border: #7474d6;
+  border-radius: 10px;
+  margin-top: 2%;
+}
+.sensor-component-row {
+  padding: 2%;
+  color: white;
+}
+.sensor-component-title {
+  color: #bcc8d3;
+  font-size: calc(5px + 0.5vw);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.sensor-component-val {
+  background-color: #255784;
+  border: 2px solid #91bcc4;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0px 0px 0px 3px #bcc8d3;
+  color: lime;
+  font-size: calc(7px + 0.5vw);
+  text-align: center;
+}
+.container-box {
+  padding-right: 5px;
+  border: 2px solid #91bcc4;
+  border-radius: 5px;
+  /* box-shadow: 0 0 5px #bcc8d3, 0 0 5px #bcc8d3, 0 0 0px #bcc8d3; */
+  background: var(--first-color);
+}
+@media only screen and (min-width: 200px) {
+}
+@media only screen and (max-width: 1600px) {
+  .statusblock-col {
+    margin-bottom: 12px;
+  }
+  .cv-component {
+    margin-top: 15px;
+  }
+}

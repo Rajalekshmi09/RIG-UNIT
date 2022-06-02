@@ -14,6 +14,7 @@ import {
   Typography,
   message,
   Menu,
+  Form,
 } from "antd";
 
 import {
@@ -42,6 +43,7 @@ import {
   stopDbInsert,
   updateNotifyAction,
   gettingTestIdData,
+  updateResetButtonClick,
 } from "../../../Redux/action";
 import {
   updateChartData,
@@ -64,7 +66,6 @@ import {
   turboConfigValue,
   helpPopup,
 } from "../../../Services/constants";
-import { logoutEvent } from "../../../Services/requests";
 var { Option } = Select;
 const { Text } = Typography;
 const { SubMenu } = Menu;
@@ -320,6 +321,7 @@ class TestPageContainer extends Component {
   communicationstatus() {
     /* ADD bugid-(GOARIG_7021)   */
     //type 0 -> initialize clicked
+    this.props.updateResetButtonClick(0);
     axios
       .post("http://localhost:5000/initialize.php", {
         testId: this.props.app.testIdData,
@@ -542,52 +544,47 @@ class TestPageContainer extends Component {
 
   //start event onClick
   startClick = () => {
-    if (this.props.app.communication === true) {
-      /*ADD bugid-(GOARIG_7025) */
-      if (
-        parseInt(this.props.app.targetTemp) >
-          parseInt(this.props.app.paramConfig[16].upperlimit) ||
-        parseInt(this.props.app.targetRPM) >
-          parseInt(this.props.app.paramConfig[15].upperlimit)
-      ) {
-        message.error("Temprature or RPM exceeded the limit");
-      } else {
-        if (
-          this.props.app.targetRPM !== "" &&
-          this.props.app.targetTemp !== ""
-        ) {
-          this.props.initiateShowTarget();
-          /*DEL bugid-(GOARIG_7019) */
-          // this.setState({
-          //   shutdownEnable: true,
-          // });
-          /*ADD bugid-(GOARIG_7019) */
-          this.props.startDisableEvent(true);
-          {
-            /*DEL bugid-(GOARIG_7005) */
-          }
-          // setInterval(() => {
-          //   this.requestChartData();
-          // }, this.props.app.delayValue);
-          //delay for receiving sensor data from plc
-          axios
-            .post("http://localhost:5000/start.php", {
-              //set target rpm & temp value to sent plc
-              testId: this.props.app.testIdData,
-              targetRPM: this.props.app.targetRPM,
-              targetTemp: this.props.app.targetTemp,
-              initialAirSv: this.props.app.cvStageValue.AirSVInitValve,
-              initialkerosene: this.props.app.cvStageValue.KeroseneSVInitValve,
-            })
-            .then((res) => {})
-            .catch((err) => {
-              console.log(err);
-            });
-        } else {
-          this.props.initiateTargetState();
-        }
-      }
-    }
+    /// if (this.props.app.communication === true) {
+    /*ADD bugid-(GOARIG_7025) */
+    // if (
+    //   parseInt(this.props.app.targetTemp) >
+    //     parseInt(this.props.app.paramConfig[16].upperlimit) ||
+    //   parseInt(this.props.app.targetRPM) >
+    //     parseInt(this.props.app.paramConfig[15].upperlimit)
+    // ) {
+    //   message.error("Temprature or RPM exceeded the limit");
+    // } else {
+    //  if (this.props.app.targetRPM !== "" && this.props.app.targetTemp !== "") {
+    this.props.initiateShowTarget();
+    /*DEL bugid-(GOARIG_7019) */
+    // this.setState({
+    //   shutdownEnable: true,
+    // });
+    /*ADD bugid-(GOARIG_7019) */
+    this.props.startDisableEvent(true);
+
+    // setInterval(() => {
+    //   this.requestChartData();
+    // }, this.props.app.delayValue);
+    //delay for receiving sensor data from plc
+    axios
+      .post("http://localhost:5000/start.php", {
+        //set target rpm & temp value to sent plc
+        testId: this.props.app.testIdData,
+        targetRPM: this.props.app.targetRPM,
+        targetTemp: this.props.app.targetTemp,
+        initialAirSv: this.props.app.cvStageValue.AirSVInitValve,
+        initialkerosene: this.props.app.cvStageValue.KeroseneSVInitValve,
+      })
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+    // } else {
+    //   this.props.initiateTargetState();
+    // }
+    // }
+    //}
   };
 
   //error msg onclick
@@ -599,13 +596,20 @@ class TestPageContainer extends Component {
 
   //reSet all action in the store and state
   reloadAllEvents = () => {
+    axios
+      .post("http://localhost:5000/reset.php", {})
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+
     /*ADD bugid-(GOARIG_7021) */
     this.props.gettingTestIdData(0);
     this.props.stopDbInsert();
     this.props.updateTestIdCount("");
     this.props.updateTestIdValue("");
     this.props.initiateTurboStart([]);
-
+    this.props.updateResetButtonClick(1);
     this.props.getResetTemp("");
     this.props.getResetRPM("");
 
@@ -659,7 +663,6 @@ class TestPageContainer extends Component {
     const resetRPM = this.props.app.resetRPM;
     let turboStart = this.props.app.turboStart;
 
-    console.log(this.props.app);
     /*DEL bugid-(GOARIG_7015) */
     // const { Initializedata, Startdata, Shutdowndata, Resetdata } =
     // testParamHash;
@@ -700,14 +703,8 @@ class TestPageContainer extends Component {
     }
 
     return (
-      <div style={{ paddingTop: "25px" }}>
-        <Layout
-          style={{
-            backgroundColor: "#131633",
-            paddingLeft: "20px",
-            minHeight: "768px",
-          }}
-        >
+      <div style={{ paddingTop: "15px" }}>
+        <Layout className="test-layout">
           <div>
             <Menu
               style={{
@@ -733,57 +730,42 @@ class TestPageContainer extends Component {
                     paddingLeft: "20px",
                   }}
                 >
-                  <Row style={{ paddingTop: "2%", paddingLeft: "20px" }}>
-                    <Col span={8}>
-                      <form>
-                        <Row>
-                          <Col span={5} style={{ marginTop: "20px" }}>
-                            <label htmlFor="text" className="label">
-                              Turbo ID
-                            </label>
-                          </Col>
-                          <Col span={6}>
-                            {communication ? (
-                              <Input.Group compact>
-                                <Select
-                                  disabled
-                                  defaultValue={this.state.turboIdDefaultValue}
-                                  style={{ width: "300px" }}
-                                ></Select>
-                              </Input.Group>
-                            ) : (
-                              <Input.Group compact>
-                                {testIdValue && testIdValue.length > 0 ? (
-                                  <Select
-                                    defaultValue={
-                                      this.state.turboIdDefaultValue
-                                    }
-                                    style={{ width: "300px" }}
-                                    onChange={this.handleChangetestID}
-                                    value={this.state.turboIdValue}
-                                  >
-                                    {this.props.app.statusData.map((it) => (
-                                      <Option
-                                        key={it.turboname}
-                                        value={it.turboname}
-                                      >
-                                        {it.turboname}
-                                      </Option>
-                                    ))}
-                                  </Select>
-                                ) : (
-                                  <Space
-                                    type="warning"
-                                    style={{ color: "red" }}
-                                  >
-                                    No active turbines
-                                  </Space>
-                                )}
-                              </Input.Group>
-                            )}
-                          </Col>
-                        </Row>
-                      </form>
+                  <Row
+                    gutter={[16, 8]}
+                    style={{ paddingTop: "2%", paddingLeft: "20px" }}
+                  >
+                    <Form.Item label="Turbo ID">
+                      {communication ? (
+                        <Input.Group compact>
+                          <Select
+                            disabled
+                            defaultValue={this.state.turboIdDefaultValue}
+                            style={{ width: "300px" }}
+                          ></Select>
+                        </Input.Group>
+                      ) : (
+                        <Input.Group compact>
+                          {testIdValue && testIdValue.length > 0 ? (
+                            <Select
+                              defaultValue={this.state.turboIdDefaultValue}
+                              style={{ width: "300px" }}
+                              onChange={this.handleChangetestID}
+                              value={this.state.turboIdValue}
+                            >
+                              {this.props.app.statusData.map((it) => (
+                                <Option key={it.turboname} value={it.turboname}>
+                                  {it.turboname}
+                                </Option>
+                              ))}
+                            </Select>
+                          ) : (
+                            <Space type="warning" style={{ color: "red" }}>
+                              No active turbines
+                            </Space>
+                          )}
+                        </Input.Group>
+                      )}
+
                       {this.props.app.statusData ? (
                         <Row style={{ paddingLeft: "5rem" }}>
                           {this.state.truboIDnum ? (
@@ -794,13 +776,18 @@ class TestPageContainer extends Component {
                                 marginTop: "10px",
                               }}
                             >
-                              {this.props.app.testIdValue}
+                              <span style={{ color: "lime" }}>
+                                {this.props.app.testIdValue}
+                              </span>
+
                               {this.props.app.testIdValue.length !== 0 ? (
                                 <MinusOutlined style={{ color: "#42dbdc" }} />
                               ) : (
                                 []
                               )}
-                              {this.props.app.turboIdTestCount}
+                              <span style={{ color: "lime" }}>
+                                {this.props.app.turboIdTestCount}
+                              </span>
                             </div>
                           ) : (
                             []
@@ -809,89 +796,82 @@ class TestPageContainer extends Component {
                       ) : (
                         []
                       )}
-                    </Col>
-                    <Col span={8}>
-                      <form onSubmit={(e) => this.addTesterItem(e, "tester")}>
-                        <Row>
-                          <Col span={4} style={{ marginTop: "20px" }}>
-                            <label htmlFor="text" className="label">
-                              Test Engg
-                            </label>
-                          </Col>
-                          <Col span={15}>
-                            {communication ? (
-                              <Input
-                                disabled
-                                placeholder="Test Engg"
-                                name="Test Engg"
-                                style={{ width: "300px" }}
-                              />
-                            ) : (
-                              <Input
-                                placeholder="Test Engg"
-                                name="Test Engg"
-                                style={{ width: "300px" }}
-                                value={this.state.currentTesterItem}
-                                onChange={this.handleTesterInput}
-                              />
-                            )}
-                          </Col>
-                          <Col>
-                            <button className="add-btn" type="submit">
-                              +
-                            </button>
-                          </Col>
-                        </Row>
-                      </form>
-                      <Row style={{ paddingLeft: "5rem" }}>
-                        <ListItems
-                          items={this.state.testerItems}
-                          deleteItem={this.deleteTesterItem}
-                        />
-                      </Row>
-                    </Col>
+                    </Form.Item>
 
-                    <Col span={8}>
-                      <form onSubmit={(e) => this.addWitnessItem(e, "witness")}>
+                    <form
+                      onSubmit={(e) => this.addTesterItem(e, "tester")}
+                      style={{
+                        marginLeft:
+                          this.props.app.statusData.length == 0 ? "5%" : "5%",
+                      }}
+                    >
+                      <Form.Item label="Tester">
+                        {communication ? (
+                          <Input
+                            disabled
+                            placeholder="Test Engg"
+                            name="Test Engg"
+                            style={{ width: "300px" }}
+                          />
+                        ) : (
+                          <Input
+                            placeholder="Test Engg"
+                            name="Test Engg"
+                            style={{ width: "300px" }}
+                            value={this.state.currentTesterItem}
+                            onChange={this.handleTesterInput}
+                          />
+                        )}
+                        <button className="add-btn" type="submit">
+                          +
+                        </button>
                         <Row>
-                          <Col span={4} style={{ marginTop: "20px" }}>
-                            <label htmlFor="text" className="label">
-                              Witness
-                            </label>
-                          </Col>
-                          <Col span={15}>
-                            {communication ? (
-                              <Input
-                                disabled
-                                placeholder="Witness"
-                                name="Witness"
-                                style={{ width: "300px" }}
-                              />
-                            ) : (
-                              <Input
-                                placeholder="Witness"
-                                name="Witness"
-                                style={{ width: "300px" }}
-                                value={this.state.currentWitnessItem}
-                                onChange={this.handleWitnessInput}
-                              />
-                            )}
-                          </Col>
-                          <Col>
-                            <button className="add-btn" type="submit">
-                              +
-                            </button>
-                          </Col>
+                          <ListItems
+                            items={this.state.testerItems}
+                            deleteItem={this.deleteTesterItem}
+                          />
                         </Row>
-                      </form>
-                      <Row style={{ paddingLeft: "5rem" }}>
-                        <ListItems
-                          items={this.state.witnessItems}
-                          deleteItem={this.deleteWitnessItem}
-                        />
-                      </Row>
-                    </Col>
+                      </Form.Item>
+                    </form>
+
+                    <form
+                      onSubmit={(e) => this.addWitnessItem(e, "witness")}
+                      style={{
+                        marginLeft:
+                          this.props.app.statusData.length == 0 ? "20%" : "5%",
+                      }}
+                    >
+                      <Form.Item label="Witness">
+                        {communication ? (
+                          <Input
+                            disabled
+                            placeholder="Witness"
+                            name="Witness"
+                            style={{ width: "300px" }}
+                          />
+                        ) : (
+                          <Input
+                            placeholder="Witness"
+                            name="Witness"
+                            style={{ width: "300px" }}
+                            value={this.state.currentWitnessItem}
+                            onChange={this.handleWitnessInput}
+                          />
+                        )}
+                        <button className="add-btn" type="submit">
+                          +
+                        </button>
+
+                        <Row>
+                          <ListItems
+                            items={this.state.witnessItems}
+                            deleteItem={this.deleteWitnessItem}
+                          />
+                        </Row>
+                      </Form.Item>
+                    </form>
                   </Row>
+
                   <Row>
                     {this.state.errormsg ? (
                       <Alert
@@ -918,182 +898,57 @@ class TestPageContainer extends Component {
             </Menu>
           </div>
 
-          <Row style={{ backgroundColor: "#131633", paddingRight: "20px" }}>
-            <Divider
-              style={{ borderColor: "#42dad6", backgroundColor: "#131633" }}
-            />
+          <Row style={{ paddingRight: "20px" }}>
+            <Divider style={{ borderColor: "#42dad6" }} />
 
-            <Col span={3}>
+            <Col span={6}>
               <Card
                 style={{ width: 185, cursor: "pointer", borderColor: "green" }}
               >
-                {/* MOD bugid-(GOARIG_7016)  */}
-                {communication === true || communicationFailed === true ? (
-                  <DownloadOutlined className="iconbutton1-basic" />
-                ) : (
-                  <DownloadOutlined
-                    className="icon-button1"
-                    onClick={() => this.initializeClick()}
-                  />
-                )}
+                <div style={{ width: "300px" }}>
+                  {/* MOD bugid-(GOARIG_7016)  */}
+                  {communication === true || communicationFailed === true ? (
+                    <DownloadOutlined className="iconbutton1-basic" />
+                  ) : (
+                    <DownloadOutlined
+                      className="icon-button1"
+                      onClick={() => this.initializeClick()}
+                    />
+                  )}
 
-                <p
-                  style={{
-                    color: "#42dad6",
-                    fontSize: "20px",
-                    paddingLeft: "20px",
-                  }}
-                >
-                  Initialize
-                </p>
-                {communicationFailed ? (
-                  <p>
-                    {this.state.failedField === true ? (
-                      <Row>
-                        <CloseOutlined
-                          style={{ color: "red", marginTop: "1%" }}
-                        />
-
-                        <p>
-                          {this.state.currentDateTime}- Communication failed
-                        </p>
-                      </Row>
-                    ) : (
-                      []
-                    )}
-                  </p>
-                ) : (
-                  []
-                )}
-                {communication ? (
-                  <p>
-                    {InitializedataArray.map((item) => {
-                      return (
-                        <div>
-                          <CheckOutlined
-                            style={{ color: "green", marginTop: "1%" }}
-                          />
-                          {item.testcommandsTime} - {item.name}
-                        </div>
-                      );
-                    })}
-                  </p>
-                ) : (
-                  []
-                )}
-              </Card>
-            </Col>
-
-            <Col
-              span={2}
-              style={{
-                marginTop: "30px",
-                paddingRight: "10px",
-                paddingLeft: "20px",
-              }}
-            >
-              <hr></hr>
-            </Col>
-
-            <Col span={3}>
-              <Card
-                style={
-                  InitializedCompletedStatus.length >= 1 && communication
-                    ? { width: 185, cursor: "pointer", borderColor: "green" }
-                    : { width: 185, borderColor: "gray" }
-                }
-              >
-                {InitializedCompletedStatus.length >= 1 &&
-                communication &&
-                this.props.app.startDisable === false ? (
-                  <PlaySquareOutlined
-                    className="icon-button1"
-                    onClick={() => this.startClick()}
-                  />
-                ) : (
-                  <PlaySquareOutlined className="iconbutton1-basic" />
-                )}
-                {InitializedCompletedStatus.length >= 1 && communication ? (
                   <p
                     style={{
                       color: "#42dad6",
                       fontSize: "20px",
-                      paddingLeft: "35px",
+                      paddingLeft: "20px",
                     }}
                   >
-                    {" "}
-                    Start
+                    Initialize
                   </p>
-                ) : (
-                  <p
-                    style={{
-                      color: "gray",
-                      fontSize: "20px",
-                      paddingLeft: "35px",
-                    }}
-                  >
-                    {" "}
-                    Start
-                  </p>
-                )}
+                  {communicationFailed ? (
+                    <p>
+                      {this.state.failedField === true ? (
+                        <Row>
+                          <CloseOutlined
+                            style={{ color: "red", marginTop: "1%" }}
+                          />
 
-                {InitializedCompletedStatus.length >= 1 && communication ? (
-                  <p>
-                    <Row>
-                      <Col>
-                        <p>Target Temp,</p>
-                      </Col>
-                      <Col>
-                        <p> &nbsp; RPM</p>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Input
-                        placeholder=""
-                        value={targetTemp}
-                        onChange={this.onChangetempvalue}
-                        name="Target_temp"
-                        style={{ width: "75px" }}
-                      />
-                      <Input
-                        placeholder=""
-                        value={targetRPM}
-                        onChange={this.onChangeRPMvalue}
-                        name="Targrt_RPM"
-                        style={{ width: "75px" }}
-                      />
-                    </Row>
-                  </p>
-                ) : (
-                  []
-                )}
-                {targetState ? (
-                  <Alert
-                    className="alert_error"
-                    message={alert_targetval}
-                    closable
-                    onClose={this.alertOnClose}
-                    style={{ width: "60%" }}
-                    type="error"
-                  />
-                ) : (
-                  ""
-                )}
-
-                {showTarget ? (
-                  <div>
-                    Target Temp : {targetTemp}, &nbsp; RPM : {targetRPM}
-                  </div>
-                ) : (
-                  []
-                )}
-
-                {showTarget ? (
-                  <p style={{ height: "15px", width: "180px" }}>
-                    <Row>
-                      {StartdataArray.map((item) => {
+                          <p className="commands">
+                            {this.state.currentDateTime}- Communication failed
+                          </p>
+                        </Row>
+                      ) : (
+                        []
+                      )}
+                    </p>
+                  ) : (
+                    []
+                  )}
+                  {communication ? (
+                    <p>
+                      {InitializedataArray.map((item) => {
                         return (
-                          <div>
+                          <div className="commands">
                             <CheckOutlined
                               style={{ color: "green", marginTop: "1%" }}
                             />
@@ -1101,26 +956,131 @@ class TestPageContainer extends Component {
                           </div>
                         );
                       })}
-                    </Row>
-                  </p>
-                ) : (
-                  []
-                )}
+                    </p>
+                  ) : (
+                    []
+                  )}
+                </div>
               </Card>
             </Col>
 
-            <Col
-              span={2}
-              style={{
-                marginTop: "40px",
-                paddingRight: "10px",
-                paddingLeft: "20px",
-              }}
-            >
-              <hr></hr>
+            <Col span={7}>
+              <Card
+                style={
+                  InitializedCompletedStatus.length >= 1 && communication
+                    ? { width: 185, cursor: "pointer", borderColor: "green" }
+                    : { width: 185, borderColor: "gray" }
+                }
+              >
+                <div style={{ width: "300px" }}>
+                  {InitializedCompletedStatus.length >= 1 &&
+                  communication &&
+                  this.props.app.startDisable === false ? (
+                    <PlaySquareOutlined
+                      className="icon-button1"
+                      onClick={() => this.startClick()}
+                    />
+                  ) : (
+                    <PlaySquareOutlined className="iconbutton1-basic" />
+                  )}
+                  {InitializedCompletedStatus.length >= 1 && communication ? (
+                    <p
+                      style={{
+                        color: "#42dad6",
+                        fontSize: "20px",
+                        paddingLeft: "35px",
+                      }}
+                    >
+                      {" "}
+                      Start
+                    </p>
+                  ) : (
+                    <p
+                      style={{
+                        color: "gray",
+                        fontSize: "20px",
+                        paddingLeft: "35px",
+                      }}
+                    >
+                      {" "}
+                      Start
+                    </p>
+                  )}
+
+                  {/* {InitializedCompletedStatus.length >= 1 && communication ? (
+                    <p>
+                      <Row>
+                        <Col>
+                          <p>Target Temp,</p>
+                        </Col>
+                        <Col>
+                          <p> &nbsp; RPM</p>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Input
+                          placeholder=""
+                          value={targetTemp}
+                          onChange={this.onChangetempvalue}
+                          name="Target_temp"
+                          style={{ width: "75px" }}
+                        />
+                        <Input
+                          placeholder=""
+                          value={targetRPM}
+                          onChange={this.onChangeRPMvalue}
+                          name="Targrt_RPM"
+                          style={{ width: "75px" }}
+                        />
+                      </Row>
+                    </p>
+                  ) : (
+                    []
+                  )} */}
+                  {/* {targetState ? (
+                    <Alert
+                      className="alert_error"
+                      message={alert_targetval}
+                      closable
+                      onClose={this.alertOnClose}
+                      style={{ width: "60%" }}
+                      type="error"
+                    />
+                  ) : (
+                    ""
+                  )} */}
+
+                  {/* {showTarget ? (
+                    <div>
+                      Target Temp : {targetTemp}, &nbsp; RPM : {targetRPM}
+                    </div>
+                  ) : (
+                    []
+                  )} */}
+
+                  {showTarget ? (
+                    <p>
+                      <Row>
+                        {StartdataArray.map((item) => {
+                          return (
+                            <div className="commands">
+                              <CheckOutlined
+                                style={{ color: "green", marginTop: "1%" }}
+                              />
+                              {item.testcommandsTime} - {item.name}
+                            </div>
+                          );
+                        })}
+                      </Row>
+                    </p>
+                  ) : (
+                    []
+                  )}
+                </div>
+              </Card>
             </Col>
 
-            <Col span={3}>
+            {/* <Col span={5}>
               <Card
                 style={
                   StartdataArray.find((it) => it.name === "Stage 3") &&
@@ -1129,157 +1089,152 @@ class TestPageContainer extends Component {
                     : { width: 185, borderColor: "gray" }
                 }
               >
-                {StartdataArray.find((it) => it.name === "Stage 3") &&
-                communication ? (
-                  <SyncOutlined
-                    style={{ color: "green" }}
-                    className="iconbutton1-basic"
-                  />
-                ) : (
-                  <SyncOutlined className="iconbutton1-basic" />
-                )}
+                <div style={{ width: "300px" }}>
+                  {StartdataArray.find((it) => it.name === "Stage 3") &&
+                  communication ? (
+                    <SyncOutlined
+                      style={{ color: "green" }}
+                      className="iconbutton1-basic"
+                    />
+                  ) : (
+                    <SyncOutlined className="iconbutton1-basic" />
+                  )}
 
-                {StartdataArray.find((it) => it.name === "Stage 3") &&
-                communication ? (
-                  <p
-                    style={{
-                      color: "#42dad6",
-                      fontSize: "19px",
-                      paddingLeft: "10px",
-                    }}
-                  >
-                    Reset Temp
-                  </p>
-                ) : (
-                  <p
-                    style={{
-                      color: "gray",
-                      fontSize: "19px",
-                      paddingLeft: "10px",
-                    }}
-                  >
-                    Reset Temp
-                  </p>
-                )}
+                  {StartdataArray.find((it) => it.name === "Stage 3") &&
+                  communication ? (
+                    <p
+                      style={{
+                        color: "#42dad6",
+                        fontSize: "19px",
+                        paddingLeft: "10px",
+                      }}
+                    >
+                      Reset Temp
+                    </p>
+                  ) : (
+                    <p
+                      style={{
+                        color: "gray",
+                        fontSize: "19px",
+                        paddingLeft: "10px",
+                      }}
+                    >
+                      Reset Temp
+                    </p>
+                  )}
 
-                {communication ? (
-                  <p>
-                    {StartdataArray.find((it) => it.name === "Stage 3") ? (
-                      <p>
-                        <Row>
-                          <p>Reset Temp,</p>
-                          <p> &nbsp; RPM</p>
-                        </Row>
-                        <Row>
-                          <Col>
-                            {" "}
-                            <Input
-                              value={resetTemp}
-                              onChange={this.onChangeResettempvalue}
-                              name="ResetTemp"
-                              style={{ width: "60px" }}
-                            />
-                          </Col>
-                          <Col>
-                            <Input
-                              value={resetRPM}
-                              onChange={this.onChangeResetRPMvalue}
-                              name="ResetRPM"
-                              style={{ width: "60px" }}
-                            />
-                          </Col>
+                  {communication ? (
+                    <p>
+                      {StartdataArray.find((it) => it.name === "Stage 3") ? (
+                        <p>
+                          <Row>
+                            <p>Reset Temp,</p>
+                            <p> &nbsp; RPM</p>
+                          </Row>
+                          <Row>
+                            <Col>
+                              {" "}
+                              <Input
+                                value={resetTemp}
+                                onChange={this.onChangeResettempvalue}
+                                name="ResetTemp"
+                                style={{ width: "60px" }}
+                              />
+                            </Col>
+                            <Col>
+                              <Input
+                                value={resetRPM}
+                                onChange={this.onChangeResetRPMvalue}
+                                name="ResetRPM"
+                                style={{ width: "60px" }}
+                              />
+                            </Col>
 
-                          <Col>
-                            <button
-                              className="add-btn"
-                              onClick={() => this.resetOnClick()}
-                            >
-                              +
-                            </button>
-                          </Col>
-                        </Row>
-                      </p>
-                    ) : (
-                      []
-                    )}
+                            <Col>
+                              <button
+                                className="add-btn"
+                                onClick={() => this.resetOnClick()}
+                              >
+                                +
+                              </button>
+                            </Col>
+                          </Row>
+                        </p>
+                      ) : (
+                        []
+                      )}
 
-                    <div>
-                      {ResetdataArray.map((item) => {
-                        return (
-                          <div>
-                            <CheckOutlined
-                              style={{ color: "green", marginTop: "1%" }}
-                            />
-                            {item.testcommandsTime} - {item.name} - {item.value}
-                            {(() => {
-                              if (item.name === "stage 3" && count === 1) {
-                                this.props.initiateStageThree();
-                                count++;
-                              }
-                            })()}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </p>
-                ) : (
-                  []
-                )}
+                      <div>
+                        {ResetdataArray.map((item) => {
+                          return (
+                            <div>
+                              <CheckOutlined
+                                style={{ color: "green", marginTop: "1%" }}
+                              />
+                              {item.testcommandsTime} - {item.name} -{" "}
+                              {item.value}
+                              {(() => {
+                                if (item.name === "stage 3" && count === 1) {
+                                  this.props.initiateStageThree();
+                                  count++;
+                                }
+                              })()}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </p>
+                  ) : (
+                    []
+                  )}
+                </div>
               </Card>
-            </Col>
+            </Col> */}
 
-            <Col
-              span={2}
-              style={{
-                marginTop: "40px",
-                paddingRight: "10px",
-                paddingLeft: "20px",
-              }}
-            >
-              <hr></hr>
-            </Col>
-
-            <Col span={4}>
+            <Col span={6}>
               <Card
                 style={
                   /*ADD bugid-(GOARIG_7018) */
-                  showTarget || communication
+                  showTarget
                     ? { width: 185, borderColor: "red", cursor: "pointer" }
                     : { width: 185, borderColor: "gray" }
                 }
               >
-                <div>
-                  {/*ADD bugid-(GOARIG_7018) */}
-                  {showTarget || communication ? (
-                    <PoweroffOutlined
-                      className="icon-button3"
-                      onClick={() => this.shutdownClick()}
-                    />
+                {" "}
+                <div style={{ width: "300px" }}>
+                  <div>
+                    {/*ADD bugid-(GOARIG_7018) */}
+                    {showTarget ? (
+                      <PoweroffOutlined
+                        className="icon-button3"
+                        onClick={() => this.shutdownClick()}
+                      />
+                    ) : (
+                      <PoweroffOutlined className="iconbutton3-basic" />
+                    )}
+                  </div>
+                  {showTarget ? (
+                    <p
+                      style={{
+                        color: "#42dad6",
+                        fontSize: "20px",
+                        paddingLeft: "15px",
+                      }}
+                    >
+                      Shutdown
+                    </p>
                   ) : (
-                    <PoweroffOutlined className="iconbutton3-basic" />
+                    <p
+                      style={{
+                        color: "gray",
+                        fontSize: "20px",
+                        paddingLeft: "15px",
+                      }}
+                    >
+                      Shutdown
+                    </p>
                   )}
                 </div>
-                {showTarget || communication ? (
-                  <p
-                    style={{
-                      color: "#42dad6",
-                      fontSize: "20px",
-                      paddingLeft: "15px",
-                    }}
-                  >
-                    Shutdown
-                  </p>
-                ) : (
-                  <p
-                    style={{
-                      color: "gray",
-                      fontSize: "20px",
-                      paddingLeft: "15px",
-                    }}
-                  >
-                    Shutdown
-                  </p>
-                )}
               </Card>
 
               {shutdownInitiated ? (
@@ -1287,7 +1242,7 @@ class TestPageContainer extends Component {
                   <Row>
                     {nShutdowndataArray.map((item) => {
                       return (
-                        <div>
+                        <div className="commands">
                           <CheckOutlined
                             style={{ color: "green", marginTop: "3%" }}
                           />
@@ -1307,7 +1262,7 @@ class TestPageContainer extends Component {
                   <Row>
                     {eShutdowndataArray.map((item) => {
                       return (
-                        <div>
+                        <div className="commands">
                           <CheckOutlined
                             style={{ color: "green", marginTop: "3%" }}
                           />
@@ -1322,28 +1277,22 @@ class TestPageContainer extends Component {
               )}
             </Col>
 
-            <Col span={3} style={{ height: "30" }}>
+            <Col span={4} style={{ height: "30" }}>
               <Card
                 style={
                   //  ADD bugid-(GOARIG_7020)
-                  (nShutdowndataArray.length >= 1 &&
-                    eShutdowndataArray.length >= 1) ||
-                  nShutdowndataArray.length >= 2 ||
-                  /*ADD bugid-(GOARIG_7015) */
-                  eShutdowndataArray.length >= 2 ||
-                  (showTarget === false && communication === false)
+                  nShutdowndataArray.length >= 1 ||
+                  eShutdowndataArray.length >= 1 ||
+                  showTarget === false
                     ? { width: 100, cursor: "pointer", borderColor: "green" }
                     : { width: 100, borderColor: "gray" }
                 }
               >
                 <div>
                   {/* ADD bugid-(GOARIG_7020) */}
-                  {(nShutdowndataArray.length >= 1 &&
-                    eShutdowndataArray.length >= 1) ||
-                  nShutdowndataArray.length >= 2 ||
-                  /*DEL bugid-(GOARIG_7015) */
-                  eShutdowndataArray.length >= 2 ||
-                  (showTarget === false && communication === false) ? (
+                  {nShutdowndataArray.length >= 1 ||
+                  eShutdowndataArray.length >= 1 ||
+                  showTarget === false ? (
                     <RedoOutlined
                       className="icon-button2"
                       onClick={() => this.reloadAllEvents()}
@@ -1355,12 +1304,9 @@ class TestPageContainer extends Component {
 
                 {/* ADD bugid-(GOARIG_7020) */}
 
-                {(nShutdowndataArray.length >= 1 &&
-                  eShutdowndataArray.length >= 1) ||
-                nShutdowndataArray.length >= 2 ||
-                //  {/* ADD bugid-(GOARIG_7015) */}
-                eShutdowndataArray.length >= 2 ||
-                (showTarget === false && communication === false) ||
+                {nShutdowndataArray.length >= 1 ||
+                eShutdowndataArray.length >= 1 ||
+                showTarget === false ||
                 communicationFailed === true ? (
                   <p style={{ color: "#42dad6", fontSize: "20px" }}>Reset</p>
                 ) : (
@@ -1369,7 +1315,7 @@ class TestPageContainer extends Component {
               </Card>
             </Col>
 
-            <Col span={2}>
+            {/* <Col span={2}>
               <Popover
                 title={
                   <div>
@@ -1417,7 +1363,7 @@ class TestPageContainer extends Component {
                       {Acetelenegas} {this.state.Acetelenegas}
                     </p>
                     {/* ADD -  GOARIG_7010 */}
-                    <p>
+            {/* <p>
                       {ErrorCode} {this.state.ErrorCode}
                     </p>
                   </div>
@@ -1451,7 +1397,7 @@ class TestPageContainer extends Component {
                   )}
                 </Card>
               </Popover>
-            </Col>
+            </Col> */}
           </Row>
         </Layout>
       </div>
@@ -1483,6 +1429,7 @@ const mapDispatchToProps = {
   updateNotifyAction,
   startDisableEvent,
   gettingTestIdData,
+  updateResetButtonClick,
 };
 
 const TestContainer = connect(

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import LiveStateBlock from "../TestPageComponent/LiveStateBlock";
 
 class ComparisonTable extends Component {
   constructor(props) {
@@ -133,9 +134,11 @@ class ComparisonTable extends Component {
     // const liveTotalMassFlow = compareLiveVal.C2;
     // const liveCompressorPrRatio = compareLiveVal.C13;
     // const liveCompressorMassFlowRate = compareLiveVal.C18;
-    console.log(comparedVal);
+
     return (
-      <div style={{ paddingTop: "25px" }}>
+      <div>
+        <LiveStateBlock />
+
         <table class="content-table">
           <thead>
             <tr>

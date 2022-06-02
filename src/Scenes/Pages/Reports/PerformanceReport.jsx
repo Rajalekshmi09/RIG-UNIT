@@ -28,8 +28,11 @@ const {
   trubineInletTemp,
   ComprInletPr,
   ComprOutletPr,
-  PrRatio,
-  AirMassFlow,
+  PrRatio1,
+  AirMassFlow1,
+  PrRatio2,
+  AirMassFlow2,
+  Efficiency,
 } = performance;
 
 const { turboID_alert, testNo_alert, testno_check } = reportAlert;
@@ -214,9 +217,10 @@ class PerformanceReport extends Component {
               performance_reportOut1: res.data[0],
               performance_reportOut2: res.data[1],
             });
-          } else {
-            message.warning(testno_check);
           }
+          // else {
+          //   message.warning(testno_check);
+          // }
         })
         .catch((err) => {
           console.log(err.res);
@@ -320,62 +324,61 @@ class PerformanceReport extends Component {
     return (
       <div>
         <Layout className="layout-container">
-          <h2 className="h2">Performance Report</h2>
+          <h2 className="component-heading">Performance Report</h2>
           <Form onFinish={this.onFinish}>
-            <Row style={{ paddingTop: "10px" }}>
-              <Col sm={2}>
-                <label className="label">
-                  Turbo ID<i style={{ color: "red", fontSize: "15px" }}> *</i>
-                </label>
-                <span> &nbsp; &nbsp; &nbsp;</span>
-              </Col>
-              <Col sm={10}>
-                <Col sm={10}>
-                  <Form.Item name="option">
-                    <Input.Group compact>
-                      <Input.Group compact>
-                        <Select
-                          defaultValue="Select Turbo ID"
-                          style={{ width: "300px" }}
-                          onChange={this.handleChangeTestID}
-                        >
-                          {testIdValue.map((it) => (
-                            <Option key={it.turboname} value={it.turboname}>
-                              {it.turboname}
-                            </Option>
-                          ))}
-                        </Select>
-                      </Input.Group>
-                    </Input.Group>
-                  </Form.Item>
-                </Col>
-              </Col>
-
-              <Col sm={2}>
-                <label className="label">
-                  Test No<i style={{ color: "red", fontSize: "15px" }}> *</i>
-                </label>
-                <span> &nbsp; &nbsp; &nbsp;</span>
-              </Col>
-              <Col sm={10}>
-                <Form.Item name="options">
+            <Row style={{ paddingTop: "10px", paddingLeft: "1%" }}>
+              <Form.Item
+                name="option"
+                label="Turbo ID"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <Input.Group compact>
                   <Input.Group compact>
                     <Select
-                      defaultValue="Select Test No"
+                      defaultValue="Select Turbo ID"
                       style={{ width: "300px" }}
-                      onChange={this.handleChangeTestNO}
+                      onChange={this.handleChangeTestID}
                     >
-                      testno ?
-                      {testno.map((it) => (
-                        <Option key={it.testno} value={it.testno}>
-                          {it.testno}
+                      {testIdValue.map((it) => (
+                        <Option key={it.turboname} value={it.turboname}>
+                          {it.turboname}
                         </Option>
-                      ))}{" "}
-                      : []
+                      ))}
                     </Select>
                   </Input.Group>
-                </Form.Item>
-              </Col>
+                </Input.Group>
+              </Form.Item>
+
+              <Form.Item
+                name="options"
+                label="Test No"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                style={{ marginLeft: "5%" }}
+              >
+                <Input.Group compact>
+                  <Select
+                    defaultValue="Select Test No"
+                    style={{ width: "300px" }}
+                    onChange={this.handleChangeTestNO}
+                  >
+                    testno ?
+                    {testno.map((it) => (
+                      <Option key={it.testno} value={it.testno}>
+                        {it.testno}
+                      </Option>
+                    ))}{" "}
+                    : []
+                  </Select>
+                </Input.Group>
+              </Form.Item>
             </Row>
 
             <Row
@@ -393,24 +396,13 @@ class PerformanceReport extends Component {
             </Row>
           </Form>
         </Layout>
-        <Row
-          style={{
-            marginLeft: "1050px",
-            marginBottom: "10px",
-            marginTop: "10px",
-          }}
-        >
-          <Col span={12}>
-            <Button
-              onClick={this.getReportPDF}
-              style={{
-                width: "158px",
-              }}
-            >
+        <Row justify="end" className="report-btn-block">
+          <Col>
+            <Button onClick={this.getReportPDF} className="report-btn">
               Export to PDF
             </Button>
           </Col>
-          <Col span={12}>
+          <Col style={{ marginLeft: "4px" }}>
             <ReactHTMLTableToExcel
               id="test-table-xls-button"
               className="report-btn"
@@ -786,7 +778,7 @@ class PerformanceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {PrRatio}
+                          {PrRatio1}
                         </td>
                         <td
                           style={{
@@ -795,7 +787,7 @@ class PerformanceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {AirMassFlow}
+                          {AirMassFlow1}
                         </td>
                         <td
                           style={{
@@ -803,7 +795,9 @@ class PerformanceReport extends Component {
                             border: "1px solid #6a6a6b",
                             textAlign: "center",
                           }}
-                        ></td>
+                        >
+                          {Efficiency}
+                        </td>
                         <td
                           style={{
                             verticalAlign: "middle",
@@ -955,14 +949,20 @@ class PerformanceReport extends Component {
                             border: "1px solid #6a6a6b",
                             textAlign: "center",
                           }}
-                        ></td>
+                        >
+                          {" "}
+                          4 - 6{" "}
+                        </td>
                         <td
                           style={{
                             verticalAlign: "middle",
                             border: "1px solid #6a6a6b",
                             textAlign: "center",
                           }}
-                        ></td>
+                        >
+                          {" "}
+                          70 - 90
+                        </td>
                         <td
                           style={{
                             verticalAlign: "middle",
@@ -997,7 +997,7 @@ class PerformanceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {PrRatio}
+                          {PrRatio2}
                         </td>
                         <td
                           style={{
@@ -1006,7 +1006,7 @@ class PerformanceReport extends Component {
                             textAlign: "center",
                           }}
                         >
-                          {AirMassFlow}
+                          {AirMassFlow2}
                         </td>
                         <td
                           style={{
@@ -1014,7 +1014,10 @@ class PerformanceReport extends Component {
                             border: "1px solid #6a6a6b",
                             textAlign: "center",
                           }}
-                        ></td>
+                        >
+                          {" "}
+                          {Efficiency}{" "}
+                        </td>
                         <td
                           style={{
                             verticalAlign: "middle",

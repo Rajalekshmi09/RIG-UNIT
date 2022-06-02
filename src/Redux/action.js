@@ -174,14 +174,14 @@ export const stopDbInsert = bool => ({
   payload: bool
 })
 
- /*ADD bugid-(GOARIG_7019) */
+/*ADD bugid-(GOARIG_7019) */
 //startDisable
 export const startDisableEvent = data => ({
   type: 'SHUTDOWN_ENABLE_EVENT',
   payload: data
 })
 
- /* ADD bugid-(GOARIG_7021)   */
+/* ADD bugid-(GOARIG_7021)   */
 // testIdData
 export const gettingTestIdData = data => ({
   type: 'GETTING_TEST_ID_DATA',
@@ -196,5 +196,40 @@ export const fetchingDelayValue = data => ({
 //cvStageValue
 export const fetchingCvstageValue = data => ({
   type: 'FETCHING_CVSTAGE_VALUE',
+  payload: data
+})
+//resetButtonClick
+export const updateResetButtonClick = data => ({
+  type: 'UPDATE_RESET_BUTTONCLICK',
+  payload: data
+})
+//preTestingSensor
+export const gettingPreTestingSensor = data => ({
+  type: 'GETTING_PRETESTING',
+  payload: data
+})
+//preTestKey
+export const updatePreTestKey = data => ({
+  type: 'UPDATE_PRETEST_KEY',
+  payload: data
+})
+//preTestValue
+export const updatePreTestValue = data => ({
+  type: 'UPDATE_PRETEST_VALUE',
+  payload: data
+})
+//preTestStatus
+export const updatePreTestStatus = data => ({
+  type: 'UPDATE_PRETEST_STATUS',
+  payload: data
+})
+//airServoInput
+export const updateAirServoInput = data => ({
+  type: 'AIRSERVO_INPUTVAL',
+  payload: data
+})
+//keroseneInput
+export const updateKeroseneInput = data => ({
+  type: 'KEROSENE_INPUTVAL',
   payload: data
 })

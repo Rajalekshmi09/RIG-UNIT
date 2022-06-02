@@ -71,7 +71,7 @@ const appReducer = (state = InitialState, action) => {
       newState.statusData = action.payload ? action.payload : []
       return newState
 
-    /* ---Test page/test details --- */    
+    /* ---Test page/test details --- */
     //testidvalue
     case 'UPDATE_TESTID_VALUE':
       newState.testIdValue = action.payload ? action.payload : []
@@ -96,7 +96,7 @@ const appReducer = (state = InitialState, action) => {
     case 'SHUTDOWN_INITIATED':
       newState.shutdownInitiated = true
       return newState
-    
+
     //communicationFailed
     case 'COMMUNICATION_FAILED_INITIATED':
       newState.communicationFailed = true
@@ -117,12 +117,12 @@ const appReducer = (state = InitialState, action) => {
     case 'TURBO_START_INITIATED':
       newState.turboStart = action.payload ? action.payload : []
       return newState
-    
+
     //stageThree
     case 'STAGE_THREE_INITIATED':
-      newState.stageThree = true    
+      newState.stageThree = true
       return newState
-   
+
     //targetRPM
     case 'TARGET_RPM':
       newState.targetRPM = action.payload
@@ -139,11 +139,11 @@ const appReducer = (state = InitialState, action) => {
     case 'RESET_RPM':
       newState.resetRPM = action.payload
       return newState
-    
+
     case 'STOP_DB_INSERT':
       newState.stageThree = false
       newState.communication = false
-      newState.showTarget = false  
+      newState.showTarget = false
       newState.targetRPM = ''
       newState.targetTemp = ''
       newState.shutdownInitiated = false
@@ -170,7 +170,39 @@ const appReducer = (state = InitialState, action) => {
     case 'FETCHING_CVSTAGE_VALUE':
       newState.cvStageValue = action.payload
       return newState
+    //resetButtonClick   
+    case 'UPDATE_RESET_BUTTONCLICK':
+      newState.resetButtonClick = action.payload
+      return newState
+    //preTestingSensor
+    case 'GETTING_PRETESTING':
+      newState.preTestingSensor = action.payload
+      return newState
 
+    //preTestKey
+    case 'UPDATE_PRETEST_KEY':
+      newState.preTestKey = action.payload
+      return newState
+
+    //preTestValue
+    case 'UPDATE_PRETEST_VALUE':
+      newState.preTestValue = action.payload
+      return newState
+
+    //preTestStatus
+    case 'UPDATE_PRETEST_STATUS':
+      newState.preTestStatus = action.payload
+      return newState
+
+    //airServoInput
+    case 'AIRSERVO_INPUTVAL':
+      newState.airServoInput = action.payload
+      return newState
+
+    //keroseneInput
+    case 'KEROSENE_INPUTVAL':
+      newState.keroseneInput = action.payload
+      return newState
     default:
       return newState
   }

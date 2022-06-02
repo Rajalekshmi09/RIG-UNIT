@@ -45,7 +45,7 @@ class LoginPage extends Component {
         that.props.updateUserName(data[1]);
       } else if (data == "failed") {
         this.state.IsLogin = true;
-        this.setState({ redirect: false });
+       
       }
     });
   };
@@ -89,7 +89,7 @@ class LoginPage extends Component {
                         rules={[{ required: true, message: enter_email }]}
                       >
                         <Input
-                          style={{ backgroundColor: "#131633" }}
+                          style={{ backgroundColor: "transparent" }}
                           prefix={
                             <UserOutlined className="site-form-item-icon" />
                           }
@@ -101,7 +101,7 @@ class LoginPage extends Component {
                         rules={[{ required: true, message: enter_password }]}
                       >
                         <Input.Password
-                          style={{ backgroundColor: "#131633" }}
+                          style={{ backgroundColor: "transparent" }}
                           prefix={
                             <LockOutlined className="site-form-item-icon" />
                           }

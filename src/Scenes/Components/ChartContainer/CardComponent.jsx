@@ -317,16 +317,8 @@ class CardComponent extends Component {
               ? this.state.cardList.map((it, y) => {
                   return (
                     <Col span={8}>
-                      <Row style={{ paddingTop: "30px" }}>
-                        <Card
-                          style={{
-                            backgroundColor: "#131633",
-                            height: "250px",
-                            border: "none",
-                            borderRadius: "0px",
-                            width: "450px",
-                          }}
-                        >
+                      <Row style={{ paddingTop: "20px" }}>
+                        <Card className="graph-card">
                           {it.title}
                           <GraphComponent
                             data={

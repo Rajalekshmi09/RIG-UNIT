@@ -16,9 +16,9 @@ class GraphView extends Component {
   render() {
     return (
       <div>
-        <StatusBlock />
+        {/* <StatusBlock /> */}
         {/*ADD bugid-(GOARIG_7014) */}
-        <StatusBlockRow2 />
+        {/* <StatusBlockRow2 /> */}
         <ComparisonTable />
         <CardComponent />
       </div>

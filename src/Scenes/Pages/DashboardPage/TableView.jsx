@@ -134,15 +134,15 @@ class TableView extends Component {
   render() {
     return (
       <div>
-        <StatusBlock />
+        {/* <StatusBlock /> */}
         {/*ADD bugid-(GOARIG_7014) */}
-        <StatusBlockRow2 />
+        {/* <StatusBlockRow2 /> */}
         <ComparisonTable />
         <div>
           <Row>
             <Col>
               <Table
-                style={{ marginTop: "50px", minWidth: "700px", float: "left" }}
+                style={{ marginTop: "40px", minWidth: "700px", float: "left" }}
                 size="middle"
                 pagination={false}
                 columns={columns}
@@ -153,7 +153,7 @@ class TableView extends Component {
               <Table
                 size="middle"
                 style={{
-                  marginTop: "50px",
+                  marginTop: "40px",
                   paddingLeft: "30%",
                   minWidth: "690px",
                   float: "right",

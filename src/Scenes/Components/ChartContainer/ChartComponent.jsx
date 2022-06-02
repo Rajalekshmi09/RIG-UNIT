@@ -46,7 +46,7 @@ class ChartComponent extends Component {
     return (
       <div>
         <Line
-          height={240}
+          height={300}
           data={{
             labels: ["", "", "", "", "", ""],
             datasets: [
